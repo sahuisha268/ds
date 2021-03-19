@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:gravity="center"
+    tools:context="Activity.GetOtp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="@dimen/space_10"
+        android:layout_marginTop="@dimen/space_20"
+        android:orientation="vertical">
+
+
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/templogo"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter 4 digits code send to you at your mobile"
+        android:textSize="15sp"
+        android:textColor="@color/black"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <EditText
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:id="@+id/et_inputCode1"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:nextFocusRight="@id/et_inputCode2"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:ignore="LabelFor"/>
+
+        <EditText
+            android:id="@+id/et_inputCode2"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="4dp"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:nextFocusRight="@id/et_inputCode3"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+           tools:ignore="LabelFor" />
+
+        <EditText
+            android:id="@+id/et_inputCode3"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="4dp"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:nextFocusRight="@id/et_inputCode4"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:ignore="LabelFor" />
+
+        <EditText
+            android:id="@+id/et_inputCode4"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="4dp"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:ignore="LabelFor" />
+
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_resend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blue"
+            android:textSize="15sp"
+            android:text="Resend Code"/>
+
+
+        <TextView
+            android:id="@+id/tv_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="00:19 Sec"
+            android:textColor="@color/black"/>
+
+    </RelativeLayout>
+
+
+
+    <Button
+        android:id="@+id/btn_confirm_opt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/bg_round_btn"
+        android:text="Submit"
+        android:textSize="14dp"/>
+    </LinearLayout>
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_keyboard_backspace_24"
+                app:tint="@color/black" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

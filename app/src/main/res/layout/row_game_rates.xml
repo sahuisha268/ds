@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/homebg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:scrollbars="horizontal"
+       android:weightSum="10"
+
+        android:backgroundTint="@android:color/darker_gray"
+
+        >
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_margin="@dimen/space_2"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/closed"
+            android:background="@drawable/bg_round_btn">
+
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+           android:layout_margin="@dimen/space_1"
+            android:layout_height="40dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+           android:gravity="center"
+            android:text="Fund Id "
+            android:textSize="14dp"
+            android:background="@drawable/bg_round_btn"
+            android:backgroundTint="@color/blue"
+            android:textStyle="bold"
+            android:textColor="@color/white"/></RelativeLayout>
+
+        <TextView
+            android:id="@+id/fund_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Fund Id "
+            android:textSize="15dp"
+            android:visibility="gone"
+
+            android:backgroundTint="@android:color/darker_gray"
+            android:textColor="@color/black"/>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_margin="@dimen/space_2"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/red"
+            android:background="@drawable/bg_round_btn">
+            <TextView
+                android:id="@+id/tv_rate"
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/space_1"
+                android:layout_height="40dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:gravity="center"
+                android:text="Fund Id "
+                android:textSize="14dp"
+                android:background="@drawable/bg_round_btn"
+                android:backgroundTint="@color/blue"
+                android:textStyle="bold"
+                android:textColor="@color/white"/></RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

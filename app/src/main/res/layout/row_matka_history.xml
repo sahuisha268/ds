@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+           app:cardCornerRadius="15dp"
+            android:layout_margin="10dp"
+
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/matka_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_round_btn"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:text="Transaction Amount "
+                    android:textAlignment="center"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+                        <TextView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:padding="2dp"
+                            android:text="Play On : "
+                            android:textAllCaps="true"
+                            android:gravity="center"
+                            android:textSize="15dp"
+                            android:textStyle="italic" />
+                        <TextView
+                            android:id="@+id/play_on"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp"
+                            android:text=" "
+                            android:gravity="center"
+                            android:textSize="15dp"
+                            android:textStyle="italic" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:padding="2dp"
+                            android:gravity="center"
+                            android:text="Play FOR : "
+                            android:textAllCaps="true"
+                            android:textSize="15dp"
+                            android:textStyle="italic" />
+                        <TextView
+                            android:id="@+id/play_for"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp"
+                            android:text=" "
+                            android:gravity="center"
+                            android:textSize="15dp"
+                            android:textStyle="italic" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="3">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+                        <TextView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:padding="2dp"
+                            android:text="Bid Id : "
+
+                            android:gravity="center"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/bid_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp"
+                            android:text=" "
+                            android:gravity="center"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="15dp"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+                        <TextView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:padding="2dp"
+                            android:text="Digits : "
+
+                            android:gravity="center"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/bid_digit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:padding="2dp"
+                            android:text=" "
+                            android:gravity="center"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="15dp"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+                        <TextView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:padding="2dp"
+                            android:text="Points : "
+
+                            android:gravity="center"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/bid_point"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp"
+                            android:text=" "
+                            android:gravity="center"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="15dp"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                    <TextView
+
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:text="Bid Time : "
+                        android:gravity="end"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/bid_time"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:text=" "
+                        android:textColor="@color/colorPrimaryDark"
+
+                        android:textSize="15dp"
+                        />
+                </LinearLayout>
+
+<!--                <TextView-->
+<!--                    android:id="@+id/bid_status"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:padding="2dp"-->
+<!--                    android:text="Results "-->
+<!--                    android:gravity="center"-->
+<!--                    android:textSize="12dp"-->
+<!--                    android:drawableRight="@drawable/icons8_neutral_16px"-->
+<!--                    android:drawablePadding="10dp"-->
+
+<!--                    />-->
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>

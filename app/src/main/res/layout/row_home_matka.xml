@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="@dimen/space_5">
+<RelativeLayout
+    android:id="@+id/rel_matka"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+        <TextView
+            android:id="@+id/matkaName"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="MORNING KUBER"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+          />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:layout_margin="@dimen/space_2"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6.5"
+            android:layout_gravity="center"
+            android:padding="@dimen/space_2"
+            android:orientation="vertical">
+            <RelativeLayout
+            android:layout_gravity="center"
+                android:id="@+id/rel_number"
+              android:padding="@dimen/space_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/matka_starting_Number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="000"
+                    android:textColor="@color/number_color"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/matka_dess1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/matka_starting_Number"
+
+                    android:paddingLeft="2dp"
+                    android:text="-"
+                    android:textColor="@color/number_color"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/matka_res_Number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/matka_dess1"
+
+                    android:text="00"
+                    android:textColor="@color/number_color"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/matka_dess2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/matka_res_Number"
+
+                    android:paddingLeft="2dp"
+                    android:text="-"
+                    android:textColor="@color/number_color"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/matka_end_Number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/matka_dess2"
+
+                    android:text="000"
+                    android:textColor="@color/number_color"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/matka_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/matka_end_Number"
+
+
+                    android:text="578"
+                    android:textColor="@color/play2"
+                    android:textSize="8dp"
+                    android:textStyle="bold"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/matkaBettingStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Betting is Running For Today"
+
+                android:textColor="@color/black"
+
+                android:textSize="12dp" />
+            <LinearLayout
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="5"
+                android:gravity="center"
+                android:padding="@dimen/space_2"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/matka_open_bid_Time"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:text=""
+                    android:gravity="start"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="10dp" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"
+                  />
+                <TextView
+                    android:id="@+id/matka_close_bid_Time"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:padding="2dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

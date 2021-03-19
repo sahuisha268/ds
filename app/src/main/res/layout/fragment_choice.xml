@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.ChoiceFragment">
+    <include layout="@layout/all_page_background"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <include layout="@layout/all_game_top_layout"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:id="@+id/tv_date"
+            android:layout_marginTop="@dimen/space_10"
+            android:text="Select Any One Type"
+            android:padding="@dimen/space_5"
+            android:textSize="@dimen/space_15"
+            />
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_10"
+            android:layout_marginRight="@dimen/space_10"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/rd_sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/outline_box"
+                android:layout_height="wrap_content"
+
+                android:textColor="@color/black"
+                android:text="SP"/>
+            <RadioButton
+            android:id="@+id/rd_dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/outline_box"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="DP"/>
+            <RadioButton
+                android:id="@+id/rd_tp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/outline_box"
+                android:layout_height="wrap_content"
+
+                android:textColor="@color/black"
+                android:text="TP"/>
+
+        </RadioGroup>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Left Digit"
+            android:textColor="@color/black"
+            android:layout_marginLeft="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_10"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginRight="@dimen/space_10"
+            android:layout_marginLeft="@dimen/space_10"
+            android:background="@drawable/spinner_outline">
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/spin_left"/>
+
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Middle Digit"
+            android:textColor="@color/black"
+            android:layout_marginLeft="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_10"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginRight="@dimen/space_10"
+            android:layout_marginLeft="@dimen/space_10"
+            android:background="@drawable/spinner_outline">
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/spin_middle"/>
+
+        </RelativeLayout> <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Right Digit"
+            android:textColor="@color/black"
+
+            android:layout_marginLeft="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_10"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginRight="@dimen/space_10"
+            android:layout_marginLeft="@dimen/space_10"
+            android:background="@drawable/spinner_outline">
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/spin_right"/>
+
+        </RelativeLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lay_amount"
+            android:layout_margin="@dimen/space_10"
+            android:hint="Enter Amount"
+            app:boxStrokeColor="@color/colorPrimary"
+            app:hintAnimationEnabled="true"
+            style="@style/inputlayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_amount"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_2"
+            android:background="@color/colorPrimary"
+            android:layout_marginLeft="@dimen/space_10"
+            android:layout_marginRight="@dimen/space_10"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_10"
+            android:padding="@dimen/space_5"
+
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total:"
+                android:textSize="@dimen/space_18"
+                android:padding="@dimen/space_5"
+                android:layout_margin="@dimen/space_2"
+                android:layout_toLeftOf="@+id/tv_total"
+                android:textColor="@color/colorPrimary"/>
+            <TextView
+                android:id="@+id/tv_total"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40dp"
+                android:text="0.0"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:padding="@dimen/space_5"
+                android:textSize="@dimen/space_15"
+                android:background="@color/white"/>
+
+        </LinearLayout>
+    <include layout="@layout/buttons_layout"/>
+    </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

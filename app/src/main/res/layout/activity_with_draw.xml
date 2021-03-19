@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   android:orientation="vertical"
+    tools:context=".Activity.WithDrawActivity">
+
+    <include layout="@layout/appbar_toolbar_layout"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_20"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/space_5"
+                app:cardUseCompatPadding="true">
+
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:padding="10dp"
+       >
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="30dp"
+           android:background="@drawable/bg_round_btn"
+           android:backgroundTint="@color/colorPrimary"
+           android:textSize="18sp"
+           android:gravity="center"
+           android:textColor="@color/white"
+           android:textStyle="bold"
+           android:text="Instructions"/>
+
+       <TextView
+           android:layout_marginTop="15dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textColor="@color/black"
+           android:textSize="14sp"
+           android:textAlignment="center"
+          android:id="@+id/tv_instruction"/>
+
+
+   </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/space_5"
+                app:cardUseCompatPadding="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+      >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_account_balance_24"
+            app:tint="@color/black" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:padding="@dimen/space_5"
+                android:layout_margin="@dimen/space_2"
+                android:text="Select Withdraw Type"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="5dp"
+           android:background="@color/grey"
+            style="@style/Divider.Horizontal"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+        <RadioButton
+            android:id="@+id/rb_bank_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bank Account"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:id="@+id/ll_account_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:gravity="center">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_holder_name"
+                android:hint="Account Holder Name"
+                app:boxStrokeColor="@color/colorPrimary"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et_holder_name"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_account_no"
+                android:hint="Account Number"
+                app:boxStrokeColor="@color/colorPrimary"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et_account_no"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_ifsc_code"
+                android:hint="IFSC code"
+                app:boxStrokeColor="@color/colorPrimary"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et_ifsc_code"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+<!--            <TextView-->
+<!--                android:id="@+id/bank_save"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Save"-->
+<!--                android:layout_margin="10dp"-->
+<!--                android:layout_gravity="end"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textSize="16dp"-->
+<!--                />-->
+            <View
+                android:layout_marginTop="5dp"
+                android:background="@color/grey"
+                style="@style/Divider.Horizontal"/>
+        </LinearLayout>
+</LinearLayout>
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
+<!--            <RadioButton-->
+<!--                android:id="@+id/rb_tez"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Tez"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textStyle="bold" />-->
+<!--            <LinearLayout-->
+<!--                android:id="@+id/ll_tez_detail"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:visibility="gone"-->
+<!--                android:gravity="center">-->
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:id="@+id/tv_tez_no"-->
+<!--                    android:hint="Google pay Number"-->
+<!--                    app:boxStrokeColor="@color/colorPrimary"-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
+
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:id="@+id/et_tez_no"-->
+<!--                        android:inputType="text"/>-->
+
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/tez_save"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Save"-->
+<!--                    android:layout_margin="10dp"-->
+<!--                    android:layout_gravity="end"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textSize="16dp"-->
+<!--                    />-->
+<!--                <View-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:background="@color/grey"-->
+<!--                    style="@style/Divider.Horizontal"/>-->
+<!--            </LinearLayout>-->
+<!--        </LinearLayout>-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
+<!--            <RadioButton-->
+<!--                android:id="@+id/rb_paytm"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Paytm"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textStyle="bold" />-->
+<!--            <LinearLayout-->
+<!--                android:id="@+id/ll_paytm_detail"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:visibility="gone"-->
+<!--                android:gravity="center">-->
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:id="@+id/tv_paytm_no"-->
+<!--                    android:hint="Paytm Number"-->
+<!--                    app:boxStrokeColor="@color/colorPrimary"-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
+
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:id="@+id/et_paytm"-->
+<!--                        android:inputType="text"/>-->
+
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/paytm_save"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Save"-->
+<!--                    android:layout_margin="10dp"-->
+<!--                    android:layout_gravity="end"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textSize="16dp"-->
+<!--                    />-->
+<!--                <View-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:background="@color/grey"-->
+<!--                    style="@style/Divider.Horizontal"/>-->
+<!--            </LinearLayout>-->
+<!--        </LinearLayout>-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
+<!--            <RadioButton-->
+<!--                android:id="@+id/rb_phonepe_account"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="PhonePe"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textStyle="bold" />-->
+<!--            <LinearLayout-->
+<!--                android:id="@+id/ll_phonepe_detail"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:visibility="gone"-->
+<!--                android:gravity="center">-->
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:id="@+id/tv_phonepe"-->
+<!--                    android:hint="Phonepe Number"-->
+<!--                    app:boxStrokeColor="@color/colorPrimary"-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
+
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:id="@+id/et_phonepe"-->
+<!--                        android:inputType="text"/>-->
+
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/phonepe_save"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Save"-->
+<!--                    android:layout_margin="10dp"-->
+<!--                    android:layout_gravity="end"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textSize="16dp"-->
+<!--                    />-->
+<!--                <View-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:background="@color/grey"-->
+<!--                    style="@style/Divider.Horizontal"/>-->
+<!--            </LinearLayout>-->
+<!--        </LinearLayout>-->
+
+    </LinearLayout></androidx.cardview.widget.CardView>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:padding="10dp"
+    android:layout_marginTop="10dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:textSize="12sp"
+        android:layout_height="wrap_content"
+        android:text="Enter Withdraw Amount."
+        />
+    <TextView
+        android:id="@+id/tv_min_withdraw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:textSize="12sp"
+        android:text="(min 1000)"/>
+    </LinearLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_amount"
+        android:layout_marginLeft="5dp"
+        android:hint="Rs. 00"
+        app:boxStrokeColor="@color/colorPrimary"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_amount"
+            android:maxLength="5"
+            android:inputType="number"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
+        <Button
+            android:id="@+id/btn_withdraw"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="WITHDRAW"
+            android:padding="5dp"
+            android:textSize="14dp"
+            android:background="@drawable/bg_round_whatsapp_btn"/>
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/bg_round_whatsapp_btn"
+            android:text="CANCEL"
+            android:padding="5dp"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

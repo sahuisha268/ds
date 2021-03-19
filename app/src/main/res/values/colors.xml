@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorPrimary">#FF0082</color>
+    <color name="colorAccent">#E31B5F</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="orange">#E83B05</color>
+    <color name="blue">#3F51B5</color>
+    <color name="grey">#EAE5E5</color>
+    <color name="lowColor">#d82e43</color>
+    <color name="rtr">#43D82E43</color>
+    <color name="greenColor">#2AD836</color>
+    <color name="iconColor">#264267</color>
+
+    <color name="transparent">#009C27B0</color>
+    <color name="bg">#40FFFFFF</color>
+    <color name="lowmidColor">#C58384</color>
+    <color name="homebg">#40FFFFFF</color>
+    <color name="tbrowColor">#B7B6B0B0</color>
+    <color name="startColor">#F3A003</color>
+    <color name="centerColor">#FEB207</color>
+    <color name="endColor">#FFDE0A</color>
+    <color name="play2">#8ADCD1</color>
+    <color name="play3">#00ACC1</color>
+    <color name="play4">#FF6D00</color>
+    <color name="play1">#C51162</color>
+    <color name="green">#053004</color>
+    <color name="red">#911714</color>
+    <color name="running">#316D35</color>
+    <color name="closed">#990406</color>
+    <color name="txt_color">#FFFFFF</color>
+    <color name="rates_color">#AE0324</color>
+    <color name="number_color">#990406</color>
+</resources>

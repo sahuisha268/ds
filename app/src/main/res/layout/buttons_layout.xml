@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:gravity="center"
+        android:padding="@dimen/space_2"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:padding="2dp"
+            android:text="Place Bet"
+            android:textSize="14dp"
+           android:layout_margin="@dimen/space_5"
+            android:gravity="center"
+            android:background="@drawable/gradient_button"
+            android:textColor="@color/white"
+           />
+
+        <Button
+            android:id="@+id/reset"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:padding="2dp"
+            android:textSize="14dp"
+            android:text="Clear Data"
+            android:gravity="center"
+            android:layout_margin="@dimen/space_5"
+            android:background="@drawable/gradient_button"
+            android:textColor="@color/white"
+           />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

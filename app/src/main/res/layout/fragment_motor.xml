@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.MotorFragment">
+<include layout="@layout/all_page_background"/>
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical">
+           <include layout="@layout/all_game_top_layout"/>
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textColor="@color/black"
+               android:id="@+id/tv_date"
+               android:text="Play Game"
+               android:padding="@dimen/space_5"
+               android:textSize="@dimen/space_16"
+               />
+           <com.google.android.material.textfield.TextInputLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:id="@+id/lay_digit"
+               android:layout_margin="@dimen/space_10"
+               android:hint="Enter 4 digit number in Ascending Order"
+               app:boxStrokeColor="@color/colorPrimary"
+               app:hintAnimationEnabled="true"
+               style="@style/inputlayout">
+
+               <com.google.android.material.textfield.TextInputEditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="number"
+                   android:id="@+id/et_digit"/>
+
+           </com.google.android.material.textfield.TextInputLayout>
+ <com.google.android.material.textfield.TextInputLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:id="@+id/lay_amount"
+               android:layout_margin="@dimen/space_10"
+               android:hint="Enter Amount"
+               app:boxStrokeColor="@color/colorPrimary"
+               app:hintAnimationEnabled="true"
+               style="@style/inputlayout">
+
+               <com.google.android.material.textfield.TextInputEditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:inputType="number"
+                   android:id="@+id/et_amount"/>
+
+           </com.google.android.material.textfield.TextInputLayout>
+           <LinearLayout
+               android:id="@+id/lin_total"
+            android:visibility="gone"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginBottom="@dimen/space_10"
+               android:padding="@dimen/space_5"
+
+               >
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Total:"
+                   android:textSize="@dimen/space_18"
+                   android:padding="@dimen/space_5"
+                   android:layout_margin="@dimen/space_2"
+                   android:layout_toLeftOf="@+id/tv_total"
+                   android:textColor="@color/colorPrimary"/>
+               <TextView
+                   android:id="@+id/tv_total"
+                   android:layout_width="match_parent"
+                   android:layout_height="@dimen/margin_40dp"
+                   android:text="0.0"
+                   android:textColor="@color/black"
+                   android:gravity="center_vertical"
+                   android:padding="@dimen/space_5"
+                   android:drawableLeft="@drawable/icons8_rupee_24px"
+                   android:drawableTint="@color/black"
+                   android:textSize="@dimen/space_15"
+                   android:background="@color/white"/>
+
+           </LinearLayout>
+<include layout="@layout/buttons_layout"/>
+       </LinearLayout>
+   </ScrollView>
+
+</FrameLayout>

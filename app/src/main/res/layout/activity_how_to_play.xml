@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.HowToPlayActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/appbar"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_baseline_keyboard_backspace_24"
+                    android:id="@+id/iv_back"/>
+                <TextView
+                    android:layout_toRightOf="@+id/iv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/tv_Title"
+                    android:text="How To Play"
+                    android:padding="@dimen/space_10"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/space_18"
+                    />
+
+            </RelativeLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appbar"
+>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+
+        tools:ignore="MissingConstraints">
+<!--        <TextView-->
+
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Instructions"-->
+<!--            android:gravity="center"-->
+<!--            android:background="@color/colorPrimary"-->
+<!--            android:padding="@dimen/space_5"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="@dimen/space_20"/>-->
+<!--        <TextView-->
+<!--            android:id="@+id/tv_How_to_Play"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text=""-->
+<!--            android:padding="@dimen/space_10"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="14sp"/>-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@android:color/transparent">
+            <TextView
+                android:id="@+id/w1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:fontFamily="@font/aileron_regular"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="How to play"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"/>
+            <View
+                android:id="@+id/lw1"
+                android:layout_below="@id/w1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDark"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="2dp"/>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card"
+                android:layout_below="@id/lw1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_marginTop="5dp"
+                app:cardCornerRadius="5dp">
+
+
+                <TextView
+                    android:id="@+id/tv_How_to_Play"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="18dp"
+                    android:fontFamily="@font/aileron_regular"
+                    android:textAlignment="center"
+                    android:text="Withdraw will be accepted from 10:00am till 2:00pm and amount will be credited within 24hrs. Withdrawal is not available on Sunday and on Bank Holidays.\n For Funds Withdrawal Query Contact"
+                    android:textColor="@android:color/white" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/w3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/card"
+                android:textSize="18dp"
+                android:fontFamily="@font/aileron_regular"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="Youtube Link"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"/>
+
+            <View
+                android:id="@+id/lw2"
+                android:layout_below="@id/w3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDark"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="2dp"/>
+
+            <RelativeLayout
+                android:id="@+id/rel_click"
+                android:layout_width="match_parent"
+                android:layout_below="@id/w3"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/img"
+                    android:src="@drawable/youtube"
+                    android:layout_width="110dp"
+
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    />
+                <TextView
+                    android:id="@+id/link"
+
+                    android:layout_toRightOf="@id/img"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/aileron_regular"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/greenColor"
+                    android:textStyle="italic"
+                    android:paddingLeft="10dp"
+                    android:visibility="gone"
+                    android:text="http://"/>
+
+            </RelativeLayout>
+
+
+
+        </RelativeLayout>
+    </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

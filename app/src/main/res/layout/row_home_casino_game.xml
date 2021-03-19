@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="@dimen/space_5"
+        app:cardBackgroundColor="@color/transparent"
+        >
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="@drawable/gradient_button">
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+                android:background="@drawable/dark_gradient"
+              android:orientation="horizontal">
+              <com.airbnb.lottie.LottieAnimationView
+
+                  android:layout_width="60dp"
+                  android:layout_height="60dp"
+                  android:padding="@dimen/space_20"
+                  app:lottie_url="https://assets10.lottiefiles.com/datafiles/37eUecfCINgL4BgFY1NcvncT1LRajr8hJkkfQ9DY/star/star.json"
+                  app:lottie_autoPlay="true"
+                  app:lottie_loop="true"/>
+              <TextView
+                  android:id="@+id/tv_name"
+                  android:layout_width="wrap_content"
+                  android:layout_margin="@dimen/space_5"
+                  android:layout_height="wrap_content"
+                  android:text="@string/app_name"
+                  android:textSize="12dp"
+                android:layout_gravity="center_vertical"
+                  android:textColor="@color/txt_color"/>
+              <com.airbnb.lottie.LottieAnimationView
+                  android:layout_width="60dp"
+                  android:layout_height="60dp"
+                  android:padding="@dimen/space_20"
+                  app:lottie_url="https://assets10.lottiefiles.com/datafiles/37eUecfCINgL4BgFY1NcvncT1LRajr8hJkkfQ9DY/star/star.json"
+                  app:lottie_autoPlay="true"
+                  app:lottie_loop="true"/>
+          </LinearLayout>
+      </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

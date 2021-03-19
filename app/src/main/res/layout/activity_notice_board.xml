@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dark_gradient"
+    tools:context=".Activity.NoticeBoardActivity">
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:fillViewport="true">-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/space_10"
+        android:background="@drawable/dark_gradient"
+        android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            app:cardCornerRadius="@dimen/space_5"
+            app:cardBackgroundColor="@color/transparent"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gradient_button">
+                <LinearLayout
+                    android:id="@+id/lin_starline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:background="@drawable/dark_gradient"
+                    android:orientation="horizontal">
+                    <com.airbnb.lottie.LottieAnimationView
+
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:padding="@dimen/space_15"
+                        app:lottie_url="https://assets10.lottiefiles.com/datafiles/37eUecfCINgL4BgFY1NcvncT1LRajr8hJkkfQ9DY/star/star.json"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"/>
+                    <TextView
+                        android:id="@+id/casino_name"
+                        android:layout_width="wrap_content"
+                        android:layout_margin="@dimen/space_5"
+                        android:layout_height="wrap_content"
+                        android:text="NOTICE BOARD"
+                        android:textSize="24dp"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/txt_color"/>
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:padding="@dimen/space_15"
+                        app:lottie_url="https://assets10.lottiefiles.com/datafiles/37eUecfCINgL4BgFY1NcvncT1LRajr8hJkkfQ9DY/star/star.json"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+<!--<TextView-->
+<!--    android:id="@+id/tv_notice_board"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:padding="8dp"-->
+<!--    android:text=""-->
+<!--    android:textColor="@color/white"-->
+<!--    android:textStyle="bold"-->
+<!--    android:textSize="14sp"/>-->
+<!--<ScrollView-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent">-->
+
+
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="15dp"
+    app:cardBackgroundColor="@color/transparent"
+    android:elevation="150dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/transparent">
+
+<!--        <TextView-->
+<!--            android:id="@+id/t0"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text=""-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="18dp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:fontFamily="@font/aileron_regular"/>-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recycler_rates"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
+<!--</ScrollView>-->
+
+</LinearLayout>
+<!--    </ScrollView>-->
+</RelativeLayout>

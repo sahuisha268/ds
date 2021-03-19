@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:padding="10dp">
+
+
+
+    <ImageView
+        android:id="@+id/id_img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/icons8_rupee_24px"/>
+
+   <TextView
+       android:id="@+id/txtmessage"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="message"
+       android:textSize="16dp"
+       android:padding="5dp"
+       android:textAlignment="center"
+       android:layout_gravity="center_horizontal"
+       android:layout_centerHorizontal="true"
+       android:layout_marginTop="5dp"
+       android:layout_below="@id/id_img"
+       android:textColor="@color/colorPrimaryDark"
+       android:textStyle="bold"
+       />
+    <Button
+        android:id="@+id/btnOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/colorPrimary"
+        android:background="@drawable/bg_round_btn"
+        android:text="OK"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txtmessage"
+        android:layout_marginTop="10dp"
+        android:textSize="14dp"
+        android:textColor="@color/white"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

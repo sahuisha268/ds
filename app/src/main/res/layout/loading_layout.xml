@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+   >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_centerInParent="true"
+    android:gravity="center"
+    android:background="@android:color/transparent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="@dimen/space_20"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+<!--    <ProgressBar-->
+<!--        android:id="@+id/progressBar1"-->
+<!--        style="?android:attr/progressBarStyleSmall"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:progressTint="@color/black"-->
+<!--        android:backgroundTint="@color/black"-->
+<!--        android:layout_centerVertical="true"-->
+<!--        android:indeterminateTint="@android:color/black"-->
+<!--        />-->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:lottie_url="https://assets9.lottiefiles.com/packages/lf20_IQz7XR.json"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loading..."
+        android:layout_below="@+id/progressBar1"
+
+        android:id="@+id/textView6"
+        android:layout_marginLeft="@dimen/space_10"
+        android:textSize="18dp"
+        android:textColor="@color/black"
+     />
+    </LinearLayout>
+</RelativeLayout>
+</RelativeLayout>

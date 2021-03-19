@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/appbar"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_baseline_keyboard_backspace_24"
+                    android:id="@+id/iv_back"/>
+                <TextView
+                    android:layout_toRightOf="@+id/iv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/tv_Title"
+                    android:text="Play Game"
+                    android:padding="@dimen/space_10"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/space_18"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/icons8_reboot_50px"
+                    android:layout_toLeftOf="@+id/tv_wallet"
+                    android:padding="@dimen/space_15"
+                    android:visibility="gone"
+                    android:id="@+id/iv_reload"/>
+                <TextView
+                    android:id="@+id/tv_wallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="0.0"
+                    android:textColor="@color/txt_color"
+                    android:textSize="16dp"
+                    android:gravity="center"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/space_10"
+                    android:padding="5dp"
+                    android:layout_centerVertical="true"
+                    android:drawableTint="@color/txt_color"
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@drawable/icons8_rupee_24px"
+                    />
+            </RelativeLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+</RelativeLayout>
