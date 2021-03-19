@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "987168579577",
+    "project_id": "dsgames-d58f7",
+    "storage_bucket": "dsgames-d58f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:987168579577:android:c0bf810cba7bfc02f52728",
+        "android_client_info": {
+          "package_name": "in.games.dsgames"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "987168579577-68no2ecfth94291gnmlbigejn2r9jav3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.games.dsgames",
+            "certificate_hash": "133253e02c13d3d8cb46dd7f875ee12c5a920660"
+          }
+        },
+        {
+          "client_id": "987168579577-hf47jothv8r9gl2g2c6r26ms5u87uhpo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhF085dAD9cHSQErv2ruFkyleDpSrImWM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "987168579577-hf47jothv8r9gl2g2c6r26ms5u87uhpo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
