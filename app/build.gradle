@@ -17,7 +17,7 @@ android {
     buildToolsVersion "30.0.1"
     defaultConfig {
         applicationId "in.games.dsgames"
-        manifestPlaceholders = [onesignal_app_id: '5a6d098d-5f08-4588-9c6c-0cd5c77c4b60',
+        manifestPlaceholders = [onesignal_app_id: 'a24fd699-8eca-4012-a9e8-b08ea82b0376',
                                 // Project number pulled from dashboard, local value is ignored.
                                 onesignal_google_project_number: 'REMOTE']
         minSdkVersion 19
