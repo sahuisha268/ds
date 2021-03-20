@@ -16,7 +16,6 @@ import com.onesignal.OSNotificationAction;
 import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OneSignal;
 
-
 import org.json.JSONObject;
 
 import in.games.dsgames.Activity.MainActivity;
@@ -43,6 +42,7 @@ public class AppController extends Application {
                 .unsubscribeWhenNotificationsAreDisabled(true)
                 .init();
         OneSignal.setSubscription(true);
+
 
     }
 
