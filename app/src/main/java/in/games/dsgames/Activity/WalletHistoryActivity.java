@@ -182,7 +182,7 @@ Activity ctx = WalletHistoryActivity.this;
     }
     private void getWithdrawData(final String user_id) {
 
-            progressDialog.show();
+        progressDialog.show();
 
         list.clear();
         StringRequest stringRequest=new StringRequest(Request.Method.POST, BaseUrl.URL_POINT_WITHDRAW, new Response.Listener<String>() {

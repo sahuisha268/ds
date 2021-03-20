@@ -188,7 +188,7 @@ type = getIntent().getStringExtra("type");
     }
     public void sendOTP(){
         String mob = textInputEditText_phone.getText().toString().trim();
-        PhoneAuthProvider.getInstance().verifyPhoneNumber("+91"+mob,60, TimeUnit.SECONDS,Send_Otp.this,callbacks);
+        PhoneAuthProvider.getInstance().verifyPhoneNumber("+91"+mob,60L, TimeUnit.SECONDS,Send_Otp.this,callbacks);
     }
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)

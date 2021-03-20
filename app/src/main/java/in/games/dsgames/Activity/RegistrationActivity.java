@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -27,7 +28,7 @@ import in.games.dsgames.R;
 import in.games.dsgames.utils.CustomJsonRequest;
 import in.games.dsgames.utils.LoadingBar;
 
-import static in.games.dsgames.Config.BaseUrl.URL_REGISTER_OTP;
+import static in.games.dsgames.Config.BaseUrl.URL_REGISTER;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -130,7 +131,8 @@ TextView tv_login;
                            params.put("mobile",mobile);
                            params.put("password",pass);
                            params.put("mpin",mpin);
-                           sendOtpForRegister(mobile,module.getRandomKey(4),params);
+//                           sendOtpForRegister(mobile,module.getRandomKey(4),params);
+                           makeRegisterRequest(name,mobile,pass,mpin,params);
                        }
                        else
                        {
@@ -144,56 +146,63 @@ TextView tv_login;
         });
 
     }
-    private void sendOtpForRegister(final String mobile, final String otp, final HashMap<String,String> map)
+
+    void makeRegisterRequest(String name, final String mobile, String pass, String mpin, HashMap<String,String> params)
     {
         loadingBar.show();
-        HashMap<String,String> params=new HashMap<>();
-        params.put("mobile",mobile);
-        params.put("otp",otp);
+        HashMap<String,String> param = new HashMap<>();
+        param.put("key","1");
+        param.put("username",name);
+        param.put("name",name);
+        param.put("mobile",mobile);
+        param.put("password",pass);
+        param.put("mpin",mpin);
 
-        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URL_REGISTER_OTP, params, new Response.Listener<JSONObject>() {
+        CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST, URL_REGISTER, param, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.e("gen",""+response.toString());
                 loadingBar.dismiss();
-                try
-                {
-                    String res=response.getString("status");
-                    if(res.equalsIgnoreCase("success"))
+                Log.e("register",response.toString());
+                try {
+                    boolean stat = response.getBoolean("responce");
+                    if (stat)
                     {
                         module.showToast(response.getString("message"));
+                        JSONObject dt = response.getJSONObject("data");
                         Intent intent=new Intent(RegistrationActivity.this,GetOtp.class);
                         intent.putExtra("mobile",mobile);
-                        intent.putExtra("otp",otp);
-                        intent.putExtra("type","r");
-                        intent.putExtra("map",map);
+                        intent.putExtra("otp",dt.getString("otp"));
+                        intent.putExtra("user_id",dt.getString("user_id"));
+                        intent.putExtra("type",dt.getString("type"));
+//                        intent.putExtra("map",map);
                         startActivity(intent);
                     }
                     else
                     {
-                        module.showToast(response.getString("message"));
+                        module.showToast(response.getString("error"));
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                catch (Exception ex)
-                {
-                    ex.printStackTrace();
-                    module.showToast("Something went wrong");
-                }
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loadingBar.dismiss();
+                module.showToast(module.VolleyErrorMessage(error));
                 String msg=module.VolleyErrorMessage(error);
                 if(!msg.isEmpty())
                 {
                     module.showToast(""+msg);
                 }
+
             }
         });
-        AppController.getInstance().addToRequestQueue(customJsonRequest);
-
+        AppController.getInstance().addToRequestQueue(jsonRequest);
     }
+
+//
    
 
 

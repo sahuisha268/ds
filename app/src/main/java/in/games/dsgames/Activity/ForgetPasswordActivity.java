@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +37,8 @@ String mobile;
 String otp="";
 LoadingBar loadingBar;
 Module module;
+TextView tv_whatsAppText;
+Button btn_whatSumbit;
 
 TextInputEditText password,confpassword,editText_mobile;
 TextInputLayout textInputLayoutpassword, textInputLayoutconfpassword, mobilenumber;
@@ -51,6 +54,8 @@ TextInputLayout textInputLayoutpassword, textInputLayoutconfpassword, mobilenumb
        confpassword=findViewById(R.id.et_conf_password_forget);
        textInputLayoutpassword=findViewById(R.id.tv_password_forget);
         textInputLayoutconfpassword=findViewById(R.id.tv_conf_password_forget);
+        tv_whatsAppText = findViewById(R.id.tv_whatsAppText);
+        btn_whatSumbit = findViewById(R.id.btn_whatSumbit);
         module = new Module(ForgetPasswordActivity.this);
         loadingBar = new LoadingBar(ForgetPasswordActivity.this);
         iv_back.setOnClickListener(new View.OnClickListener() {

@@ -1,16 +1,19 @@
 package in.games.dsgames.Activity;
-import android.content.DialogInterface;
+
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -106,14 +109,18 @@ Module module ;
                     }
                     else
                     {
-                        AlertDialog.Builder builder=new AlertDialog.Builder(SplashActivity.this);
-                        builder.setTitle("New Version Available");
-                        builder.setMessage("Update your app to continue using");
-                        builder.setCancelable(false);
-                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
+                        final Dialog dialog = new Dialog(SplashActivity.this);
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog.setContentView(R.layout.dialog_version_update);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
 
+                        RelativeLayout rel_close,rel_ok;
+                        rel_close = dialog.findViewById(R.id.rel_close);
+                        rel_ok = dialog.findViewById(R.id.rel_ok);
+
+                        rel_ok.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
                                 String url = null;
                                 try {
                                     url = app_link;
@@ -124,18 +131,56 @@ Module module ;
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
                                 intent.setData(Uri.parse(url));
                                 startActivity(intent);
-
                             }
                         });
-                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+                        rel_close.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
+                            public void onClick(View v) {
+                                dialog.dismiss();
                                 finishAffinity();
                             }
                         });
-                        AlertDialog alertDialog=builder.create();
-                        alertDialog.show();
+
+
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.show();
+
+
+
+//                        AlertDialog.Builder builder=new AlertDialog.Builder(SplashActivity.this);
+//                        builder.setTitle("New Version Available");
+//                        builder.setMessage("Update your app to continue using");
+//                        builder.setCancelable(false);
+//                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                                String url = null;
+//                                try {
+//                                    url = app_link;
+//                                } catch (Exception e) {
+//                                    e.printStackTrace();
+//                                }
+//
+//                                Intent intent = new Intent(Intent.ACTION_VIEW);
+//                                intent.setData(Uri.parse(url));
+//                                startActivity(intent);
+//
+//                            }
+//                        });
+//                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                dialogInterface.dismiss();
+//                                finishAffinity();
+//                            }
+//                        });
+//                        AlertDialog alertDialog=builder.create();
+//                        alertDialog.show();
+
+
+
                     }
 
 

@@ -40,7 +40,7 @@ import static in.games.dsgames.Config.BaseUrl.URL_REGISTER_OTP;
 public class GetOtp extends AppCompatActivity implements View.OnClickListener {
     Button btn_verify_otp;
     TextInputEditText user_phone;
-    String type="",gen_otp="", mobile, code1, code2, code3, code4,otp="";
+    String type="",gen_otp="", mobile, code1, code2, code3, code4,otp="",user_id="";
     Module module;
     EditText inputCode1,inputCode2,inputCode3,inputCode4;
     private static final long COUNTDOWN_IN_MILLIS =30000;
@@ -70,7 +70,11 @@ ImageView iv_back;
         inputCode3=findViewById(R.id.et_inputCode3);
         inputCode4=findViewById(R.id.et_inputCode4);
 
-     params = (HashMap<String, String>)getIntent().getSerializableExtra("map");
+        params = (HashMap<String, String>)getIntent().getSerializableExtra("map");
+        if (getIntent().getExtras().containsKey("user_id"))
+        {
+            user_id = getIntent().getStringExtra("user_id");
+        }
         type = getIntent().getStringExtra("type");
         gen_otp = getIntent().getStringExtra("otp");
         mobile = getIntent().getStringExtra("mobile");
@@ -203,7 +207,8 @@ ImageView iv_back;
                 {
                     if (otp.equals(gen_otp)) {
                         if (type.equals("r")) {
-                            makeRegisterRequest(params);
+//                            makeRegisterRequest(params);
+                            verifyOtp(user_id,mobile,otp);
                         }
                         else
                         {
@@ -262,6 +267,58 @@ ImageView iv_back;
             @Override
             public void onErrorResponse(VolleyError error) {
                 loadingBar.dismiss();
+                String msg=module.VolleyErrorMessage(error);
+                if(!msg.isEmpty())
+                {
+                    module.showToast(""+msg);
+                }
+            }
+        });
+        AppController.getInstance().addToRequestQueue(customJsonRequest);
+
+    }
+    private void verifyOtp(String user_id, final String mobile, final String otp)
+    {
+        loadingBar.show();
+        HashMap<String,String> params=new HashMap<>();
+        params.put("user_id",user_id);
+//        params.put("mobile",mobile);
+        params.put("otp",otp);
+
+        CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST, URL_REGISTER_OTP, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.e("gen_otp",""+response.toString());
+                loadingBar.dismiss();
+                try
+                {
+                    String res=response.getString("status");
+                    if(res.equalsIgnoreCase("success"))
+                    {
+                        module.showToast(response.getString("message"));
+                        Intent intent=new Intent(GetOtp.this,LoginActivity.class);
+//                        intent.putExtra("mobile",mobile);
+//                        intent.putExtra("otp",otp);
+//                        intent.putExtra("type","r");
+//                        intent.putExtra("map",map);
+                        startActivity(intent);
+                    }
+                    else
+                    {
+                        module.showToast(response.getString("message"));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ex.printStackTrace();
+                    module.showToast("Something went wrong");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loadingBar.dismiss();
+                Log.e("error",error.toString());
                 String msg=module.VolleyErrorMessage(error);
                 if(!msg.isEmpty())
                 {
