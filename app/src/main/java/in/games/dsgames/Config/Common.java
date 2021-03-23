@@ -40,7 +40,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,11 +57,15 @@ import java.util.regex.Pattern;
 import in.games.dsgames.Activity.SeelctGameActivity;
 import in.games.dsgames.Adapter.ListItemAdapter;
 import in.games.dsgames.AppController;
+import in.games.dsgames.Interface.OnGetConfigData;
+import in.games.dsgames.Model.ConfigDataModel;
 import in.games.dsgames.Model.MatkasObjects;
+import in.games.dsgames.Model.StarlineModel;
 import in.games.dsgames.Model.Starline_Objects;
 import in.games.dsgames.Model.TableModel;
 import in.games.dsgames.Model.WalletObjects;
 import in.games.dsgames.OnGetMatka;
+import in.games.dsgames.OnGetStarline;
 import in.games.dsgames.R;
 import in.games.dsgames.utils.CustomJsonRequest;
 import in.games.dsgames.utils.CustomVolleyJsonArrayRequest;
@@ -70,12 +73,13 @@ import in.games.dsgames.utils.LoadingBar;
 import in.games.dsgames.utils.Session_management;
 
 import static in.games.dsgames.Config.BaseUrl.URL_GET_SINGLE_STARLINE;
+import static in.games.dsgames.Config.BaseUrl.URL_INDEX;
 import static in.games.dsgames.Config.BaseUrl.URl_GET_SINGLE_MATKA;
 import static in.games.dsgames.Config.Constants.KEY_ID;
 
 public class Common {
     Context context;
-
+    public static String tagline,withdrw_text,withdrw_no,whatsapp_no,home_text,min_add_amount,min_withdraw_amount,msg_status,app_link,share_link,ver_code,dialog_image,call_no,min_bid_amount,forgot_whatsapp,forgot_text;
     public Common(Context context) {
         this.context = context;
     }
@@ -1000,6 +1004,7 @@ public void setGameDate(TextView tv_date ,String time)
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Log.e("sxdcfvghj",error.toString());
                 progressDialog.dismiss();
                 String msg=VolleyErrorMessage(error);
                 errorMessageDialog(msg);
@@ -1023,11 +1028,28 @@ public void setGameDate(TextView tv_date ,String time)
         Intent i = new Intent(Intent.ACTION_VIEW);
 
         try {
-            String url = "whatsapp://send?phone=91"+ phone +"&text=" + URLEncoder.encode(message, "UTF-8");
-            i.setData(Uri.parse(url));
-            if (i.resolveActivity(packageManager) != null) {
-                context.startActivity(i);
-            }
+
+            context.startActivity(
+                    new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(
+                                    String.format("https://api.whatsapp.com/send?phone=%s&text=%s", phone, message)
+                            )
+                    )
+            );
+
+
+
+
+////            String url = "whatsapp://send?phone=91"+ phone +"&text=" + URLEncoder.encode(message, "UTF-8");
+//            String url = "whatsapp://send?phone="+ phone +"&text=" + URLEncoder.encode(message, "UTF-8");
+//            Log.e("sdfzxsdfg",phone);
+////            Log.e("ASWDER","whatsapp://send?phone=");
+//
+//
+//            i.setData(Uri.parse(url));
+//            if (i.resolveActivity(packageManager) != null) {
+//                context.startActivity(i);
+//            }
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -1182,20 +1204,30 @@ public void setGameDate(TextView tv_date ,String time)
             }
         });
     }
-    public void getSingleStarline(String mid, final OnGetMatka onGetMatka){
+    public void getSingleStarline(String mid, final OnGetStarline onGetStarline){
         HashMap<String,String> params=new HashMap<>();
         params.put("m_id",mid);
         postRequest(URL_GET_SINGLE_STARLINE, params, new Response.Listener<String>() {
             @Override
             public void onResponse(String resp) {
                 try{
+                    Log.e("starline",resp.toString());
                     JSONObject response=new JSONObject(resp);
                     ArrayList<MatkasObjects> mList=new ArrayList<>();
                     if(response.getBoolean("responce")){
-                        Gson gson=new Gson();
-                        Type typeList=new TypeToken<List<MatkasObjects>>(){}.getType();
-                        mList=gson.fromJson(response.getString("data").toString(),typeList);
-                        onGetMatka.onGetMatka(mList.get(0));
+                        JSONArray array = response.getJSONArray("data");
+                        JSONObject jsonObject = array.getJSONObject(0);
+                        StarlineModel model = new StarlineModel();
+                        model.setId(jsonObject.getString("id"));
+                        model.setS_game_time(jsonObject.getString("id"));
+                        model.setS_game_end_time(jsonObject.getString("s_game_end_time"));
+                        model.setS_game_number(jsonObject.getString("s_game_number"));
+                        model.setUpdated_at(jsonObject.getString("updated_at"));
+                        model.setCreated_at(jsonObject.getString("created_at"));
+                        Log.e("zsxdfg",model.toString());
+
+                        onGetStarline.OnGetStarline(model);
+//                        onGetMatka.onGetMatka(model);
 
 
                     }else{
@@ -1224,6 +1256,88 @@ public void setGameDate(TextView tv_date ,String time)
             return true;
         }
     }
+
+    public void forgetPasswordWhatsApp()
+    {
+        HashMap<String,String> params = new HashMap<>();
+        CustomVolleyJsonArrayRequest customVolleyJsonArrayRequest = new CustomVolleyJsonArrayRequest(Request.Method.GET, URL_INDEX, params, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.e("forget",response.toString());
+                try
+                {
+                    JSONObject dataObj=response.getJSONObject(0);
+                    forgot_whatsapp = dataObj.getString("forgot_whatsapp");
+                    forgot_text = dataObj.getString("forgot_text");
+                    msg_status = dataObj.getString("msg_status");
+                }
+                catch (Exception ex)
+                {
+                    ex.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+              showVolleyError(error);
+            }
+        });
+           AppController.getInstance().addToRequestQueue(customVolleyJsonArrayRequest,"json_tag");
+    }
+
+    public void cofigData(final OnGetConfigData onGetConfigData)
+
+        {
+
+        String json_tag="json_splash_request";
+        HashMap<String, String> params=new HashMap<String, String>();
+        CustomVolleyJsonArrayRequest customVolleyJsonArrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.GET,URL_INDEX, params, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.e("cofigData",""+response.toString());
+                try
+                {
+                    JSONObject dataObj=response.getJSONObject(0);
+
+                    ConfigDataModel model = new ConfigDataModel();
+
+                    model.setTag_line(dataObj.getString("tag_line"));
+                    model.setForgot_whatsapp(dataObj.getString("forgot_whatsapp"));
+                    model.setForgot_text(dataObj.getString("forgot_text"));
+                    model.setMsg_status(dataObj.getString("msg_status"));
+                    model.setWithdraw_text(dataObj.getString("withdraw_text").toLowerCase());
+                    model.setWithdraw_no(dataObj.getString("withdraw_no"));
+                    model.setHome_text(dataObj.getString("home_text").toString());
+                    model.setMin_amount(dataObj.getString("min_amount"));
+                    model.setApp_link(dataObj.getString("app_link"));
+                    model.setShare_link(dataObj.getString("share_link"));
+                    model.setVersion(dataObj.getString("version"));
+                    model.setHome_whatsapp(dataObj.getString("home_whatsapp"));
+                    model.setHome_call(dataObj.getString("home_call"));
+                    model.setMin_bid_points(dataObj.getString("min_bid_points"));
+                    model.setW_amount(dataObj.getString("w_amount"));
+                    model.setForgot_msg(dataObj.getString("forgot_msg"));
+
+                    onGetConfigData.onGetConfigData(model);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                showVolleyError(error);
+            }
+        });
+
+        AppController.getInstance().addToRequestQueue(customVolleyJsonArrayRequest,json_tag);
+
+
+    }
+
 }
 
 

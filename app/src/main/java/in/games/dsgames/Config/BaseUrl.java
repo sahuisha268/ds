@@ -30,6 +30,8 @@ public class BaseUrl {
     public static final String URL_REGISTER_OTP=BASE_URL+"mobile_verification";
     public static final String URL_FORGOT_OTP=BASE_URL+"generate_otp";
     public static final String URL_BID_HISTORY=BASE_URL+"getBidHistory";
+    public static final String CHANGE_PASSWORD = BASE_URL+"change_password";
+
 
     public static final String URL_POINT_ADD=BASE_URL+"user_add_points";
     public static final String URL_POINT_WITHDRAW=BASE_URL+"user_withdraw_points";

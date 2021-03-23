@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +35,8 @@ import java.util.concurrent.TimeUnit;
 import in.games.dsgames.AppController;
 import in.games.dsgames.Config.Common;
 import in.games.dsgames.Config.Module;
+import in.games.dsgames.Interface.OnGetConfigData;
+import in.games.dsgames.Model.ConfigDataModel;
 import in.games.dsgames.R;
 import in.games.dsgames.utils.CustomJsonRequest;
 import in.games.dsgames.utils.LoadingBar;
@@ -43,7 +47,7 @@ import static in.games.dsgames.Config.BaseUrl.URL_FORGOT_OTP;
 public class Send_Otp extends AppCompatActivity {
     private static final String TAG = "SentOtpActivity";
     ImageView iv_back;
-    Button btn;
+    Button btn,btn_whatSumbit;
     LoadingBar loadingBar ;
     Module module ;
     Common common;
@@ -51,23 +55,31 @@ public class Send_Otp extends AppCompatActivity {
     TextInputLayout textInputLayout_Phone;
     TextInputEditText textInputEditText_phone;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
+    String forgot_whatsapp="",whatsapp_text="",status="",whatsappMessage="";
+    LinearLayout lin_mobile,lin_whatsapp,lin_whatSumbit;
+    TextView tv_whatsAppText,tv_number;
 //    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
-String mobilePattern ="(0/91)?[7-9][0-9]{9}";
-String type ="";
-PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks;
+    String mobilePattern ="(0/91)?[7-9][0-9]{9}";
+    String type ="";
+    PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send__otp);
         mAuth = FirebaseAuth.getInstance();
-common = new Common(this);
-loadingBar = new LoadingBar(this);
-module = new Module(this);
+        common = new Common(this);
+        loadingBar = new LoadingBar(this);
+        module = new Module(this);
         textInputEditText_phone=findViewById(R.id.et_phone);
         iv_back = findViewById(R.id.iv_back);
         textInputLayout_Phone=findViewById(R.id.tv_phone);
         btn=findViewById(R.id.btn_send_opt);
-type = getIntent().getStringExtra("type");
+        lin_whatsapp = findViewById(R.id.lin_whatsapp);
+        lin_mobile = findViewById(R.id.lin_mobile);
+        tv_whatsAppText = findViewById(R.id.tv_whatsAppText);
+        btn_whatSumbit = findViewById(R.id.btn_whatSumbit);
+        lin_whatsapp=findViewById(R.id.lin_whatsapp);
+        type = getIntent().getStringExtra("type");
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +93,49 @@ type = getIntent().getStringExtra("type");
                 finish();
             }
         });
+
+        common.cofigData(new OnGetConfigData() {
+            @Override
+            public void onGetConfigData(ConfigDataModel model) {
+
+                forgot_whatsapp = model.getForgot_whatsapp();
+                whatsapp_text = model.getForgot_text();
+                status = model.getMsg_status();
+                whatsappMessage = model.getForgot_msg();
+//                whatsappMessage = model.
+
+                if (status.equals("0"))
+                {
+                    lin_whatsapp.setVisibility(View.VISIBLE);
+                    tv_whatsAppText.setText(whatsapp_text);
+//                    common.showToast(forgot_whatsapp);
+
+
+                }
+                else if (status.equals("1")){
+                    lin_mobile.setVisibility(View.VISIBLE);
+                }
+                else {
+                    lin_mobile.setVisibility(View.GONE);
+                    lin_whatsapp.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        btn_whatSumbit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+//                    common.showToast(forgot_whatsapp);
+                    common.whatsapp(forgot_whatsapp,whatsappMessage);
+
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+
 
         callbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override

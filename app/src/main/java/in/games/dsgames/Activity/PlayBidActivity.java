@@ -32,6 +32,7 @@ public class PlayBidActivity extends AppCompatActivity implements View.OnClickLi
   LoadingBar loadingBar ;
 Common common;
     Fragment fm = null;
+    String m_id="";
 Activity ctx =PlayBidActivity.this;
 
     @Override
@@ -49,7 +50,15 @@ Activity ctx =PlayBidActivity.this;
         iv_reload= findViewById(R.id.iv_reload);
         tv_title= findViewById(R.id.tv_Title);
         tv_wallet= findViewById(R.id.tv_wallet);
-        tv_title.setText(""+getIntent().getStringExtra("matka_name"));
+        m_id = getIntent().getStringExtra("m_id");
+
+        if (Integer.parseInt(getIntent().getStringExtra("m_id"))>20)
+        {
+            tv_title.setText("Starline");
+        }else {
+            tv_title.setText(""+getIntent().getStringExtra("matka_name"));
+        }
+
 
         Bundle args = new Bundle();
         args.putString("game", getIntent().getStringExtra("game"));
@@ -61,6 +70,7 @@ Activity ctx =PlayBidActivity.this;
         args.putString("start_num",  getIntent().getStringExtra("start_num"));
         args.putString ("num",  getIntent().getStringExtra("num"));
         args.putString("end_num",  getIntent().getStringExtra("end_num"));
+
 
         switch (getIntent().getStringExtra("game"))
         {

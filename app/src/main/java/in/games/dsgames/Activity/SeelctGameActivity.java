@@ -21,7 +21,9 @@ import in.games.dsgames.Config.Common;
 import in.games.dsgames.Config.Module;
 import in.games.dsgames.Model.GameModel;
 import in.games.dsgames.Model.MatkasObjects;
+import in.games.dsgames.Model.StarlineModel;
 import in.games.dsgames.OnGetMatka;
+import in.games.dsgames.OnGetStarline;
 import in.games.dsgames.R;
 import in.games.dsgames.utils.LoadingBar;
 import in.games.dsgames.utils.Session_management;
@@ -192,6 +194,10 @@ public class SeelctGameActivity extends AppCompatActivity implements View.OnClic
             intent.putExtra("game", game);
             intent.putExtra("game_id", game_id);
             intent.putExtra("m_id", getIntent().getStringExtra("m_id"));
+            if (Integer.parseInt(getIntent().getStringExtra("m_id"))>20)
+            {
+                intent.putExtra("matka_name", "starline");
+            }
             intent.putExtra("matka_name", mName);
             intent.putExtra("start_time",start_time);
             intent.putExtra("end_time", end_time);
@@ -257,44 +263,52 @@ public class SeelctGameActivity extends AppCompatActivity implements View.OnClic
             }
         });
     }
+
     public void getStartline()
     {
-        common.getSingleStarline(matkaId, new OnGetMatka() {
+        common.getSingleStarline(matkaId, new OnGetStarline() {
             @Override
-            public void onGetMatka(MatkasObjects model) {
-                String dt=new SimpleDateFormat("EEEE").format(new Date());
-                if(dt.equalsIgnoreCase("Sunday")){
-                    if(common.getValidTime(model.getStart_time().toString(), model.getStart_time().toString())){
-                        start_time=model.getStart_time();
-                        end_time=model.getEnd_time();
-                    }else{
-                        start_time=model.getBid_start_time();
-                        end_time=model.getBid_end_time();
+            public void OnGetStarline(StarlineModel model)
+                {
+                    String dt=new SimpleDateFormat("EEEE").format(new Date());
+                    if(dt.equalsIgnoreCase("Sunday")){
+                        if(common.getValidTime(model.getS_game_time().toString(), model.getS_game_time().toString())){
+//                            common.showToast("if");
+                            start_time=model.getS_game_time();
+                            end_time=model.getS_game_end_time();
+                        }else{
+//                            common.showToast("else");
+//                            start_time=model.getBid_start_time();
+//                            end_time=model.getBid_end_time();
+                        }
+
+                    }else if(dt.equalsIgnoreCase("Saturday")){
+                        if(common.getValidTime(model.getS_game_time().toString(), model.getS_game_end_time().toString())){
+                            start_time=model.getS_game_time();
+                            end_time=model.getS_game_end_time();
+                        }else{
+//                            start_time=model.getBid_start_time();
+//                            end_time=model.getBid_end_time();
+                        }
+                    }
+                    else{
+                        start_time=model.getS_game_time();
+                        end_time=model.getS_game_end_time();
                     }
 
-                }else if(dt.equalsIgnoreCase("Saturday")){
-                    if(common.getValidTime(model.getSat_start_time().toString(), model.getSat_end_time().toString())){
-                        start_time=model.getSat_start_time();
-                        end_time=model.getSat_end_time();
-                    }else{
-                        start_time=model.getBid_start_time();
-                        end_time=model.getBid_end_time();
-                    }
-                }else{
-                    start_time=model.getBid_start_time();
-                    end_time=model.getBid_end_time();
+//                    mName=model.getName();
+//                    start_num=model.getS_game_number();
+//                    end_num=model.getendnumber();
+                    num=model.getS_game_number();
+
+                    tv_matka_name.setText("Starline");
+                    tv_s_time.setText("Opens at :"+common.get24To12Format(start_time));
+                    tv_e_time.setText("Closes at :"+common.get24To12Format(end_time));
+                    tv_number.setText(""+" - "+common.checkNullNumber(num)+" - "+"");
                 }
 
-                mName=model.getName().toString();
-                start_num=model.getStarting_num();
-                end_num=model.getEnd_num();
-                num=model.getNumber();
-
-                tv_matka_name.setText(mName);
-                tv_s_time.setText("Opens at :"+common.get24To12Format(start_time));
-                tv_e_time.setText("Closes at :"+common.get24To12Format(end_time));
-                tv_number.setText(common.checkNullNumber(start_num)+" - "+common.checkNullNumber(num)+" - "+common.checkNullNumber(end_num));
-            }
         });
     }
+
+
 }
