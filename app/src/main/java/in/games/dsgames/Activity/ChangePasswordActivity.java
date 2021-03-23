@@ -162,7 +162,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
                     JSONObject object = new JSONObject(response.toString());
 
-                    if (object.getBoolean("responce"))
+                    if (object.getBoolean("response"))
                     {
                         common.showToast(""+response.getString("message"));
                         finish();
