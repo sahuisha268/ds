@@ -78,6 +78,9 @@ TextView tv_login;
                 startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
             }
         });
+
+
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,58 +92,62 @@ TextView tv_login;
 
                if (name.isEmpty())
                {
-                  module.validateEditText(editText_username,username,"Enter Username");
+                  module.validateRegEditText(editText_username,username,"Enter Username");
                }
                else if (mobile.isEmpty())
                {
-                  module.validateEditText(editText_mobile,mobilenumber,"Enter Mobile Number");
+                  module.validateRegEditText(editText_mobile,mobilenumber,"Enter Mobile Number");
                }
                else if(editText_mobile.getText().toString().trim().length() != 10) {
                    module.showToast("Enter Valid Mobile Number");
-                   //  module.validateEditText(editText_password,password,"Enter Valid Password");
-               }else if (!mobile.isEmpty())
-               {
-                   char mob = mobile.charAt(0);
-                   int m = Integer.parseInt(String.valueOf(mob));
-                   Log.e("moblie_first_digit", String.valueOf(m));
-                   if (m<6)
+//                     module.validateRegEditText(editText_password,password,"Enter Valid Password");
+               }
+                   else if (pass.isEmpty())
                    {
-
-                       module.showToast("Enter Valid Mobile Number");
-
-                   } else if (pass.isEmpty())
-                   {
-                       module.validateEditText(editText_password,password,"Enter Password");
+                       module.validateRegEditText(editText_password,password,"Enter Password");
                    }
                    else if (cpass.isEmpty())
                    {
-                       module.validateEditText(editText_confirm_password,confirm_password,"Enter Confirm Password");
+                       module.validateRegEditText(editText_confirm_password,confirm_password,"Enter Confirm Password");
                    }
-//                   else if (mpin.isEmpty())
-//                   {
-//                       module.validateEditText(editText_confirm_password,confirm_password,"Enter Mpin");
-//                   }
+                   else if(pass.length() < 4) {
+                       module.validateRegEditText(editText_password,password,"Password length min 4 character");
+                   } else if(cpass.length() < 4) {
+                       module.validateRegEditText(editText_confirm_password,confirm_password,"Password length min 4 character");
+                   }
                    else
                    {
-                       if (cpass.equals(pass))
-                       {
-                           HashMap<String,String>params = new HashMap<>();
-                           params.put("key","1");
-                           params.put("username",name);
-                           params.put("name",name);
-                           params.put("mobile",mobile);
-                           params.put("password",pass);
-                           params.put("mpin",mpin);
+                       if (!mobile.isEmpty()) {
+                           char mob = mobile.charAt(0);
+                           int m = Integer.parseInt(String.valueOf(mob));
+                           Log.e("moblie_first_digit", String.valueOf(m));
+                           if (m < 6) {
+
+                               module.showToast("Enter Valid Mobile Number");
+
+                           }else{
+                               if (cpass.equals(pass))
+                               {
+                                   HashMap<String,String>params = new HashMap<>();
+                                   params.put("key","1");
+                                   params.put("username",name);
+                                   params.put("name",name);
+                                   params.put("mobile",mobile);
+                                   params.put("password",pass);
+                                   params.put("mpin",mpin);
 //                           sendOtpForRegister(mobile,module.getRandomKey(4),params);
-                           makeRegisterRequest(name,mobile,pass,mpin,params);
+                                   makeRegisterRequest(name,mobile,pass,mpin,params);
+                               }
+                               else
+                               {
+                                   module.showToast("Passwords Don't Match");
+                               }
+                           }
                        }
-                       else
-                       {
-                           module.showToast("Passwords Dont Match");
-                       }
+
                    }
 
-               }
+
 
             }
         });
@@ -202,7 +209,27 @@ TextView tv_login;
         AppController.getInstance().addToRequestQueue(jsonRequest);
     }
 
-//
+    @Override
+    protected void onPause() {
+        super.onPause();
+        editText_username.setError(null);
+        editText_mobile.setError(null);
+        editText_password.setError(null);
+        editText_confirm_password.setError(null);
+        et_mpin.setError(null);
+
+    }
+
+    public void validation(){
+        String name = editText_username.getText().toString().trim();
+        String mobile = editText_mobile.getText().toString().trim();
+        String pass = editText_password.getText().toString().trim();
+        String cpass = editText_confirm_password.getText().toString().trim();
+        String mpin = et_mpin.getText().toString().trim();
+        if(name.isEmpty()){
+
+        }
+    }
    
 
 
