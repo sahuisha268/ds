@@ -112,19 +112,10 @@ Session_management session_management ;
        matkaList = new ArrayList<>();
         temp_casino_list = new ArrayList<>();
         casinoModels.add(new HomeCasinoModel("1","Play Starline Bazar"));
-//        casinoModels.add(new HomeCasinoModel("1","game1"));
-//        casinoModels.add(new HomeCasinoModel("1","game1"));
-//        casinoModels.add(new HomeCasinoModel("1","game1"));
-//        casinoModels.add(new HomeCasinoModel("1","game1"));
         casino_grid = new GridLayoutManager(getActivity(),2);
         rv_casino_games.setLayoutManager(casino_grid);
         tv_casino_one.setText(casinoModels.get(0).getName());
-//        for (int i =1;i<casinoModels.size();i++)
-//        {
-//            temp_casino_list.add(casinoModels.get(i));
-//        }
-//        homeCasinoAdapter = new HomeCasinoAdapter(getActivity(),temp_casino_list);
-//        rv_casino_games.setAdapter(homeCasinoAdapter);
+
         if (ConnectivityReceiver.isConnected())
         {
             getMatkaData();
@@ -202,27 +193,25 @@ Session_management session_management ;
                         {
                             try
                             {
-                                Gson gson = new Gson();
-                                Type typeList = new TypeToken<List<MatkasObjects>>(){}.getType();
-                                matkaList = gson.fromJson(response.toString(),typeList);
 
-//                                JSONObject jsonObject=response.getJSONObject(i);
-//                                MatkasObjects matkasObjects=new MatkasObjects();
-//                                matkasObjects.setId(jsonObject.getString("id"));
-//                                matkasObjects.setName(jsonObject.getString("name"));
-//                                matkasObjects.setStart_time(jsonObject.getString("start_time"));
-//                                matkasObjects.setEnd_time(jsonObject.getString("end_time"));
-//                                matkasObjects.setStarting_num(jsonObject.getString("starting_num"));
-//                                matkasObjects.setNumber(jsonObject.getString("number"));
-//                                matkasObjects.setEnd_num(jsonObject.getString("end_num"));
-//                                matkasObjects.setBid_start_time(jsonObject.getString("bid_start_time"));
-//                                matkasObjects.setBid_end_time(jsonObject.getString("bid_end_time"));
-//                                matkasObjects.setCreated_at(jsonObject.getString("created_at"));
-//                                matkasObjects.setUpdated_at(jsonObject.getString("updated_at"));
-//                                matkasObjects.setSat_start_time(jsonObject.getString("sat_start_time"));
-//                                matkasObjects.setSat_end_time(jsonObject.getString("sat_end_time"));
-//                                matkasObjects.setStatus(jsonObject.getString("status"));
-//                                matkaList.add(matkasObjects);
+
+                                JSONObject jsonObject=response.getJSONObject(i);
+                                MatkasObjects matkasObjects=new MatkasObjects();
+                                matkasObjects.setId(jsonObject.getString("id"));
+                                matkasObjects.setName(jsonObject.getString("name"));
+                                matkasObjects.setStart_time(jsonObject.getString("start_time"));
+                                matkasObjects.setEnd_time(jsonObject.getString("end_time"));
+                                matkasObjects.setStarting_num(jsonObject.getString("starting_num"));
+                                matkasObjects.setNumber(jsonObject.getString("number"));
+                                matkasObjects.setEnd_num(jsonObject.getString("end_num"));
+                                matkasObjects.setBid_start_time(jsonObject.getString("bid_start_time"));
+                                matkasObjects.setBid_end_time(jsonObject.getString("bid_end_time"));
+                                matkasObjects.setCreated_at(jsonObject.getString("created_at"));
+                                matkasObjects.setUpdated_at(jsonObject.getString("updated_at"));
+                                matkasObjects.setSat_start_time(jsonObject.getString("sat_start_time"));
+                                matkasObjects.setSat_end_time(jsonObject.getString("sat_end_time"));
+                                matkasObjects.setStatus(jsonObject.getString("status"));
+                                matkaList.add(matkasObjects);
 
                             }
                             catch (Exception ex)
@@ -262,80 +251,7 @@ Session_management session_management ;
 
 
     }
-    public void getStarlineData()
-    {
-        loadingBar.show();
 
-        final JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(URL_Matka, new
-                Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Log.e("matka",String.valueOf(response));
-                        matkaList.clear();
-                        for(int i=0; i<response.length();i++)
-                        {
-                            try
-                            {
-                                Gson gson = new Gson();
-                                Type typeList = new TypeToken<List<MatkasObjects>>(){}.getType();
-                                matkaList = gson.fromJson(response.toString(),typeList);
-
-//                                JSONObject jsonObject=response.getJSONObject(i);
-//                                MatkasObjects matkasObjects=new MatkasObjects();
-//                                matkasObjects.setId(jsonObject.getString("id"));
-//                                matkasObjects.setName(jsonObject.getString("name"));
-//                                matkasObjects.setStart_time(jsonObject.getString("start_time"));
-//                                matkasObjects.setEnd_time(jsonObject.getString("end_time"));
-//                                matkasObjects.setStarting_num(jsonObject.getString("starting_num"));
-//                                matkasObjects.setNumber(jsonObject.getString("number"));
-//                                matkasObjects.setEnd_num(jsonObject.getString("end_num"));
-//                                matkasObjects.setBid_start_time(jsonObject.getString("bid_start_time"));
-//                                matkasObjects.setBid_end_time(jsonObject.getString("bid_end_time"));
-//                                matkasObjects.setCreated_at(jsonObject.getString("created_at"));
-//                                matkasObjects.setUpdated_at(jsonObject.getString("updated_at"));
-//                                matkasObjects.setSat_start_time(jsonObject.getString("sat_start_time"));
-//                                matkasObjects.setSat_end_time(jsonObject.getString("sat_end_time"));
-//                                matkasObjects.setStatus(jsonObject.getString("status"));
-//                                matkaList.add(matkasObjects);
-
-                            }
-                            catch (Exception ex)
-                            {
-                                loadingBar.dismiss();
-                                Toast.makeText(getActivity(),"Error :"+ex.getMessage(),Toast.LENGTH_LONG).show();
-
-                                return;
-                            }
-                        }
-
-                        rv_matka.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        newAdapter=new HomeMatkaAdapter(getActivity(),matkaList);
-                        rv_matka.setAdapter(newAdapter);
-                        newAdapter.notifyDataSetChanged();
-
-                        loadingBar.dismiss();
-
-
-                    }
-
-                },
-
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        loadingBar.dismiss();
-                        String msg=module.VolleyErrorMessage(error);
-                        if(!msg.isEmpty())
-                        {
-                            module.showToast(""+msg);
-                        }
-                    }
-                });
-        AppController.getInstance().addToRequestQueue(jsonArrayRequest);
-
-
-
-    }
 
     @Override
     public void onClick(View view) {
@@ -368,23 +284,7 @@ Session_management session_management ;
 
     }
 
-//    @SuppressLint("NewApi")
-//    public void contactWhatsapp( String phone,String message) {
 //
-//        PackageManager packageManager = getActivity().getPackageManager();
-//        Intent i = new Intent(Intent.ACTION_VIEW);
-//
-//        try {
-//            String url = "https://api.whatsapp.com/send?phone=+91"+ phone +"&text=" + URLEncoder.encode(message, "UTF-8");
-//            i.setPackage("com.whatsapp");
-//            i.setData(Uri.parse(url));
-//            if (i.resolveActivity(packageManager) != null) {
-//                startActivity(i);
-//            }
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
     private void getApiData() {
 
         String json_tag="json_splash_request";

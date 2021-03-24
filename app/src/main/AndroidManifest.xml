@@ -28,7 +28,6 @@
         <activity android:name=".Activity.HowToPlayActivity" />
         <activity android:name=".Activity.NoticeBoardActivity" />
         <activity android:name=".Activity.CheckResultActivity" />
-        <activity android:name=".Activity.MpinLoginActivity" />
         <activity android:name=".Activity.MonthlyReportActivity" />
         <activity android:name=".Activity.WalletHistoryActivity" />
         <activity android:name=".Activity.ForgetPasswordActivity" />

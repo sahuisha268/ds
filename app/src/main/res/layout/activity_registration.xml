@@ -109,6 +109,7 @@
             app:boxStrokeColor="@color/colorPrimary"
             app:passwordToggleEnabled="true"
             android:layout_marginTop="@dimen/space_10"
+            android:visibility="gone"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText

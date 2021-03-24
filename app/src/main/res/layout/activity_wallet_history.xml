@@ -33,7 +33,8 @@
             android:layout_marginTop="25dp"
             android:textSize="25sp"
             android:textStyle="bold"
-            android:drawableLeft="@drawable/icons8_rupee_24px"
+            android:drawablePadding="@dimen/space_10"
+            android:drawableLeft="@drawable/icons8_point_box_24px"
             android:textColor="@color/white"/>
         <TextView
             android:layout_width="wrap_content"

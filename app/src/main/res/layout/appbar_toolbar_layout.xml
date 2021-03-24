@@ -56,7 +56,7 @@
                     android:layout_centerVertical="true"
                     android:drawableTint="@color/txt_color"
                     android:drawablePadding="5dp"
-                    android:drawableLeft="@drawable/icons8_rupee_24px"
+                    android:drawableLeft="@drawable/icons8_point_box_24px"
                     />
             </RelativeLayout>
 

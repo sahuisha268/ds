@@ -68,8 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_10"
-                android:backgroundTint="#D2F3AD"
-                android:background="@drawable/button_with_outline"
+
                 android:id="@+id/rv_m_rates"/>
             <TextView
 
@@ -84,8 +83,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#D2E6EF"
-                android:background="@drawable/button_with_outline"
+
                 android:layout_marginTop="@dimen/space_10"
                 android:id="@+id/rv_star_rate"/>
 

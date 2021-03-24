@@ -116,10 +116,10 @@ TextView tv_login;
                    {
                        module.validateEditText(editText_confirm_password,confirm_password,"Enter Confirm Password");
                    }
-                   else if (mpin.isEmpty())
-                   {
-                       module.validateEditText(editText_confirm_password,confirm_password,"Enter Mpin");
-                   }
+//                   else if (mpin.isEmpty())
+//                   {
+//                       module.validateEditText(editText_confirm_password,confirm_password,"Enter Mpin");
+//                   }
                    else
                    {
                        if (cpass.equals(pass))

@@ -5,6 +5,8 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -37,7 +39,7 @@ import static in.games.dsgames.Config.BaseUrl.URL_REGISTER;
 import static in.games.dsgames.Config.BaseUrl.URL_REGISTER_OTP;
 
 
-public class GetOtp extends AppCompatActivity implements View.OnClickListener {
+public class GetOtp extends AppCompatActivity implements View.OnClickListener, TextWatcher {
     Button btn_verify_otp;
     TextInputEditText user_phone;
     String type="",gen_otp="", mobile, code1, code2, code3, code4,otp="",user_id="";
@@ -69,7 +71,10 @@ ImageView iv_back;
         inputCode2=findViewById(R.id.et_inputCode2);
         inputCode3=findViewById(R.id.et_inputCode3);
         inputCode4=findViewById(R.id.et_inputCode4);
-
+        inputCode1.addTextChangedListener(this);
+        inputCode2.addTextChangedListener(this);
+        inputCode3.addTextChangedListener(this);
+        inputCode4.addTextChangedListener(this);
         params = (HashMap<String, String>)getIntent().getSerializableExtra("map");
         if (getIntent().getExtras().containsKey("user_id"))
         {
@@ -82,6 +87,28 @@ ImageView iv_back;
         tv_resned.setOnClickListener(this);
        iv_back.setOnClickListener(this);
         Log.e("otp",gen_otp +"\n mobile"+mobile);
+        if(msg_status.equals("0"))
+        {
+
+            countDownTimer=new CountDownTimer(5000,1000) {
+                @Override
+                public void onTick(long l) {
+
+                }
+
+                @Override
+                public void onFinish() {
+
+                    inputCode1.setText(""+gen_otp.charAt(0));
+                    inputCode2.setText(""+gen_otp.charAt(1));
+                    inputCode3.setText(""+gen_otp.charAt(2));
+                    inputCode4.setText(""+gen_otp.charAt(3));
+
+//                    et_otp.setText(params.get("otp"));
+                }
+            };
+            countDownTimer.start();
+        }
 
     }
 
@@ -97,16 +124,9 @@ ImageView iv_back;
             public void onFinish() {
             timeLeftMillis = 0;
 //            updateCountDownText();
-                if (msg_status.equals("0")) {
-                    inputCode1.setText(""+gen_otp.charAt(0));
-                    inputCode2.setText(""+gen_otp.charAt(1));
-                    inputCode3.setText(""+gen_otp.charAt(2));
-                    inputCode4.setText(""+gen_otp.charAt(3));
-                }
-                else
-                {
+
                     timer.setText("TimeOut");
-                }
+//
 
             }
         }.start();
@@ -295,7 +315,10 @@ ImageView iv_back;
                     String res=response.getString("status");
                     if(res.equalsIgnoreCase("success"))
                     {
-                        module.showToast(response.getString("message"));
+//                        module.showToast(response.getString("message"));
+                        module.showToast(
+                                "Otp sent to your mobile number "
+                        );
                         Intent intent=new Intent(GetOtp.this,LoginActivity.class);
 //                        intent.putExtra("mobile",mobile);
 //                        intent.putExtra("otp",otp);
@@ -327,6 +350,53 @@ ImageView iv_back;
             }
         });
         AppController.getInstance().addToRequestQueue(customJsonRequest);
+
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        String c = editable.toString();
+        if (c.length()==1)
+        {
+            if (inputCode1.hasFocus())
+            {
+                inputCode2.requestFocus();
+            }
+            else if (inputCode2.hasFocus())
+            {
+                inputCode3.requestFocus();
+            }
+            else if (inputCode3.hasFocus())
+            {
+                inputCode4.requestFocus();
+            }
+        }
+        else if (c.length()==0)
+        {
+            if (inputCode4.hasFocus())
+            {
+                inputCode3.requestFocus(inputCode3.getText().length());
+            }
+            else if (inputCode3.hasFocus())
+            {
+                inputCode2.requestFocus(inputCode2.getText().length());
+            }
+            else if (inputCode2.hasFocus())
+            {
+                inputCode1.requestFocus(inputCode1.getText().length());
+            }
+        }
 
     }
 }
