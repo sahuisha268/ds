@@ -1188,7 +1188,6 @@ public void setGameDate(TextView tv_date ,String time)
                       mList=gson.fromJson(response.getString("data").toString(),typeList);
                       onGetMatka.onGetMatka(mList.get(0));
 
-
                   }else{
                       showToast(""+response.getString("error"));
                   }

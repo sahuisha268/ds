@@ -22,6 +22,7 @@ public class BaseUrl {
     public static final String URL_STARLINE=BASE_URL+"get_starline";
     public static final String URL_MATKA_WITH_ID=BASE_URL+"get_matka_with_id";
     public static final String URL_PLAY=BASE_URL+"how_to_play";
+    public static final String URL_GET_GAMES= BASE_URL+"getGames";
 
     public static final String URL_NOTICE=BASE_URL+"getNotice";
     public static final String URL_TIME_SLOT=BASE_URL+"get_time_slots";
