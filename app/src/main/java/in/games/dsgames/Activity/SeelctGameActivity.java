@@ -345,10 +345,12 @@ public class SeelctGameActivity extends AppCompatActivity implements View.OnClic
 
 public void getGames(final String game_id)
 {
+    loadingBar.show();
     HashMap<String,String> params = new HashMap<>();
     common.postRequest(URL_GET_GAMES, params, new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
+            loadingBar.dismiss();
             Log.e("getGames",response.toString());
             ArrayList<GetGamesModel> gList= new ArrayList<>();
             Gson gson = new Gson();
@@ -499,17 +501,14 @@ public void getGames(final String game_id)
 
                         }
                     }
-
-
             }
 
-
-
-//
         }
     }, new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
+            loadingBar.dismiss();
+            common.showVolleyError(error);
 
         }
     });
