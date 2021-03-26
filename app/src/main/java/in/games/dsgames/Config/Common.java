@@ -32,14 +32,11 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1183,9 +1180,27 @@ public void setGameDate(TextView tv_date ,String time)
                   JSONObject response=new JSONObject(resp);
                   ArrayList<MatkasObjects> mList=new ArrayList<>();
                   if(response.getBoolean("responce")){
-                      Gson gson=new Gson();
-                      Type typeList=new TypeToken<List<MatkasObjects>>(){}.getType();
-                      mList=gson.fromJson(response.getString("data").toString(),typeList);
+
+                      JSONArray jsonArray = response.getJSONArray("data");
+                      for (int i = 0 ; i <jsonArray.length();i++) {
+                          JSONObject jsonObject = jsonArray.getJSONObject(i);
+                          MatkasObjects matkasObjects = new MatkasObjects();
+                          matkasObjects.setId(jsonObject.getString("id"));
+                          matkasObjects.setName(jsonObject.getString("name"));
+                          matkasObjects.setStart_time(jsonObject.getString("start_time"));
+                          matkasObjects.setEnd_time(jsonObject.getString("end_time"));
+                          matkasObjects.setStarting_num(jsonObject.getString("starting_num"));
+                          matkasObjects.setNumber(jsonObject.getString("number"));
+                          matkasObjects.setEnd_num(jsonObject.getString("end_num"));
+                          matkasObjects.setBid_start_time(jsonObject.getString("bid_start_time"));
+                          matkasObjects.setBid_end_time(jsonObject.getString("bid_end_time"));
+                          matkasObjects.setCreated_at(jsonObject.getString("created_at"));
+                          matkasObjects.setUpdated_at(jsonObject.getString("updated_at"));
+                          matkasObjects.setSat_start_time(jsonObject.getString("sat_start_time"));
+                          matkasObjects.setSat_end_time(jsonObject.getString("sat_end_time"));
+                          matkasObjects.setStatus(jsonObject.getString("status"));
+                          mList.add(matkasObjects);
+                      }
                       onGetMatka.onGetMatka(mList.get(0));
 
                   }else{

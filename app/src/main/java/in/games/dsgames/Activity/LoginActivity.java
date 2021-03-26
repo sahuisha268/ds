@@ -89,7 +89,7 @@ TextView tv_signup ,tv_forget;
         else if(editText_password.getText().toString().isEmpty()) {
            module.validateEditText(editText_password,password,"Enter Password");
         }
-       else if(editText_password.getText().toString().trim().length() < 6) {
+       else if(editText_password.getText().toString().trim().length() < 4) {
             module.showToast("Enter Valid Password");
           //  module.validateEditText(editText_password,password,"Enter Valid Password");
         }

@@ -58,7 +58,7 @@
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"
-            tools:ignore="LabelFor"/>
+          />
 
         <EditText
             android:id="@+id/et_inputCode2"
@@ -74,7 +74,7 @@
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"
-           tools:ignore="LabelFor" />
+        />
 
         <EditText
             android:id="@+id/et_inputCode3"
@@ -90,7 +90,7 @@
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"
-            tools:ignore="LabelFor" />
+         />
 
         <EditText
             android:id="@+id/et_inputCode4"
@@ -99,13 +99,14 @@
             android:layout_marginLeft="4dp"
             android:gravity="center"
             android:imeOptions="actionNext"
+
             android:importantForAutofill="no"
             android:inputType="number"
             android:maxLength="1"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"
-            tools:ignore="LabelFor" />
+           />
 
 
     </LinearLayout>
@@ -132,7 +133,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="00:19 Sec"
+            android:text=""
             android:textColor="@color/black"/>
 
     </RelativeLayout>

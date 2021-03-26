@@ -23,7 +23,7 @@
         android:layout_marginTop="5dp"
         android:visibility="gone"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/icons8_rupee_24px"/>
+       />
 
    <TextView
        android:id="@+id/txtmessage"

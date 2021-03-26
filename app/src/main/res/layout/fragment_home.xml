@@ -240,7 +240,7 @@
                       android:layout_centerVertical="true"
                       android:drawableTint="@color/txt_color"
                       android:drawablePadding="5dp"
-                      android:drawableLeft="@drawable/icons8_rupee_16px"
+                      android:drawableLeft="@drawable/icons8_point_box_24px"
                       />
                   <TextView
                       android:id="@+id/tv_add_withrw"

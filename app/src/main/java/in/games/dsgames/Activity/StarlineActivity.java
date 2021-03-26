@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -137,19 +138,16 @@ public class StarlineActivity extends AppCompatActivity implements View.OnClickL
                         {
                             try
                             {
-                                Gson gson = new Gson();
-                                Type listType = new TypeToken<List<Starline_Objects>>() {
-                                }.getType();
-                                star_list = gson.fromJson(response.toString(), listType);
-//                                JSONObject jsonObject=response.getJSONObject(i);
-//
-//                                Starline_Objects matkasObjects=new Starline_Objects();
-//                                matkasObjects.setId(jsonObject.getString("id"));
-//                                matkasObjects.setS_game_time(jsonObject.getString("s_game_time"));
-//                                matkasObjects.setS_game_number(jsonObject.getString("s_game_number"));
-//                                matkasObjects.setS_game_end_time(jsonObject.getString("s_game_end_time"));
-//
-//                                arrayList.add(matkasObjects);
+
+                                JSONObject jsonObject=response.getJSONObject(i);
+
+                                Starline_Objects matkasObjects=new Starline_Objects();
+                                matkasObjects.setId(jsonObject.getString("id"));
+                                matkasObjects.setS_game_time(jsonObject.getString("s_game_time"));
+                                matkasObjects.setS_game_number(jsonObject.getString("s_game_number"));
+                                matkasObjects.setS_game_end_time(jsonObject.getString("s_game_end_time"));
+
+                                star_list.add(matkasObjects);
                                 if (star_list.size()>0)
                                 {
                                     starlineAdapter = new StarlineAdapter(star_list,ctx);
