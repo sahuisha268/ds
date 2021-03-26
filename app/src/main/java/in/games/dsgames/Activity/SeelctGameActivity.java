@@ -505,7 +505,7 @@ public void getGames(final String game_id)
 
 
 
-
+//
         }
     }, new Response.ErrorListener() {
         @Override
