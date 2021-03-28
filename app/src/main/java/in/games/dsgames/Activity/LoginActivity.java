@@ -52,7 +52,7 @@ TextView tv_signup ,tv_forget;
         editText_username=findViewById(R.id.et_username);
         editText_password=findViewById(R.id.et_password);
         btn = findViewById(R.id.btn_login);
-    tv_forget= findViewById(R.id.tv_forget);
+        tv_forget= findViewById(R.id.tv_forget);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +68,7 @@ TextView tv_signup ,tv_forget;
         tv_forget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this,Send_Otp.class);
+                Intent i = new Intent(LoginActivity.this,AuthActivity.class);
                 i.putExtra("type","f");
                 startActivity(i);
 

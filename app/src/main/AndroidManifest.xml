@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="in.games.dsgames.AppController"
+        android:name=".AppController"
         android:allowBackup="true"
         android:appComponentFactory="@string/app_name"
         android:icon="@mipmap/ic_launcher"
@@ -22,30 +22,31 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
-        <activity android:name="in.games.dsgames.Activity.TestingActivity"></activity>
-        <activity android:name="in.games.dsgames.Activity.RequestPointActivity" />
-        <activity android:name="in.games.dsgames.Activity.HowToPlayActivity" />
-        <activity android:name="in.games.dsgames.Activity.NoticeBoardActivity" />
-        <activity android:name="in.games.dsgames.Activity.CheckResultActivity" />
-        <activity android:name="in.games.dsgames.Activity.MpinLoginActivity" />
-        <activity android:name="in.games.dsgames.Activity.MonthlyReportActivity" />
-        <activity android:name="in.games.dsgames.Activity.WalletHistoryActivity" />
-        <activity android:name="in.games.dsgames.Activity.ForgetPasswordActivity" />
-        <activity android:name="in.games.dsgames.Activity.StarlineActivity" />
-        <activity android:name="in.games.dsgames.Activity.PaymentReportsActivity" />
-        <activity android:name="in.games.dsgames.Activity.BidHistoryActivity" />
-        <activity android:name="in.games.dsgames.Activity.BankDetailActivity" />
-        <activity android:name="in.games.dsgames.Activity.WithDrawActivity" />
-        <activity android:name="in.games.dsgames.Activity.ContactUsActivity" />
-        <activity android:name="in.games.dsgames.Activity.PlayBidActivity" />
-        <activity android:name="in.games.dsgames.Activity.SeelctGameActivity" />
-        <activity android:name="in.games.dsgames.Activity.RegistrationActivity" />
-        <activity android:name="in.games.dsgames.Activity.LoginActivity" />
-        <activity android:name="in.games.dsgames.Activity.MainActivity" />
-        <activity android:name="in.games.dsgames.Activity.GetOtp" />
-        <activity android:name="in.games.dsgames.Activity.Send_Otp" />
-        <activity android:name="in.games.dsgames.Activity.GameRatesActivity" />
-        <activity android:name="in.games.dsgames.Activity.SplashActivity">
+        <activity android:name=".Activity.AuthActivity"></activity>
+        <activity android:name=".Activity.TestingActivity" />
+        <activity android:name=".Activity.RequestPointActivity" />
+        <activity android:name=".Activity.HowToPlayActivity" />
+        <activity android:name=".Activity.NoticeBoardActivity" />
+        <activity android:name=".Activity.CheckResultActivity" />
+        <activity android:name=".Activity.MpinLoginActivity" />
+        <activity android:name=".Activity.MonthlyReportActivity" />
+        <activity android:name=".Activity.WalletHistoryActivity" />
+        <activity android:name=".Activity.ForgetPasswordActivity" />
+        <activity android:name=".Activity.StarlineActivity" />
+        <activity android:name=".Activity.PaymentReportsActivity" />
+        <activity android:name=".Activity.BidHistoryActivity" />
+        <activity android:name=".Activity.BankDetailActivity" />
+        <activity android:name=".Activity.WithDrawActivity" />
+        <activity android:name=".Activity.ContactUsActivity" />
+        <activity android:name=".Activity.PlayBidActivity" />
+        <activity android:name=".Activity.SeelctGameActivity" />
+        <activity android:name=".Activity.RegistrationActivity" />
+        <activity android:name=".Activity.LoginActivity" />
+        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.GetOtp" />
+        <activity android:name=".Activity.Send_Otp" />
+        <activity android:name=".Activity.GameRatesActivity" />
+        <activity android:name=".Activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,7 +64,7 @@
             android:value="FF00FF00" />
 
         <service
-            android:name="in.games.dsgames.utils.NotificationExtenderExample"
+            android:name=".utils.NotificationExtenderExample"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE">
             <intent-filter>
