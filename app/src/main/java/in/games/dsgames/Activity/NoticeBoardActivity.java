@@ -110,36 +110,6 @@ ArrayList<NoticeBoardModel> list;
         });
         AppController.getInstance().addToRequestQueue(customJsonRequest);
     }
-//    private void getNoticeBoard() {
-//        loadingBar.show();
-//        HashMap<String,String> params=new HashMap<>();
-//        CustomVolleyJsonArrayRequest customVolleyJsonArrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.GET, URL_INDEX, params, new Response.Listener<JSONArray>() {
-//            @Override
-//            public void onResponse(JSONArray response) {
-//                loadingBar.dismiss();
-//                Log.e("Response",response.toString());
-//                if (response.length()!=0) {
-//                    try {
-//                        JSONObject obj = response.getJSONObject(0);
-//                        String resp = obj.getString("noticeboard");
-//                        // textView.setText(Html.fromHtml(resp));
-//
-//
-//                    } catch (Exception ex) {
-//                        ex.printStackTrace();
-//                    }
-//                }
-//                Log.e("response", "onResponse: "+ response.toString());
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                loadingBar.dismiss();
-//                module.showToast(""+module.VolleyErrorMessage(error));
-//
-//            }
-//        });
-//        AppController.getInstance().addToRequestQueue(customVolleyJsonArrayRequest);
-//    }
+
     }
 

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import in.games.dsgames.AppController;
+import in.games.dsgames.Config.Common;
 import in.games.dsgames.Config.Module;
 import in.games.dsgames.R;
 import in.games.dsgames.utils.CustomJsonRequest;
@@ -36,23 +38,35 @@ String mobile;
 String otp="";
 LoadingBar loadingBar;
 Module module;
+TextView tv_whatsAppText;
+Button btn_whatSumbit;
+Common common;
+
 
 TextInputEditText password,confpassword,editText_mobile;
 TextInputLayout textInputLayoutpassword, textInputLayoutconfpassword, mobilenumber;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
 
+        common = new Common(ForgetPasswordActivity.this);
         btn_submit=findViewById(R.id.btn_forget_sumbit);
+
         iv_back = findViewById(R.id.iv_back);
         iv_back=findViewById(R.id.iv_back);
         password=findViewById(R.id.et_password_forget);
-       confpassword=findViewById(R.id.et_conf_password_forget);
-       textInputLayoutpassword=findViewById(R.id.tv_password_forget);
+        confpassword=findViewById(R.id.et_conf_password_forget);
+        textInputLayoutpassword=findViewById(R.id.tv_password_forget);
         textInputLayoutconfpassword=findViewById(R.id.tv_conf_password_forget);
+
         module = new Module(ForgetPasswordActivity.this);
         loadingBar = new LoadingBar(ForgetPasswordActivity.this);
+
+
+
+
+
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

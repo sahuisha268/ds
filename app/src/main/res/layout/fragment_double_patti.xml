@@ -108,7 +108,7 @@
                         android:textColor="@color/black"
                         android:gravity="center_vertical"
                         android:padding="@dimen/space_5"
-                        android:drawableLeft="@drawable/icons8_rupee_24px"
+                        android:drawableLeft="@drawable/icons8_point_box_24px"
                         android:drawableTint="@color/black"
                         android:textSize="@dimen/space_15"
                         android:background="@color/white"/>

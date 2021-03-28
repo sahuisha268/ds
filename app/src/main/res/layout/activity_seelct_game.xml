@@ -112,6 +112,7 @@
             android:layout_height="wrap_content"
             app:cardUseCompatPadding="true"
             android:layout_margin="@dimen/space_12"
+            android:visibility="gone"
             android:id="@+id/card_digit"
             >
             <LinearLayout
@@ -184,12 +185,14 @@
               </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardUseCompatPadding="true"
             android:layout_margin="@dimen/space_12"
-        android:id="@+id/card_jodi"
+            android:id="@+id/card_jodi"
+            android:visibility="gone"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -217,6 +220,7 @@
                       android:layout_margin="10dp"
                       android:layout_width="0dp"
                       android:layout_weight="1"
+                      android:visibility="gone"
                       android:layout_height="wrap_content"
                       android:orientation="vertical">
                       <ImageView
@@ -237,9 +241,11 @@
                   <LinearLayout
                       android:id="@+id/lin_red_bracket"
                       android:padding="5dp"
+                      android:visibility="gone"
                       android:layout_margin="10dp"
                       android:layout_width="0dp"
                       android:layout_weight="1"
+
                       android:layout_height="wrap_content"
                       android:orientation="vertical">
                       <ImageView
@@ -284,12 +290,15 @@
               </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardUseCompatPadding="true"
             android:layout_margin="@dimen/space_12"
             android:id="@+id/card_patti"
+           android:visibility="gone"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -317,6 +326,7 @@
                       android:layout_margin="10dp"
                       android:layout_width="0dp"
                       android:layout_weight="1"
+                      android:visibility="gone"
                       android:layout_height="wrap_content"
                       android:orientation="vertical">
                       <ImageView
@@ -338,6 +348,7 @@
                       android:layout_margin="10dp"
                       android:layout_width="0dp"
                       android:layout_weight="1"
+                  android:visibility="gone"
                       android:layout_height="wrap_content"
                       android:orientation="vertical">
                       <ImageView
@@ -360,6 +371,7 @@
                       android:layout_margin="10dp"
                       android:layout_width="0dp"
                       android:layout_weight="1"
+                      android:visibility="gone"
                       android:layout_height="wrap_content"
                       android:orientation="vertical">
                       <ImageView
@@ -380,11 +392,14 @@
               </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardUseCompatPadding="true"
             android:layout_margin="@dimen/space_12"
+           android:visibility="gone"
             android:id="@+id/card_motor"
             >
             <LinearLayout
@@ -413,6 +428,7 @@
                       android:layout_margin="10dp"
                       android:layout_width="0dp"
                       android:layout_weight="1"
+                      android:visibility="gone"
                       android:layout_height="wrap_content"
                       android:orientation="vertical">
                       <ImageView
@@ -436,6 +452,7 @@
                       android:layout_margin="10dp"
                       android:layout_width="0dp"
                       android:layout_weight="1"
+                      android:visibility="gone"
                       android:layout_height="wrap_content"
                       android:orientation="vertical">
                       <ImageView

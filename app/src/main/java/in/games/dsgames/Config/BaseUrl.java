@@ -1,7 +1,11 @@
 package in.games.dsgames.Config;
 
 public class BaseUrl {
-    public static final String BASE_URL="https://royalonlinesatta.com/api/";
+
+//    public static final String BASE_URL="https://royalonlinesatta.com/api/";
+
+    public static final String BASE_URL="https://boss7.in/api/";
+
     public static final String BASE_IMAGE_URL="http://royalonlinesatta.com/assets/images/";
     public static final String IMG_SLIDER_URL =BASE_IMAGE_URL+ "sliders/";
     public static final String IMG_STARLINE_URL =BASE_IMAGE_URL+ "starline/";
@@ -18,6 +22,7 @@ public class BaseUrl {
     public static final String URL_STARLINE=BASE_URL+"get_starline";
     public static final String URL_MATKA_WITH_ID=BASE_URL+"get_matka_with_id";
     public static final String URL_PLAY=BASE_URL+"how_to_play";
+    public static final String URL_GET_GAMES= BASE_URL+"getGames";
 
     public static final String URL_NOTICE=BASE_URL+"getNotice";
     public static final String URL_TIME_SLOT=BASE_URL+"get_time_slots";
@@ -26,6 +31,8 @@ public class BaseUrl {
     public static final String URL_REGISTER_OTP=BASE_URL+"mobile_verification";
     public static final String URL_FORGOT_OTP=BASE_URL+"generate_otp";
     public static final String URL_BID_HISTORY=BASE_URL+"getBidHistory";
+    public static final String CHANGE_PASSWORD = BASE_URL+"change_password";
+
 
     public static final String URL_POINT_ADD=BASE_URL+"user_add_points";
     public static final String URL_POINT_WITHDRAW=BASE_URL+"user_withdraw_points";

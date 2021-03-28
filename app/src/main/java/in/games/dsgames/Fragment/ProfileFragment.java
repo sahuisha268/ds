@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import in.games.dsgames.Activity.BankDetailActivity;
+import in.games.dsgames.Activity.ChangePasswordActivity;
 import in.games.dsgames.Activity.GameRatesActivity;
 import in.games.dsgames.Activity.HowToPlayActivity;
 import in.games.dsgames.Activity.LoginActivity;
@@ -79,6 +80,9 @@ int version_code ;
                     case "Add/Edit Bank Details":
                         startActivity(new Intent(getActivity(), BankDetailActivity.class));
                         break;
+                    case "Change Password":
+                      startActivity(new Intent(getActivity(), ChangePasswordActivity.class));
+                    break;
                     case "Notice Board":
                         startActivity(new Intent(getActivity(), NoticeBoardActivity.class));
                         break;
@@ -137,6 +141,7 @@ int version_code ;
         //menuList.add(new MenuModel(R.drawable.icons8_agreement_50px,"Monthly Report",getResources().getColor(R.color.white)));
       //  menuList.add(new MenuModel(R.drawable.icons8_pie_chart_report_64px, "Account Statement" , getResources().getColor(R.color.white)));
       //  menuList.add(new MenuModel(R.drawable.icons8_agreement_50px,"Check Results",getResources().getColor(R.color.white)));
+        menuList.add(new MenuModel(R.drawable.password_26px,"Change Password",getResources().getColor(R.color.white)));
         menuList.add(new MenuModel(R.drawable.icons8_agreement_50px,"Notice Board",getResources().getColor(R.color.white)));
         menuList.add(new MenuModel(R.drawable.icons8_stop_pie_chart_report_50px,"Rate",getResources().getColor(R.color.white)));
         menuList.add(new MenuModel(R.drawable.icons8_play_48px,"How to Play",getResources().getColor(R.color.white)));

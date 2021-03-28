@@ -3,6 +3,7 @@ package in.games.dsgames.Activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,20 +13,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import in.games.dsgames.Adapter.SelectBidAdpater;
 import in.games.dsgames.Config.Common;
 import in.games.dsgames.Config.Module;
 import in.games.dsgames.Model.GameModel;
+import in.games.dsgames.Model.GetGamesModel;
 import in.games.dsgames.Model.MatkasObjects;
+import in.games.dsgames.Model.StarlineModel;
 import in.games.dsgames.OnGetMatka;
+import in.games.dsgames.OnGetStarline;
 import in.games.dsgames.R;
 import in.games.dsgames.utils.LoadingBar;
 import in.games.dsgames.utils.Session_management;
 
+import static in.games.dsgames.Config.BaseUrl.URL_GET_GAMES;
 import static in.games.dsgames.Config.Constants.KEY_ID;
 
 public class SeelctGameActivity extends AppCompatActivity implements View.OnClickListener {
@@ -39,14 +52,18 @@ public class SeelctGameActivity extends AppCompatActivity implements View.OnClic
     Common common ;
     Activity ctx = SeelctGameActivity.this;
     SelectBidAdpater selectBidAdpater ;
+    String game_id="";
     Session_management session_management ;
     CardView card_digit,card_motor,card_jodi,card_patti;
     String matkaId="",mName,start_time,end_time,start_num,end_num,num;
+    boolean flag = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seelct_game);
         initViews();
+
     }
     void initViews()
     {session_management = new Session_management(ctx);
@@ -87,10 +104,28 @@ public class SeelctGameActivity extends AppCompatActivity implements View.OnClic
         lin_red.setOnClickListener(this);
         lin_sp.setOnClickListener(this);
         lin_dp.setOnClickListener(this);
+        game_id = getIntent().getStringExtra("m_id");
+
+        getGames(game_id);
+//        flag = getGames(game_id);
+//        Log.e("sdcfvgbh", String.valueOf(flag));
+//        if (!flag)
+//        {
+//            if (game_id.equals("2"))
+//            {
+//                card_digit.setVisibility(View.VISIBLE);
+//            }
+//            else {
+//                card_digit.setVisibility(View.GONE);
+//            }
+//
+//        }
 
        if (Integer.parseInt(getIntent().getStringExtra("m_id"))<20)
        {
+
            getMatka();
+
        }
        else {
            getStartline();
@@ -192,6 +227,10 @@ public class SeelctGameActivity extends AppCompatActivity implements View.OnClic
             intent.putExtra("game", game);
             intent.putExtra("game_id", game_id);
             intent.putExtra("m_id", getIntent().getStringExtra("m_id"));
+            if (Integer.parseInt(getIntent().getStringExtra("m_id"))>20)
+            {
+                intent.putExtra("matka_name", "starline");
+            }
             intent.putExtra("matka_name", mName);
             intent.putExtra("start_time",start_time);
             intent.putExtra("end_time", end_time);
@@ -257,44 +296,229 @@ public class SeelctGameActivity extends AppCompatActivity implements View.OnClic
             }
         });
     }
+
     public void getStartline()
     {
-        common.getSingleStarline(matkaId, new OnGetMatka() {
+        common.getSingleStarline(matkaId, new OnGetStarline() {
             @Override
-            public void onGetMatka(MatkasObjects model) {
-                String dt=new SimpleDateFormat("EEEE").format(new Date());
-                if(dt.equalsIgnoreCase("Sunday")){
-                    if(common.getValidTime(model.getStart_time().toString(), model.getStart_time().toString())){
-                        start_time=model.getStart_time();
-                        end_time=model.getEnd_time();
-                    }else{
-                        start_time=model.getBid_start_time();
-                        end_time=model.getBid_end_time();
+            public void OnGetStarline(StarlineModel model)
+                {
+                    String dt=new SimpleDateFormat("EEEE").format(new Date());
+                    if(dt.equalsIgnoreCase("Sunday")){
+                        if(common.getValidTime(model.getS_game_time().toString(), model.getS_game_time().toString())){
+//                            common.showToast("if");
+                            start_time=model.getS_game_time();
+                            end_time=model.getS_game_end_time();
+                        }else{
+//                            common.showToast("else");
+//                            start_time=model.getBid_start_time();
+//                            end_time=model.getBid_end_time();
+                        }
+
+                    }else if(dt.equalsIgnoreCase("Saturday")){
+                        if(common.getValidTime(model.getS_game_time().toString(), model.getS_game_end_time().toString())){
+                            start_time=model.getS_game_time();
+                            end_time=model.getS_game_end_time();
+                        }else{
+//                            start_time=model.getBid_start_time();
+//                            end_time=model.getBid_end_time();
+                        }
+                    }
+                    else{
+                        start_time=model.getS_game_time();
+                        end_time=model.getS_game_end_time();
                     }
 
-                }else if(dt.equalsIgnoreCase("Saturday")){
-                    if(common.getValidTime(model.getSat_start_time().toString(), model.getSat_end_time().toString())){
-                        start_time=model.getSat_start_time();
-                        end_time=model.getSat_end_time();
-                    }else{
-                        start_time=model.getBid_start_time();
-                        end_time=model.getBid_end_time();
-                    }
-                }else{
-                    start_time=model.getBid_start_time();
-                    end_time=model.getBid_end_time();
+//                    mName=model.getName();
+//                    start_num=model.getS_game_number();
+//                    end_num=model.getendnumber();
+                    num=model.getS_game_number();
+
+                    tv_matka_name.setText("Starline");
+                    tv_s_time.setText("Opens at :"+common.get24To12Format(start_time));
+                    tv_e_time.setText("Closes at :"+common.get24To12Format(end_time));
+                    tv_number.setText(""+" - "+common.checkNullNumber(num)+" - "+"");
                 }
 
-                mName=model.getName().toString();
-                start_num=model.getStarting_num();
-                end_num=model.getEnd_num();
-                num=model.getNumber();
-
-                tv_matka_name.setText(mName);
-                tv_s_time.setText("Opens at :"+common.get24To12Format(start_time));
-                tv_e_time.setText("Closes at :"+common.get24To12Format(end_time));
-                tv_number.setText(common.checkNullNumber(start_num)+" - "+common.checkNullNumber(num)+" - "+common.checkNullNumber(end_num));
-            }
         });
     }
+
+public void getGames(final String game_id)
+{
+    loadingBar.show();
+    HashMap<String,String> params = new HashMap<>();
+    common.postRequest(URL_GET_GAMES, params, new Response.Listener<String>() {
+        @Override
+        public void onResponse(String response) {
+            loadingBar.dismiss();
+            Log.e("getGames",response.toString());
+            ArrayList<GetGamesModel> gList= new ArrayList<>();
+            Gson gson = new Gson();
+            Type typeGames = new TypeToken<List<GetGamesModel>>(){}.getType();
+            gList =gson.fromJson(response.toString(),typeGames);
+
+//            Log.e("dsdfsdf",gList.get(0).getGame_id());
+
+            for (int i=0;i<gList.size();i++)
+            {
+
+                if (Integer.parseInt(game_id)<20)
+                {
+                    if (gList.get(i).getName().equalsIgnoreCase("SINGLE DIGIT"))
+                    {
+                        if (gList.get(i).getIs_disabled().equals("0"))
+                        {
+//                        flag = false;
+//                        gameTypes();
+                            card_digit.setVisibility(View.VISIBLE);
+                        }
+
+                    }else  if (gList.get(i).getName().equalsIgnoreCase("RED BRACKET"))
+                    {
+                        if (gList.get(i).getIs_disabled().equals("0"))
+                        {
+                            lin_red.setVisibility(View.VISIBLE);
+                            card_jodi.setVisibility(View.VISIBLE);
+                        }
+
+                    }else  if (gList.get(i).getName().equalsIgnoreCase("JODI DIGIT"))
+                    {
+                        if (gList.get(i).getIs_disabled().equals("0"))
+                        {
+                            lin_jodi.setVisibility(View.VISIBLE);
+                            card_jodi.setVisibility(View.VISIBLE);
+                        }
+
+                    }
+                    else  if (gList.get(i).getName().equalsIgnoreCase("SINGLE PANNA"))
+                    {
+                        if (gList.get(i).getIs_disabled().equals("0"))
+                        {
+                            lin_s_patti.setVisibility(View.VISIBLE);
+                            card_patti.setVisibility(View.VISIBLE);
+                        }
+
+                    }else  if (gList.get(i).getName().equals("DOUBLE PANNA"))
+                    {
+                        if (gList.get(i).getIs_disabled().equals("0"))
+                        {
+                            lin_d_patti.setVisibility(View.VISIBLE);
+                            card_patti.setVisibility(View.VISIBLE);
+                        }
+
+                    }
+                    else  if (gList.get(i).getName().equals("TRIPLE PANNA"))
+                    {
+                        if (gList.get(i).getIs_disabled().equals("0"))
+                        {
+                            lin_t_patti.setVisibility(View.VISIBLE);
+                            card_patti.setVisibility(View.VISIBLE);
+                        }
+
+                    }else  if (gList.get(i).getName().equalsIgnoreCase("SP MOTOR"))
+                    {
+                        if (gList.get(i).getIs_disabled().equals("0"))
+                        {
+                            lin_sp.setVisibility(View.VISIBLE);
+                            card_motor.setVisibility(View.VISIBLE);
+                        }
+
+                    }else  if (gList.get(i).getName().equalsIgnoreCase("DP MOTOR"))
+                    {
+                        if (gList.get(i).getIs_disabled().equals("0"))
+                        {
+                            lin_dp.setVisibility(View.VISIBLE);
+                            card_motor.setVisibility(View.VISIBLE);
+                        }
+
+                    }
+                }else if (Integer.parseInt(game_id)>20)
+                    {
+                        if (gList.get(i).getName().equalsIgnoreCase("SINGLE DIGIT"))
+                        {
+                            if (gList.get(i).getIs_starline_disable().equals("0"))
+                            {
+                                card_digit.setVisibility(View.VISIBLE);
+                            }
+
+                        }else  if (gList.get(i).getName().equalsIgnoreCase("RED BRACKET"))
+                        {
+                            if (gList.get(i).getIs_starline_disable().equals("0"))
+                            {
+                                lin_red.setVisibility(View.VISIBLE);
+                                card_jodi.setVisibility(View.VISIBLE);
+                            }
+
+                        }else  if (gList.get(i).getName().equalsIgnoreCase("JODI DIGIT"))
+                        {
+                            if (gList.get(i).getIs_starline_disable().equals("0"))
+                            {
+                                lin_jodi.setVisibility(View.VISIBLE);
+                                card_jodi.setVisibility(View.VISIBLE);
+                            }
+
+                        }
+                        else  if (gList.get(i).getName().equalsIgnoreCase("SINGLE PANNA"))
+                        {
+                            if (gList.get(i).getIs_starline_disable().equals("0"))
+                            {
+                                lin_s_patti.setVisibility(View.VISIBLE);
+                                card_patti.setVisibility(View.VISIBLE);
+                            }
+
+                        }else  if (gList.get(i).getName().equals("DOUBLE PANNA"))
+                        {
+                            if (gList.get(i).getIs_starline_disable().equals("0"))
+                            {
+                                lin_d_patti.setVisibility(View.VISIBLE);
+                                card_patti.setVisibility(View.VISIBLE);
+                            }
+
+                        }
+                        else  if (gList.get(i).getName().equals("TRIPLE PANNA"))
+                        {
+                            if (gList.get(i).getIs_starline_disable().equals("0"))
+                            {
+                                lin_t_patti.setVisibility(View.VISIBLE);
+                                card_patti.setVisibility(View.VISIBLE);
+                            }
+
+                        }else  if (gList.get(i).getName().equalsIgnoreCase("SP MOTOR"))
+                        {
+                            if (gList.get(i).getIs_starline_disable().equals("0"))
+                            {
+                                lin_sp.setVisibility(View.VISIBLE);
+                                card_motor.setVisibility(View.VISIBLE);
+                            }
+
+                        }else  if (gList.get(i).getName().equalsIgnoreCase("DP MOTOR"))
+                        {
+                            if (gList.get(i).getIs_starline_disable().equals("0"))
+                            {
+                                lin_dp.setVisibility(View.VISIBLE);
+                                card_motor.setVisibility(View.VISIBLE);
+                            }
+
+                        }
+                    }
+            }
+
+        }
+    }, new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            loadingBar.dismiss();
+            common.showVolleyError(error);
+
+        }
+    });
+//    Log.e("dereftrgyth", String.valueOf(flag));
+}
+ /*   public boolean gameTypes()
+    {
+        boolean flag = true;
+        if
+
+       return
+    }*/
 }

@@ -302,7 +302,11 @@ public static int calculateNoOfColumns(Context context, float columnWidthDp) { /
 
         return true;
     }
+    public void validateRegEditText(TextInputEditText et, TextInputLayout tv_layout,String error) {
+            tv_layout.setError(""+error);
+            requestFocus(et);
 
+    }
     private void requestFocus(EditText et) {
 
         et.requestFocus();

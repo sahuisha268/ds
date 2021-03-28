@@ -15,13 +15,14 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent">
             <LinearLayout
+                android:id="@+id/lin_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:visibility="gone"
                 android:layout_centerInParent="true"
                 android:padding="@dimen/space_20"
                 android:orientation="vertical">
-
 
     <ImageView
         android:layout_width="150dp"
@@ -33,7 +34,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:layout_marginTop="5dp"
-        android:text="An OTP is sent to your mobile"
+        android:text="An OTP will sent to this mobile"
         android:textSize="15sp"/>
 
     <LinearLayout
@@ -70,6 +71,48 @@
 
 </LinearLayout>
             </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/lin_whatsapp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="@dimen/space_15"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/templogo"
+                    android:layout_margin="@dimen/space_20"
+                    />
+                <TextView
+                    android:id="@+id/tv_whatsAppText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/space_10"
+                    android:textColor="@color/black"/>
+    <Button
+        android:id="@+id/btn_whatSumbit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="@string/contact_us"
+        android:textSize="14dp"
+        android:padding="5dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_circle"
+        app:backgroundTint="@color/greenColor"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
+
+
+
+            </LinearLayout>
+
             <ImageView
                 android:id="@+id/iv_back"
                 android:layout_width="wrap_content"

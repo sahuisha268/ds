@@ -50,7 +50,7 @@ public class WalletHistoryActivity extends AppCompatActivity implements View.OnC
     Common common ;
     ImageView iv_back;
     Session_management session_management;
-Activity ctx = WalletHistoryActivity.this;
+    Activity ctx = WalletHistoryActivity.this;
     ArrayList<Withdraw_requwset_obect> list;
     Withdraw_request_Adapter request_historyAdapter;
     ProgressDialog progressDialog;
@@ -182,7 +182,7 @@ Activity ctx = WalletHistoryActivity.this;
     }
     private void getWithdrawData(final String user_id) {
 
-            progressDialog.show();
+        progressDialog.show();
 
         list.clear();
         StringRequest stringRequest=new StringRequest(Request.Method.POST, BaseUrl.URL_POINT_WITHDRAW, new Response.Listener<String>() {
