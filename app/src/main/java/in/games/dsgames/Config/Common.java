@@ -76,9 +76,11 @@ import static in.games.dsgames.Config.Constants.KEY_ID;
 
 public class Common {
     Context context;
+    Session_management session_management;
     public static String tagline,withdrw_text,withdrw_no,whatsapp_no,home_text,min_add_amount,min_withdraw_amount,msg_status,app_link,share_link,ver_code,dialog_image,call_no,min_bid_amount,forgot_whatsapp,forgot_text;
     public Common(Context context) {
         this.context = context;
+        session_management=new Session_management(context);
     }
 
     public void showToast(String s)
@@ -194,6 +196,13 @@ public class Common {
                     walletObjects.setUser_id(object.getString("user_id"));
                     walletObjects.setWallet_points(object.getString("wallet_points"));
                     walletObjects.setWallet_id(object.getString("wallet_id"));
+                    String w="";
+                    if(checkNull(object.getString("wallet_points"))){
+                        w="0";
+                    }else{
+                        w=object.getString("wallet_points");
+                    }
+                    session_management.updateWallet(w);
                     progressDialog.dismiss();
                     txt.setText(walletObjects.getWallet_points());
 
@@ -1162,6 +1171,14 @@ public void setGameDate(TextView tv_date ,String time)
         }
     }
 
+    public boolean checkNull(String str){
+        if(str == null || str.isEmpty() || str.equalsIgnoreCase("null")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public String checkNullNumber(String str){
         if(str == null || str.isEmpty() || str.equalsIgnoreCase("null")){
             return "***";
@@ -1350,6 +1367,30 @@ public void setGameDate(TextView tv_date ,String time)
         AppController.getInstance().addToRequestQueue(customVolleyJsonArrayRequest,json_tag);
 
 
+    }
+
+    public long getTimeDiffernce(String time)
+    {
+        Date cdate=new Date();
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        String time3=format.format(cdate);
+        Date date1 = null;
+        Date date3=null;
+        try {
+            date1 = format.parse(time);
+
+            date3=format.parse(time3);
+//                Log.e("pos : "+position, "onBindViewHolder: "+date2+"  \n "+date2.getTime() );
+//                Log.e("poscurr : "+position, "onBindViewHolder: "+date3+"  \n "+date3.getTime() );
+        } catch (ParseException e1) {
+            e1.printStackTrace();
+        }
+
+        long difference = date3.getTime() - date1.getTime();
+        long as=(difference/1000)/60;
+
+
+        return as;
     }
 
 }

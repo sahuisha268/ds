@@ -110,7 +110,12 @@ public class BankDetailActivity extends AppCompatActivity implements View.OnClic
                     module.validateEditText(et_ifsc,lay_ifsc,"Enter IFSC Code");
                 } else
                 {
-                    storeBankDetails(acc_no,ifsc,h_name,session_management.getUserDetails().get(KEY_ID));
+                    if(acc_no.length()<7){
+                        module.showToast("Invalid Account Number");
+                    }else{
+                        storeBankDetails(acc_no,ifsc,h_name,session_management.getUserDetails().get(KEY_ID));
+                    }
+
                 }
             }
         }
@@ -137,13 +142,10 @@ public class BankDetailActivity extends AppCompatActivity implements View.OnClic
                     if(success)
                     {
                         loadingBar.dismiss();
-//                        Prevalent.currentOnlineuser.setAccountno(accno);
-////                        Prevalent.currentOnlineuser.setBank_name(bankname);
-//                        Prevalent.currentOnlineuser.setIfsc_code(ifsc);
-//                        Prevalent.currentOnlineuser.setAccount_holder_name(hod_name);
                         session_management.updateAccSection(accno,"",ifsc,hod_name);
                         String msg=response.getString("message");
                         Toast.makeText(ctx, ""+msg, Toast.LENGTH_SHORT).show();
+                        finish();
 
                     }
                     else

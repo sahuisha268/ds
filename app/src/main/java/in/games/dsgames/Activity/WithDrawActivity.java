@@ -49,9 +49,11 @@ import static in.games.dsgames.Config.Constants.KEY_ACCOUNNO;
 import static in.games.dsgames.Config.Constants.KEY_HOLDER;
 import static in.games.dsgames.Config.Constants.KEY_ID;
 import static in.games.dsgames.Config.Constants.KEY_IFSC;
+import static in.games.dsgames.Config.Constants.KEY_WALLET;
 
 
 public class WithDrawActivity extends AppCompatActivity {
+    private final String TAG=WithDrawActivity.class.getSimpleName();
     Common common;
     Session_management sessionMangement;
     private TextView txtback,txtWalletAmount,txtMobile,txt_withdrw_instrctions,tv_number,tv_instrction,tv_min_withdrw;
@@ -62,10 +64,10 @@ public class WithDrawActivity extends AppCompatActivity {
     int amount_limt=0;
     int req_limit=1;
     String text="",no="";
-    int wSaturday=0,wSunday=0;
+    String wSaturday="",wSunday="";
     RelativeLayout rl_whts;
     String request_status="pending";
-    String type="";
+    int type=-1;
     String bank_type="";
     Module module;
     ArrayList<TimeSlots> timeList;
@@ -129,94 +131,25 @@ public class WithDrawActivity extends AppCompatActivity {
                 et_account_no.setText(sessionMangement.getUserDetails().get(KEY_ACCOUNNO));
                 et_holder_name.setText(sessionMangement.getUserDetails().get(KEY_HOLDER));
                 et_ifsc_code.setText(sessionMangement.getUserDetails().get(KEY_IFSC));
+                type=getValueType("Bank Account");
 
             }
         });
+        //getwithdrawAmount(user_id,st,type,bank_type, String.valueOf(t_amt));
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String points=etPoints.getText().toString().trim();
-
-                if(etPoints.getText().toString().isEmpty()) {
-                    module.validateEditText(etPoints, tvPoints, "Enter Some Points");
-                }
-                else
-                {
-
-                    String user_id = sessionMangement.getUserDetails().get(KEY_ID);
-                    String pnts = String.valueOf(points);
-                    String st = "pending";
-                    int w_amt = Integer.parseInt(txtWalletAmount.getText().toString().trim());
-                    int t_amt = Integer.parseInt(pnts);
-
-
-
-                    if (w_amt > 0) {
-
-                        if(t_amt<amount_limt)
-                        {
-                            common.errorMessageDialog("Minimum Withdraw amount "+amount_limt+".");
-                        }
-                        else
-                        {
-
-                            if (t_amt > w_amt) {
-
-                                common.errorMessageDialog("Your requested amount exceeded");
-                                return;
-                            } else {
-
-                                int flg=0;
-                                if(getCurrentDay().equalsIgnoreCase("Sunday"))
-                                {
-                                    if(wSunday==1){
-                                        flg=1;
-                                    }
-                                    else{
-                                        flg=2;
-                                    }
-                                }
-                                else if(getCurrentDay().equalsIgnoreCase("Saturday"))
-                                {
-                                    if(wSaturday==1){
-                                        flg=3;
-                                    }
-                                    else{
-                                        flg=4;
-                                    }
-                                }
-                                else
-                                {
-                                    flg=5;
-                                }
-                                if(flg==1 || flg==3 || flg==5){
-                                    if(getStartTimeOutStatus(timeList) || getEndTimOutStatus(timeList))
-                                    {
-                                       // saveInfoWithDate(user_id,String.valueOf(t_amt),st);
-                                        getwithdrawAmount(user_id,st,type,bank_type, String.valueOf(t_amt));
-                                    }
-                                    else
-                                    {
-                                        common.showToast("Timeout");
-                                    }
-
-                                }
-                                else if(flg==2 || flg==4)
-                                {
-                                    common.showToast("Withdraw Request is not allowed on "+getCurrentDay());
-                                }
-                                // saveInfoIntoDatabase(user_id, String.valueOf(t_amt), st);
-
-                            }
-//
-                        }
-
-                    } else {
-                        common.errorMessageDialog("You don't have enough points in wallet ");
+                if(getValidWtihdrawDay(wSunday,wSaturday)){
+                    if(getValidTime()){
+                        validate();
+                    }else{
+                        common.errorMessageDialog("Withdraw Timeout");
                     }
-
+                }else{
+                    common.errorMessageDialog("Withdraw Request Closed for today");
                 }
+
 
 
 //                        saveInfoIntoDatabase(user_id,pnts,st);
@@ -233,85 +166,105 @@ public class WithDrawActivity extends AppCompatActivity {
         common.setWallet_Amount(txtWalletAmount,progressDialog, sessionMangement.getUserDetails().get(KEY_ID));
 
     }
-
-    public boolean getStartTimeOutStatus(ArrayList<TimeSlots> list){
-        int j=0;
-        boolean flag=false;
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("HH");
-        SimpleDateFormat spdfMin=new SimpleDateFormat("mm");
-        Date c_date=new Date();
-        int chours=Integer.parseInt(simpleDateFormat.format(c_date));
-        int cMins=Integer.parseInt(spdfMin.format(c_date));
-        for(int i=0; i<list.size();i++){
-            int shours=Integer.parseInt(list.get(i).getStart_time().split(":")[0].toString());
-            int sMins=Integer.parseInt(list.get(i).getStart_time().split(":")[1].toString());
-            if(chours>shours)
-            {j=1;
-                flag=true;
-                break;
-            }
-            else if(chours == shours)
-            {
-                if(cMins<=sMins)
-                {
-                    j=2;
-                    flag=true;
-                    break;
-                }
-                else{
-                    j=3;
-                    flag=false;
-                    break;
+    private void validate() {
+        if(etPoints.getText().toString().isEmpty()){
+            common.errorMessageDialog("Enter Points");
+        }else{
+            Log.e(TAG, "validate: "+sessionMangement.getUserDetails().get(KEY_WALLET));
+            int points=Integer.parseInt(common.checkNullNumber(etPoints.getText().toString().trim()));
+            if(points<amount_limt){
+                common.errorMessageDialog("Minimum Withdraw Amount is "+amount_limt);
+            }else{
+                if(points>Integer.parseInt(sessionMangement.getUserDetails().get(KEY_WALLET))){
+                    common.errorMessageDialog("Your requested amount exceeded");
+                }else{
+                    if(type==-1){
+                        common.errorMessageDialog("Select Any One Withdraw Type");
+                    }else{
+                        validateWithdrawType(type);
+                    }
                 }
             }
         }
-
-        return flag;
-
     }
-    public boolean getEndTimOutStatus(ArrayList<TimeSlots> list){
-        int j=0;
-        boolean flag=false;
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("HH");
-        SimpleDateFormat spdfMin=new SimpleDateFormat("mm");
-        Date c_date=new Date();
-        int chours=Integer.parseInt(simpleDateFormat.format(c_date));
-        int cMins=Integer.parseInt(spdfMin.format(c_date));
-        for(int i=0; i<list.size();i++){
-            int ehours=Integer.parseInt(list.get(i).getEnd_time().split(":")[0].toString());
-            int eMins=Integer.parseInt(list.get(i).getEnd_time().split(":")[1].toString());
-            if(chours<ehours)
-            {j=1;
-                flag=true;
-                break;
+
+    private void validateWithdrawType(int type) {
+
+        String wType="";
+        String details="";
+        if(type==0){
+//            String paytm=et_paytm.getText().toString().trim();
+            String paytm="";
+            if(paytm.isEmpty()){
+                common.errorMessageDialog("Enter Paytm Number");
+            }else if(paytm.length()<10){
+                common.errorMessageDialog("Enter Mobile Number");
+            }else{
+                wType="Paytm";
+                details=paytm;
             }
-            else if(chours == ehours)
+        }else if(type==1){
+//            String google=et_google.getText().toString().trim();
+            String google="";
+            if(google.isEmpty()){
+                common.errorMessageDialog("Enter Google Pay Number");
+            }else if(google.length()<10){
+                common.errorMessageDialog("Enter Mobile Number");
+            }else{
+                wType="Google Pay";
+                details=google;
+            }
+        }else if(type==2) {
+//            String phone = et_phone.getText().toString().trim();
+            String phone = "";
+            if (phone.isEmpty()) {
+                common.errorMessageDialog("Enter Phone Pe Number");
+            } else if (phone.length() < 10) {
+                common.errorMessageDialog("Enter Mobile Number");
+            } else {
+                wType = "PhonePe";
+                details = phone;
+            }
+        }else if(type==3) {
+            String holder = et_holder_name.getText().toString().trim();
+            String acc_no = et_account_no.getText().toString().trim();
+            String ifsc_code = et_ifsc_code.getText().toString().trim();
+            if (holder.isEmpty()) {
+                common.errorMessageDialog("Enter Account Holder Name");
+            } else if (acc_no.isEmpty())
             {
-                if(cMins<=eMins)
-                {
-                    j=4;
-                    flag=true;
-                    break;
-                }
-                else{
-                    j=5;
-                    flag=false;
-                    break;
-                }
+                common.errorMessageDialog("Enter Account Number");
+            }
+            else if (!acc_no.matches("^\\d{9,18}$"))
+            {
+                common.errorMessageDialog("Invalid Account Number");
+            }
+            else if (ifsc_code.isEmpty())
+            {
+                common.errorMessageDialog("Enter Ifsc code");
+            }
+           else {
+                wType ="Bank";
+                details = "Account Holder Name - "+holder +"\n" +"Account Number - "+acc_no +"\n" +"Ifsc Code - "+ ifsc_code;
             }
         }
-//         common.showToast("end_timeout-  "+j);
+        Log.e(TAG, "validateWithdrawType: "+wType+" \n "+details);
+        if((!common.checkNull(wType)) && (!common.checkNull(details))){
+            String points=etPoints.getText().toString().trim();
+            String user_id = sessionMangement.getUserDetails().get(KEY_ID);
+            String pnts = String.valueOf(points);
+            String st = "pending";
+            int w_amt = Integer.parseInt(txtWalletAmount.getText().toString().trim());
+            int t_amt = Integer.parseInt(pnts);
 
-        return flag;
+            getwithdrawAmount(user_id,st,String.valueOf(t_amt));
+//            addWithdrawRequest(et_point.getText().toString(),wType,details);
+        }
+
 
     }
-    public String getCurrentDay()
-    {
-        Date date=new Date();
-        SimpleDateFormat smdf=new SimpleDateFormat("EEEE");
-        String day=smdf.format(date);
-        return day;
-    }
+
+
     public void getTimeSlot()
     {
         progressDialog.show();
@@ -326,15 +279,16 @@ public class WithDrawActivity extends AppCompatActivity {
                         JSONArray arr=response.getJSONArray("timeslots");
                         for(int i=0;i<arr.length();i++){
 
-                            JSONObject obj=arr.getJSONObject(0);
+                            JSONObject obj=arr.getJSONObject(i);
                             TimeSlots model=new TimeSlots();
                             model.setId(obj.getString("id"));
                             model.setStart_time(obj.getString("start_time"));
                             model.setEnd_time(obj.getString("end_time"));
 
                             timeList.add(model);
-                            Log.e("lmswndebh", String.valueOf(timeList.size()));
+
                         }
+                        Log.e("lmswndebh", String.valueOf(timeList.size()));
 
                     }
 
@@ -354,14 +308,14 @@ public class WithDrawActivity extends AppCompatActivity {
 
     }
 
-    public void getwithdrawAmount(String user_id,String st, String type, String bank_type,String points)
+    public void getwithdrawAmount(String user_id,String st,String points)
     {
         progressDialog.show();
         String json_request_tag="json_withdraw_request";
         HashMap<String,String> params=new HashMap<String, String>();
         params.put("user_id",user_id);
         params.put("request_status",st);
-        params.put("type","withdraw");
+        params.put("type","Withdrawal");
         params.put("bank_type","bank");
         params.put("points",points);
         Log.e("asdasd",""+params.toString());
@@ -411,13 +365,10 @@ public class WithDrawActivity extends AppCompatActivity {
 
                     String msg="";
                     JSONObject dataObj=response.getJSONObject(0);
-                     amount_limt= Integer.parseInt(dataObj.getString("min_amount"));
-                    //tv_min_withdrw.setText(amount_limt+"INR" );
+                     amount_limt= Integer.parseInt(dataObj.getString("w_amount"));
                     tv_min_withdrw.setText("(min "+amount_limt+")" );
-                    wSunday= Integer.parseInt(dataObj.getString("w_sunday"));
-                    wSaturday= Integer.parseInt(dataObj.getString("w_sunday"));
-                 //   withdraw_limit= dataObj.getString("withdraw_limit");
-              //     amount_limt = Integer.parseInt(dataObj.getString("min_amount"));
+                    wSunday= dataObj.getString("w_sunday");
+                    wSaturday= dataObj.getString("w_sunday");
                     progressDialog.dismiss();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -437,8 +388,56 @@ public class WithDrawActivity extends AppCompatActivity {
         });
 
         AppController.getInstance().addToRequestQueue(customVolleyJsonArrayRequest,json_tag);
+    }
 
+    public boolean getValidWtihdrawDay(String wsun,String wsat){
+        boolean flag=false;
+        String day=new SimpleDateFormat("EEEE").format(new Date()).toString();
+        if(day.equalsIgnoreCase("Sunday")){
+            if(wsun.equals("1")){
+                flag=true;
+            }else{
+                flag=false;
+            }
+        }else if(day.equalsIgnoreCase("Saturday")){
+            if(wsat.equals("1")){
+                flag=true;
+            }else{
+                flag=false;
+            }
+        }else{
+            flag=true;
+        }
+        return flag;
+    }
+
+    public boolean getValidTime(){
+        boolean flag=false;
+        for(int i=0;i<timeList.size();i++){
+            long startDiff=common.getTimeDiffernce(timeList.get(i).getStart_time());
+            long endDiff=common.getTimeDiffernce(timeList.get(i).getEnd_time());
+            Log.e(TAG, "getValidTime: "+startDiff+"::"+endDiff);
+            if(startDiff>0 && endDiff<0){
+                flag=true;
+                break;
+            }
+        }
+        return flag;
+    }
+    public int getValueType(String getValue){
+        int pos=-1;
+        if(getValue.equalsIgnoreCase("Paytm")){
+            pos=0;
+        }else  if(getValue.equalsIgnoreCase("Google Pay")){
+            pos=1;
+        }else  if(getValue.equalsIgnoreCase("Phone Pe")){
+            pos=2;
+        }else  if(getValue.equalsIgnoreCase("Bank Account")){
+            pos=3;
+        }
+        return pos;
 
     }
+
 
 }

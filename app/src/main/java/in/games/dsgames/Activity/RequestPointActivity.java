@@ -18,9 +18,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.razorpay.Checkout;
 import com.shreyaspatil.EasyUpiPayment.EasyUpiPayment;
 import com.shreyaspatil.EasyUpiPayment.listener.PaymentStatusListener;
+import com.shreyaspatil.EasyUpiPayment.model.PaymentApp;
 import com.shreyaspatil.EasyUpiPayment.model.TransactionDetails;
 
 import org.json.JSONArray;
@@ -91,13 +91,7 @@ public class RequestPointActivity extends AppCompatActivity implements PaymentSt
         module= new Module(RequestPointActivity.this);
         session_management = new Session_management(RequestPointActivity.this);
         common = new Common(RequestPointActivity.this);
-        Checkout.preload(getApplicationContext());
-
         getApiData();
-
-//        getDetails();
-     //   min_amount = amt_limit;
-        Log.e("dllfmkvngjb", String.valueOf(min_amount));
         iv_back = findViewById(R.id.iv_back);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,9 +103,6 @@ public class RequestPointActivity extends AppCompatActivity implements PaymentSt
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-              //  int points= Integer.parseInt(etPoints.getText().toString().trim());
                 String points=etPoints.getText().toString().trim();
 
                 if(etPoints.getText().toString().isEmpty()) {
@@ -152,20 +143,16 @@ public class RequestPointActivity extends AppCompatActivity implements PaymentSt
                         String details = "";
                         details = getMetodData(method);
 //                        String user_id= common.getUserID();
-                        if(upi_status.equals("0")){
+                        if(upi_status.equals("1")){
 //                            addRequest(user_id,p,"pending","");
                             tot_points= String.valueOf(points);
 
                              pp = Integer.parseInt(points);
-                            startPayment(pp);
-
-
-                            saveInfoIntoDatabase(user_id, p, st, "Withdrawal", method, wh, details,"");
-
+                            payViaUpi(transactionId,payeeVpa,payeeName,transactionRefId,description,amount);
 
                         }else{
-//                            payViaUpi(transactionId,payeeVpa,payeeName,transactionRefId,description,amount);
-                            saveInfoIntoDatabase(user_id, p, st, "Withdrawal", method, wh, details,"");
+//
+
                             addRequest(user_id,p,"pending","");
                         }
 
@@ -191,13 +178,12 @@ public class RequestPointActivity extends AppCompatActivity implements PaymentSt
                     String msg="";
                     JSONObject dataObj=response.getJSONObject(0);
                     amt_limit= Integer.parseInt(dataObj.getString("min_amount"));
-                  //  min_am.setText("(min "+amt_limit+")" );
+                    upi=common.checkNullString(dataObj.getString("upi"));
+                    upi_status=common.checkNullString(dataObj.getString("upi_status"));
+                    upi_name=common.checkNullString(dataObj.getString("upi_name"));
+                    upi_desc=common.checkNullString(dataObj.getString("upi_desc"));
+                    upi_type=common.checkNullString(dataObj.getString("upi_type"));
                     min_am.setText(amt_limit+" INR" );
-                 //   wSunday= Integer.parseInt(dataObj.getString("w_sunday"));
-            //        wSaturday= Integer.parseInt(dataObj.getString("w_sunday"));
-                    //   withdraw_limit= dataObj.getString("withdraw_limit");
-                    //     amount_limt = Integer.parseInt(dataObj.getString("min_amount"));
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -366,7 +352,7 @@ public class RequestPointActivity extends AppCompatActivity implements PaymentSt
     public void onPaymentSuccess(String s) {
         Log.e("onPaymentSuccess: ",s.toString() );
 
-        saveInfoIntoDatabase(session_management.getUserDetails().get(KEY_ID), tot_points, "approved", "Add","","","",s);
+//        saveInfoIntoDatabase(session_management.getUserDetails().get(KEY_ID), tot_points, "approved", "Add","","","",s);
     }
 
     @Override
@@ -402,42 +388,59 @@ public class RequestPointActivity extends AppCompatActivity implements PaymentSt
         common.setWallet_Amount(txtWallet_amount,loadingBar, session_management.getUserDetails().get(KEY_ID));
 
     }
-    public void startPayment(int amt) {
-        /**
-         * Instantiate Checkout
-         */
-        Checkout checkout = new Checkout();
-//        checkout.setKeyID("rzp_live_s7AZi7HtHIO5Ff");
 
-        /**
-         * Set your logo here
-         */
-        checkout.setImage(R.drawable.ic_account_balance_wallet_black_24dp);
+    private void payViaUpi(String transactionId, String payeeVpa, String payeeName, String transactionRefId, String description, String amount) {
+        // START PAYMENT INITIALIZATION
+        upi_flag = true;
+        mEasyUpiPayment = new EasyUpiPayment.Builder()
+                .with(this)
+                .setPayeeVpa(payeeVpa)
+                .setPayeeName(payeeName)
+                .setTransactionId(transactionId)
+                .setTransactionRefId(transactionRefId)
+                .setDescription(description)
+                .setAmount(amount)
+                .build();
 
-        /**
-         * Reference to current activity
-         */
-        Activity activity=this;
-        /**
-         * Pass your payment options to the Razorpay Checkout as a JSONObject
-         */
-        try {
-            JSONObject options = new JSONObject();
-            options.put("name", session_management.getUserDetails().get(KEY_NAME));
-            options.put("description", "Add funds");
-            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
-//            options.put("order_id", "order_DBJOWzybf0sJbdsds");//from response of step 3.
-            options.put("theme.color", "#3399cc");
-            options.put("currency", "INR");
-            options.put("amount", (amt*100));//pass amount in currency subunits
-//            options.put("amount", (500));//pass amount in currency subunits
-            options.put("prefill.email", session_management.getUserDetails().get(KEY_EMAIL));
-            options.put("prefill.contact",session_management.getUserDetails().get(KEY_MOBILE));
-            checkout.open(activity, options);
-        } catch(Exception e) {
-            Log.e("Error in Checkout", String.valueOf(e));
+        // Register Listener for Events
+        mEasyUpiPayment.setPaymentStatusListener(this);
+
+
+        switch (upi_type) {
+            case "None":
+                mEasyUpiPayment.setDefaultPaymentApp(PaymentApp.NONE);
+                break;
+            case "AMAZON_PAY":
+                mEasyUpiPayment.setDefaultPaymentApp(PaymentApp.AMAZON_PAY);
+                break;
+            case "BHIM_UPI":
+                mEasyUpiPayment.setDefaultPaymentApp(PaymentApp.BHIM_UPI);
+                break;
+            case "GOOGLE_PAY":
+                mEasyUpiPayment.setDefaultPaymentApp(PaymentApp.GOOGLE_PAY);
+                break;
+            case "PHONE_PE":
+                mEasyUpiPayment.setDefaultPaymentApp(PaymentApp.PHONE_PE);
+                break;
+            case "PAYTM":
+                mEasyUpiPayment.setDefaultPaymentApp(PaymentApp.PAYTM);
+                break;
         }
+
+//        mEasyUpiPayment.setDefaultPaymentApp(PaymentApp.NONE);
+
+        // Check if app exists or not
+        if (mEasyUpiPayment.isDefaultAppExist()) {
+            onAppNotFound();
+            return;
+        }
+        // END INITIALIZATION
+
+        // START PAYMENT
+        mEasyUpiPayment.startPayment();
     }
+
+
     public String getMetodData(String methd){
         String str="";
         switch (methd){

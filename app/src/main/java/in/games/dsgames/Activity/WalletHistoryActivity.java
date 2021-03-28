@@ -83,12 +83,11 @@ public class WalletHistoryActivity extends AppCompatActivity implements View.OnC
 
         rv_wallet_histry.setHasFixedSize(true);
         rv_wallet_histry.setLayoutManager(new LinearLayoutManager(WalletHistoryActivity.this));
+        rv_wallet_histry.setNestedScrollingEnabled(false);
 
 
         rv_wallet_histry.setAdapter(new Withdraw_request_Adapter(WalletHistoryActivity.this,initData()));
         String User_id= session_management.getUserDetails().get(KEY_ID);
-
-        getWithdrawData(User_id);
         getRequestData(User_id);
 
     }

@@ -15,8 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -68,6 +69,7 @@ public class SeelctGameActivity extends AppCompatActivity implements View.OnClic
     void initViews()
     {session_management = new Session_management(ctx);
         common = new Common(ctx);
+        module=new Module(ctx);
         matkaId=getIntent().getStringExtra("m_id");
         loadingBar = new LoadingBar(ctx);
         iv_back = findViewById(R.id.iv_back);
@@ -344,8 +346,7 @@ public class SeelctGameActivity extends AppCompatActivity implements View.OnClic
     }
 
 public void getGames(final String game_id)
-{
-    loadingBar.show();
+{    loadingBar.show();
     HashMap<String,String> params = new HashMap<>();
     common.postRequest(URL_GET_GAMES, params, new Response.Listener<String>() {
         @Override
@@ -353,10 +354,26 @@ public void getGames(final String game_id)
             loadingBar.dismiss();
             Log.e("getGames",response.toString());
             ArrayList<GetGamesModel> gList= new ArrayList<>();
-            Gson gson = new Gson();
-            Type typeGames = new TypeToken<List<GetGamesModel>>(){}.getType();
-            gList =gson.fromJson(response.toString(),typeGames);
-
+            try {
+                JSONArray arr=new JSONArray(response);
+                for(int i=0; i<arr.length();i++){
+                    JSONObject obj=arr.getJSONObject(i);
+                    GetGamesModel model=new GetGamesModel();
+                    model.setGame_id(common.checkNullString(obj.getString("game_id")));
+                    model.setGame_name(common.checkNullString(obj.getString("game_name")));
+                    model.setName(common.checkNullString(obj.getString("name")));
+                    model.setPoints(common.checkNullString(obj.getString("points")));
+                    model.setStarline_points(common.checkNullString(obj.getString("starline_points")));
+                    model.setIs_starline(common.checkNullString(obj.getString("is_starline")));
+                    model.setIs_close(common.checkNullString(obj.getString("is_close")));
+                    model.setIs_deleted(common.checkNullString(obj.getString("is_deleted")));
+                    model.setIs_disabled(common.checkNullString(obj.getString("is_disabled")));
+                    model.setIs_starline_disable(common.checkNullString(obj.getString("is_starline_disable")));
+                    gList.add(model);
+                }
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
 //            Log.e("dsdfsdf",gList.get(0).getGame_id());
 
             for (int i=0;i<gList.size();i++)

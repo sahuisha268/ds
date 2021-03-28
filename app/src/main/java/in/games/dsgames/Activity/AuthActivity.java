@@ -37,7 +37,7 @@ public class AuthActivity extends AppCompatActivity {
 
     TextInputEditText et_phone;
     Button btn_send_opt;
-    String mobile="7619983037";
+    String mobile="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

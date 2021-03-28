@@ -29,7 +29,7 @@ public class NotificationExtenderExample extends NotificationExtenderService {
 ////                builder.setBadgeIconType(NotificationCompat.BADGE_ICON_NONE)
 ////                builder.setContentTitle()
 //                        .setColor(getResources().getColor(R.color.colorPrimary))
-                  builder.setSmallIcon(R.drawable.templogo)
+                  builder.setSmallIcon(R.drawable.logo)
 ////                .setColorized(true)
                         .setColor(getResources().getColor(R.color.colorPrimaryDark
                         ));

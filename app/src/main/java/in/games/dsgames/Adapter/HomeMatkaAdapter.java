@@ -42,7 +42,7 @@ public class HomeMatkaAdapter extends RecyclerView.Adapter<HomeMatkaAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         MatkasObjects postion=list.get(position);
 
         String dt=new SimpleDateFormat("EEEE").format(new Date());
@@ -172,14 +172,14 @@ public class HomeMatkaAdapter extends RecyclerView.Adapter<HomeMatkaAdapter.View
             } else if (c > 0) {
                 flag = 3;
                 holder.txtStatus.setTextColor(context.getResources().getColor(R.color.closed)  );
-                holder.txtStatus.setText( "RUNNING FOR TOMORROW" );
+                holder.txtStatus.setText( "BID IS CLOSED" );
 
             } else {
                 flag = 1;
                 if(day_flag==1 || day_flag == 3)
                 {
                     holder.txtStatus.setTextColor(context.getResources().getColor(R.color.closed)  );
-                    holder.txtStatus.setText("RUNNING FOR TOMORROW" );
+                    holder.txtStatus.setText("BID IS CLOSED" );
                 }
                 else
                 {
@@ -195,100 +195,28 @@ public class HomeMatkaAdapter extends RecyclerView.Adapter<HomeMatkaAdapter.View
 
         }
 
+        final String finalE = e;
+        final String finalS = s;
         holder.rel_matka.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String dy=new SimpleDateFormat("EEEE").format(new Date());
-                MatkasObjects objects=list.get(position);
-                String stime ="";
-                String etime ="";
-                int i=0;
-                if(dy.equalsIgnoreCase("Sunday"))
-                {
-                    if(objects.getStart_time().toString().equals("00:00:00") && objects.getEnd_time().toString().equals("00:00:00"))
-                    {
-                        i=1;
-                    }
-                    else
-                    {
-                        i=2;
-                        stime=objects.getStart_time().toString();
-                        etime=objects.getEnd_time().toString();
-
-                    }
-                }
-                else if(dy.equalsIgnoreCase("Saturday"))
-                {
-                    if(objects.getSat_start_time().toString().equals("00:00:00") && objects.getSat_end_time().toString().equals("00:00:00"))
-                    {
-                        i=3;
-                    }
-                    else
-                    {
-                        i=4;
-                        stime=objects.getSat_start_time().toString();
-                        etime=objects.getSat_end_time().toString();
-                    }
-
-                }
-                else
-                {
-                    stime=objects.getBid_start_time().toString();
-                    etime=objects.getBid_end_time().toString();
+                if(holder.txtStatus.getVisibility()==View.VISIBLE && holder.txtStatus.getText().toString().equalsIgnoreCase("BID IS CLOSED") ){
+                    common.showToast("BID IS CLOSED");
+                }else {
+                    MatkasObjects m = list.get(position);
+                    String m_id = m.getId().toString().trim();
+                    String matka_name = m.getName().toString().trim();
+                    Intent intent = new Intent(context, SeelctGameActivity.class);
+                    intent.putExtra("matka_name", matka_name);
+                    intent.putExtra("m_id", m_id);
+                    intent.putExtra("end_time", finalE);
+                    intent.putExtra("start_time", finalS);
+                    intent.putExtra("start_num", m.getStarting_num());
+                    intent.putExtra("num", m.getNumber());
+                    intent.putExtra("end_num", m.getEnd_num());
+                    context.startActivity(intent);
                 }
 
-                long endDiff=common.getTimeDifference(etime);
-                Date date = new Date();
-                SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-
-                String cur_time = format.format(date);
-
-                String m_id=objects.getId().toString().trim();
-                String matka_name=objects.getName().toString().trim();
-
-//                if(endDiff<0)
-//                {
-////                 common.errorMessageDialog("BID IS CLOSED");
-//                }
-//                else
-//                {
-//                    if(i==1 || i==3)
-//                    {
-////                     common.errorMessageDialog("BID IS CLOSED FOR TODAY");
-//                    }
-//                    else {
-                        Intent intent = new Intent(context, SeelctGameActivity.class);
-                        //    intent.putExtra("tim",position);
-                        intent.putExtra("matka_name", matka_name);
-                        intent.putExtra("m_id", m_id);
-                        if(dy.equalsIgnoreCase("Sunday"))
-                        {
-                            intent.putExtra("end_time", objects.getEnd_time());
-                            intent.putExtra("start_time", objects.getStart_time());
-
-                        }
-                        else if(dy.equalsIgnoreCase("Saturday"))
-                        {
-                            intent.putExtra("end_time", objects.getSat_end_time());
-                            intent.putExtra("start_time", objects.getSat_start_time());
-
-                        }
-                        else
-                        {
-                            intent.putExtra("end_time", objects.getBid_end_time());
-                            intent.putExtra("start_time", objects.getBid_start_time());
-
-                        }
-                        //  intent.putExtra("bet","cb");
-                        intent.putExtra("start_num",objects.getStarting_num());
-                        intent.putExtra("num",objects.getNumber());
-                        intent.putExtra("end_num",objects.getEnd_num());
-                        context.startActivity(intent);
-//                        CustomIntent.customType(context, "up-to-bottom");
-//                    }
-//                }
-//                // Toast.makeText(context,"Position"+m_id,Toast.LENGTH_LONG).show();
-//
             }
         });
 

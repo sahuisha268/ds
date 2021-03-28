@@ -26,8 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.daimajia.slider.library.SliderLayout;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -286,40 +285,17 @@ Session_management session_management ;
 
 //
     private void getApiData() {
-
         String json_tag="json_splash_request";
         HashMap<String, String> params=new HashMap<String, String>();
         CustomVolleyJsonArrayRequest customVolleyJsonArrayRequest=new CustomVolleyJsonArrayRequest(Request.Method.GET,URL_INDEX, params, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Log.e("getIndexData",""+response.toString());
-                try
-                {
+                try{
                     String msg="";
                     JSONObject dataObj=response.getJSONObject(0);
                     whts= dataObj.getString("home_whatsapp");
-                    //phn= dataObj.getString("home_call");
                     tv_whtsapp.setText(whts);
-                   // tv_phone.setText(phn);
-
-//                    if (whts.equals(null)||whts.isEmpty()||whts.equalsIgnoreCase("0000000000"))
-//                    {
-//                        ll_whatsapp.setVisibility(View.GONE);
-//                    }
-//                    else {
-//                        ll_whatsapp.setVisibility(View.VISIBLE);
-//                    }
-
-//                    if (phn.equals(null)||phn.equals(" ")||phn.equalsIgnoreCase("0000000000"))
-//                    {
-//                        ll_phone.setVisibility(View.GONE);
-//
-//                    }
-//                    else {
-//                        ll_phone.setVisibility(View.VISIBLE);
-//                    }
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -327,11 +303,9 @@ Session_management session_management ;
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
                 error.printStackTrace();
                 String msg=module.VolleyErrorMessage(error);
-                if(!msg.isEmpty())
-                {
+                if(!msg.isEmpty()){
                     module.showToast(""+msg);
                 }
             }
