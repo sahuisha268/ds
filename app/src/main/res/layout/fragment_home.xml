@@ -259,6 +259,7 @@
               </RelativeLayout>
           </LinearLayout>
           <androidx.cardview.widget.CardView
+              android:id="@+id/card_starline"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               app:cardUseCompatPadding="true"

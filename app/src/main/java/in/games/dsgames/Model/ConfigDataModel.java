@@ -1,9 +1,17 @@
 package in.games.dsgames.Model;
 
 public class ConfigDataModel {
-    String id,version,app_link,share_link,message,home_text,withdraw_text,withdraw_no,tag_line,min_amount,msg_status,w_saturday,w_sunday,w_amount,withdraw_limit,upi,upi_name,upi_desc,upi_type,upi_status,starline_img,chart_url,no_chart_msg,min_bid_points,home_whatsapp,home_call,noticeboard,forgot_whatsapp,forgot_text,forgot_msg;
+    String is_starline, id,version,app_link,share_link,message,home_text,withdraw_text,withdraw_no,tag_line,min_amount,msg_status,w_saturday,w_sunday,w_amount,withdraw_limit,upi,upi_name,upi_desc,upi_type,upi_status,starline_img,chart_url,no_chart_msg,min_bid_points,home_whatsapp,home_call,noticeboard,forgot_whatsapp,forgot_text,forgot_msg;
 
     public ConfigDataModel() {
+    }
+
+    public String getIs_starline() {
+        return is_starline;
+    }
+
+    public void setIs_starline(String is_starline) {
+        this.is_starline = is_starline;
     }
 
     public String getId() {
@@ -245,4 +253,7 @@ public class ConfigDataModel {
     public void setForgot_msg(String forgot_msg) {
         this.forgot_msg = forgot_msg;
     }
+
+
+
 }

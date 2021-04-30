@@ -2,8 +2,10 @@ package in.games.dsgames.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +27,8 @@ import in.games.dsgames.Adapter.GameRateAdapter;
 import in.games.dsgames.AppController;
 import in.games.dsgames.Config.Common;
 import in.games.dsgames.Config.Module;
+import in.games.dsgames.Interface.OnGetConfigData;
+import in.games.dsgames.Model.ConfigDataModel;
 import in.games.dsgames.Model.GameRateModel;
 import in.games.dsgames.R;
 import in.games.dsgames.utils.CustomJsonRequest;
@@ -40,8 +44,9 @@ Activity ctx = GameRatesActivity.this;
 GameRateAdapter gameRateAdapter ,sGameRateAdapter;
 RecyclerView rv_rates,rv_star_rates;
 ImageView iv_back;
-RecyclerView.LayoutManager layoutManager,layoutManager1;
-// TextView txtsp,txtdp,txttp,txtsd,txtjd,txtrb,txths,txtfs,txts_sp,txts_dp,txts_tp,txts_sd;
+Common common ;
+TextView tv_matka,tv_starline;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,15 +61,36 @@ RecyclerView.LayoutManager layoutManager,layoutManager1;
     {
         rv_rates = findViewById(R.id.rv_m_rates);
         rv_star_rates = findViewById(R.id.rv_star_rate);
+        tv_matka = findViewById(R.id.tv_matka);
+        tv_starline = findViewById(R.id.tv_starline);
         iv_back = findViewById(R.id.iv_back);
         rv_star_rates.setLayoutManager(new LinearLayoutManager(ctx));
         rv_rates.setLayoutManager(new LinearLayoutManager(ctx));
         module = new Module(ctx);
+        common = new Common(ctx);
         loadingBar = new LoadingBar(ctx);
+        common.cofigData(new OnGetConfigData() {
+            @Override
+            public void onGetConfigData(ConfigDataModel model) {
+
+
+                if (model.getIs_starline().equals("1"))
+                {
+                   tv_starline.setVisibility(View.VISIBLE);
+                   rv_star_rates.setVisibility(View.VISIBLE);
+
+                }
+                else{
+                    tv_starline.setVisibility(View.GONE);
+                    rv_star_rates.setVisibility(View.GONE);
+
+
+                }
+            }
+        });
 
         getNotice();
-        slist= new ArrayList<>();
-        list = new ArrayList<>();
+
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,7 +112,7 @@ RecyclerView.LayoutManager layoutManager,layoutManager1;
         CustomJsonRequest customJsonRequest=new CustomJsonRequest(Request.Method.POST,URL_NOTICE, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
+                Log.e("game_rates",response.toString());
                 try {
 
                     String status=response.getString("status");

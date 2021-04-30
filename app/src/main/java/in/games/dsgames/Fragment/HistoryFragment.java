@@ -20,6 +20,9 @@ import in.games.dsgames.Activity.RequestPointActivity;
 import in.games.dsgames.Activity.TestingActivity;
 import in.games.dsgames.Activity.WithDrawActivity;
 import in.games.dsgames.Adapter.HistoryOptionAdapter;
+import in.games.dsgames.Config.Common;
+import in.games.dsgames.Interface.OnGetConfigData;
+import in.games.dsgames.Model.ConfigDataModel;
 import in.games.dsgames.Model.HistryOptionsModel;
 import in.games.dsgames.R;
 import in.games.dsgames.utils.RecyclerTouchListener;
@@ -30,6 +33,7 @@ RecyclerView rv_bid ,rv_wallet;
 ArrayList<HistryOptionsModel>bid_list,wallet_list;
 HistoryOptionAdapter bid_adapter,wallet_adapter;
 ImageView iv_back;
+Common common ;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -45,10 +49,26 @@ ImageView iv_back;
     iv_back = v.findViewById(R.id.iv_back);
     bid_list =new ArrayList<>();
     wallet_list = new ArrayList<>();
-//    bid_list.add(new HistryOptionsModel("1","Live Casino History","live",R.drawable.templogo));
+    common = new Common(getActivity());
+
     bid_list.add(new HistryOptionsModel("2","Matka Bazar History","matka",R.drawable.matkahistrory));
-//    bid_list.add(new HistryOptionsModel("3","King Bazar History","bazar",R.drawable.templogo));
-    bid_list.add(new HistryOptionsModel("4","Starline History","starline",R.drawable.starlineimage));
+        common.cofigData(new OnGetConfigData() {
+            @Override
+            public void onGetConfigData(ConfigDataModel model) {
+
+                if (model.getIs_starline().equals("1"))
+                {
+                    bid_list.add(new HistryOptionsModel("4","Starline History","starline",R.drawable.starlineimage));
+
+                }
+                else{
+
+
+
+                }
+            }
+        });
+
     wallet_list.add(new HistryOptionsModel("1","Deposit Request","deposit",R.drawable.depositrequest));
     wallet_list.add(new HistryOptionsModel("2","Withdraw Request","withdraw",R.drawable.withdraw));
    // wallet_list.add(new HistryOptionsModel("3","Account Statement","account",R.drawable.accountstatement));

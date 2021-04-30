@@ -1349,6 +1349,7 @@ public void setGameDate(TextView tv_date ,String time)
                     model.setMin_bid_points(dataObj.getString("min_bid_points"));
                     model.setW_amount(dataObj.getString("w_amount"));
                     model.setForgot_msg(dataObj.getString("forgot_msg"));
+                    model.setIs_starline(dataObj.getString("is_starline"));
 
                     onGetConfigData.onGetConfigData(model);
 

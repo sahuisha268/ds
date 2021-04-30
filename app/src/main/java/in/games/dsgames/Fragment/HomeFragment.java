@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,6 +47,8 @@ import in.games.dsgames.Adapter.HomeMatkaAdapter;
 import in.games.dsgames.AppController;
 import in.games.dsgames.Config.Common;
 import in.games.dsgames.Config.Module;
+import in.games.dsgames.Interface.OnGetConfigData;
+import in.games.dsgames.Model.ConfigDataModel;
 import in.games.dsgames.Model.HomeCasinoModel;
 import in.games.dsgames.Model.MatkasObjects;
 import in.games.dsgames.R;
@@ -70,7 +73,8 @@ TextView tv_name ,tv_wallet ,tv_casino_one,tv_add_withdraw,tv_home_text,tv_whtsa
 SliderLayout home_slider;
 ImageView home_banner;
     String whts;
-LinearLayout lin_chat,lin_feed,lin_whstaap,lin_call,lin_live_result,lin_starline;
+LinearLayout lin_chat,lin_feed,lin_whstaap,lin_call,lin_live_result;
+CardView card_starline;
 LoadingBar loadingBar ;
 Module module;
 Common common;
@@ -93,7 +97,7 @@ Session_management session_management ;
       tv_add_withdraw = v.findViewById(R.id.tv_add_withrw);
      lin_call = v.findViewById(R.id.lin_call);
      lin_chat = v.findViewById(R.id.lin_chat);
-     lin_starline = v.findViewById(R.id.lin_starline);
+   card_starline = v.findViewById(R.id.card_starline);
      lin_feed= v.findViewById(R.id.lin_feedback);
      lin_live_result= v.findViewById(R.id.lin_live_result);
      lin_whstaap = v.findViewById(R.id.lin_whtsaap);
@@ -125,6 +129,22 @@ Session_management session_management ;
             module.noInternetActivity();
         }
 
+     common.cofigData(new OnGetConfigData() {
+            @Override
+            public void onGetConfigData(ConfigDataModel model) {
+
+
+                if (model.getIs_starline().equals("1"))
+                {
+                   card_starline.setVisibility(View.VISIBLE);
+
+                }
+          else{
+                   card_starline.setVisibility(View.GONE);
+
+                }
+            }
+        });
         tv_home_text.setText(SplashActivity.home_text);
         tv_name.setText("Welcome,"+session_management.getUserDetails().get(KEY_NAME));
         common.setWallet_Amount(tv_wallet,loadingBar,session_management.getUserDetails().get(KEY_ID));
@@ -133,7 +153,7 @@ Session_management session_management ;
         lin_feed.setOnClickListener(this);
         lin_chat.setOnClickListener(this);
         lin_live_result.setOnClickListener(this);
-        lin_starline.setOnClickListener(this);
+        card_starline.setOnClickListener(this);
         tv_add_withdraw.setOnClickListener(this);
 
         v.setFocusableInTouchMode(true);

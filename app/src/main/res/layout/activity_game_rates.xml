@@ -55,7 +55,7 @@
             android:padding="@dimen/space_10"
             android:orientation="vertical">
             <TextView
-
+                android:id="@+id/tv_matka"
                 android:textSize="16dp"
                 android:text="Matka Rates"
                 android:textStyle="bold"
@@ -71,6 +71,7 @@
 
                 android:id="@+id/rv_m_rates"/>
             <TextView
+                android:id="@+id/tv_starline"
 
                 android:textSize="16dp"
                 android:text="Starline Rates"

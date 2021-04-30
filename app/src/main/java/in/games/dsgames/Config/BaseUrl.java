@@ -2,8 +2,6 @@ package in.games.dsgames.Config;
 
 public class BaseUrl {
 
-//    public static final String BASE_URL="https://royalonlinesatta.com/api/";
-
     public static final String BASE_URL="https://boss7.in/api/";
 
     public static final String BASE_IMAGE_URL="http://boss7.in/assets/images/";
