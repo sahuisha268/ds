@@ -76,6 +76,7 @@
                 android:textSize="16dp"
                 android:text="Starline Rates"
                 android:textStyle="bold"
+                android:visibility="gone"
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_marginTop="@dimen/space_20"
                 android:layout_centerVertical="true"
@@ -84,7 +85,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:visibility="gone"
                 android:layout_marginTop="@dimen/space_10"
                 android:id="@+id/rv_star_rate"/>
 
