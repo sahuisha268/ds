@@ -126,7 +126,7 @@ public class PattiFragment extends Fragment implements View.OnClickListener {
         switch (game)
         {
             case "jodi":
-                rd_open.setVisibility(View.GONE);
+                rd_close.setVisibility(View.GONE);
                 final ArrayList<NewDigitModel> newDigitList=new ArrayList<>();
                 jodiMainList=  Arrays.asList(InputData.jodi_digits);
                 digitList.clear();
@@ -210,7 +210,7 @@ public class PattiFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case "red bracket":
-                rd_open.setVisibility(View.GONE);
+                rd_close.setVisibility(View.GONE);
                 final ArrayList<NewDigitModel> newBDigitList=new ArrayList<>();
                 bracketMainList=  Arrays.asList(InputData.red_bracket);
                 digitList.clear();
