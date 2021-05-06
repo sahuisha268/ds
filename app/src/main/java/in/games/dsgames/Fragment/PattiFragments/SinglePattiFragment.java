@@ -246,6 +246,7 @@ public class SinglePattiFragment extends Fragment implements View.OnClickListene
                 if (type.equals("")||type.isEmpty())
                 {
                     module.showToast("Select Bet Type");
+                    //
                 }
                 else if (list.size()<=0)
                 {
