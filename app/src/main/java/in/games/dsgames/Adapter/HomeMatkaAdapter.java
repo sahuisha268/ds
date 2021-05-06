@@ -111,11 +111,29 @@ public class HomeMatkaAdapter extends RecyclerView.Adapter<HomeMatkaAdapter.View
         holder.txtmatkaBid_openTime.setText(String.valueOf(s_time));
         holder.txtmatkaBid_closeTime.setText(String.valueOf(e_time));
 
-        holder.txtMatka_resNo.setText(common.checkNullNumber(postion.getNumber()));
+        if (!common.checkNull(postion.getNumber())) {
+            holder.txtMatka_resNo.setText(" - "+ postion.getNumber());
+        }
+        else
+        {
+            holder.txtMatka_resNo.setVisibility(View.GONE);
+        }
+        if (!common.checkNull(postion.getStarting_num()))
+        {
+            holder.txtMatka_startingNo.setText(postion.getStarting_num());
+        }
+        else
+        {
+            holder.txtMatka_startingNo.setVisibility(View.GONE);
+        }
+        if (!common.checkNull(postion.getEnd_num())) {
 
-        holder.txtMatka_startingNo.setText(common.checkNullNumber(postion.getStarting_num()));
-        holder.txtMatka_endNo.setText(common.checkNullNumber(postion.getEnd_num()));
-
+            holder.txtMatka_endNo.setText(" - "+postion.getEnd_num());
+        }
+        else
+        {
+            holder.txtMatka_endNo.setVisibility(View.GONE);
+        }
 
         holder.txtMatka_id.setText(postion.getId());
         String status=postion.getStatus();

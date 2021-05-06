@@ -63,7 +63,8 @@
                     android:layout_toRightOf="@id/matka_starting_Number"
 
                     android:paddingLeft="2dp"
-                    android:text="-"
+                    android:text=""
+
                     android:textColor="@color/number_color"
                     android:textSize="16dp"
                     android:textStyle="bold" />
@@ -86,7 +87,7 @@
                     android:layout_toRightOf="@id/matka_res_Number"
 
                     android:paddingLeft="2dp"
-                    android:text="-"
+                    android:text=""
                     android:textColor="@color/number_color"
                     android:textSize="16dp"
                     android:textStyle="bold" />
