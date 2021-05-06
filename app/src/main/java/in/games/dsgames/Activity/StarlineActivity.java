@@ -22,11 +22,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import in.games.dsgames.Adapter.StarlineAdapter;
 import in.games.dsgames.Config.Common;
@@ -187,6 +185,7 @@ public class StarlineActivity extends AppCompatActivity implements View.OnClickL
         if (view.getId()==R.id.iv_back)
         {
             finish();
+//
         }
     }
 }
