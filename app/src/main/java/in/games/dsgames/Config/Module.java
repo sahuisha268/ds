@@ -1,5 +1,7 @@
 package in.games.dsgames.Config;
 
+
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -20,31 +22,48 @@ import android.widget.Toast;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import in.games.dsgames.AppController;
+import in.games.dsgames.Interface.OnAllGamesListener;
+import in.games.dsgames.Model.GetGamesModel;
 import in.games.dsgames.Model.TableModel;
 import in.games.dsgames.R;
+import in.games.dsgames.networkconnectivity.ConnectivityReceiver;
 import in.games.dsgames.networkconnectivity.NoInternetConnection;
+
+import static in.games.dsgames.Config.BaseUrl.URL_GET_GAMES;
 
 
 public class Module {
+
     Context context;
     Dialog determinant_dialog;
   ProgressBar determinant_progress;
@@ -59,6 +78,93 @@ public class Module {
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("ddMMyyyyhhmmss");
         return (type+simpleDateFormat.format(date).toString());
     }
+
+    public void getAllGames(final OnAllGamesListener listener){
+
+        HashMap<String,String> params=new HashMap<>();
+        postRequest(URL_GET_GAMES, params, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try{
+                    ArrayList<GetGamesModel> list=new ArrayList<>();
+                    JSONArray arr=new JSONArray(response);
+                    for(int i=0; i<arr.length();i++){
+                        GetGamesModel model=new GetGamesModel ();
+                        JSONObject obj=arr.getJSONObject(i);
+                        model.setGame_id(checkNull (obj.getString("game_id")));
+                        model.setGame_name(checkNull (obj.getString("game_name")));
+                        model.setName(checkNull (obj.getString("name")));
+                        model.setPoints(checkNull (obj.getString("points")));
+                        model.setStarline_points (checkNull (obj.getString ("starline_points")));
+                        model.setIs_close(checkNull (obj.getString("is_close")));
+                        model.setIs_deleted(checkNull (obj.getString("is_deleted")));
+                        model.setIs_disabled(checkNull (obj.getString("is_disabled")));
+                        model.setIs_starline_disable(checkNull (obj.getString("is_starline_disable")));
+                        model.setIs_ds_disabled (checkNull (obj.getString("is_ds_disabled")));
+                        list.add(model);
+                    }
+                    ArrayList<GetGamesModel> mList=new ArrayList<>();
+                    ArrayList<GetGamesModel> sList=new ArrayList<>();
+                    for(GetGamesModel m:list){
+                        if(m.getIs_ds_disabled ().equals("0")){
+                            mList.add(m);
+                        }
+                        if(m.getIs_starline_disable ().equals("0")){
+                            sList.add(m);
+                        }
+
+
+                    }
+
+                    listener.onMatkaGames(mList);
+                    listener.onStarlineGames(sList);
+
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+    }
+    public void postRequest(String url, final HashMap<String, String> params, Response.Listener<String> listener, Response.ErrorListener errorListener) {
+        if (!ConnectivityReceiver.isConnected ( )) {
+            showToast ("No Internet Connection");
+
+
+            return;
+        }
+        Log.e ("url", "" + url);
+        StringRequest stringRequest = new StringRequest (Request.Method.POST, url, listener, errorListener) {
+            @Override
+            protected Map<String, String> getParams() {
+                Log.e ("params", "" + params);
+                return params;
+            }
+        };
+
+        RetryPolicy mRetryPolicy = new DefaultRetryPolicy (
+                Constants.REQUEST_TIMEOUT,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringRequest.setRetryPolicy (mRetryPolicy);
+        AppController.getInstance ( ).addToRequestQueue (stringRequest, "req");
+
+    }
+    public String checkNull(String s) {
+        String str = "";
+        if (s == null || s.isEmpty ( ) || s.equalsIgnoreCase ("null")) {
+            str = "";
+        } else {
+            str = s;
+        }
+        return str;
+    }
+
     public String getAccTimeFormat(String ctime, String sp_time)
     {
         //12:04 AM
@@ -218,7 +324,7 @@ public static int calculateNoOfColumns(Context context, float columnWidthDp) { /
             long diff_e_s = e_time.getTime() - s_time.getTime();
             Log.e("diff", "" + diff_e_s);
 //
-            new CountDownTimer(diff_e_s, 1000) {
+            new CountDownTimer (diff_e_s, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     String text = String.format(Locale.getDefault(), " %02d : %02d : %02d ",
@@ -342,7 +448,7 @@ public static int calculateNoOfColumns(Context context, float columnWidthDp) { /
         TextPaint paint = textView.getPaint();
         float width = paint.measureText("Register");
 
-        Shader textShader = new LinearGradient(0, 0, width, textView.getTextSize(),
+        Shader textShader = new LinearGradient (0, 0, width, textView.getTextSize(),
                 new int[]{
                         Color.parseColor("#F97C3C"),
                         Color.parseColor("#FDB54E"),
@@ -389,7 +495,7 @@ public static int calculateNoOfColumns(Context context, float columnWidthDp) { /
 
     public void noInternetActivity()
     {
-        Intent intent = new Intent(context, NoInternetConnection.class);
+        Intent intent = new Intent (context, NoInternetConnection.class);
         context.startActivity(intent);
     }
 

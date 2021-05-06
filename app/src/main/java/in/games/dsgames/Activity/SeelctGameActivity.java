@@ -29,6 +29,7 @@ import java.util.List;
 import in.games.dsgames.Adapter.SelectBidAdpater;
 import in.games.dsgames.Config.Common;
 import in.games.dsgames.Config.Module;
+import in.games.dsgames.Interface.OnAllGamesListener;
 import in.games.dsgames.Model.GameModel;
 import in.games.dsgames.Model.GetGamesModel;
 import in.games.dsgames.Model.MatkasObjects;
@@ -108,7 +109,7 @@ public class SeelctGameActivity extends AppCompatActivity implements View.OnClic
         lin_dp.setOnClickListener(this);
         game_id = getIntent().getStringExtra("m_id");
 
-        getGames(game_id);
+        //getGames(game_id);
 //        flag = getGames(game_id);
 //        Log.e("sdcfvgbh", String.valueOf(flag));
 //        if (!flag)
@@ -123,15 +124,157 @@ public class SeelctGameActivity extends AppCompatActivity implements View.OnClic
 //
 //        }
 
-       if (Integer.parseInt(getIntent().getStringExtra("m_id"))<20)
-       {
+        module.getAllGames(new OnAllGamesListener () {
+            @Override
+            public void onMatkaGames(ArrayList<GetGamesModel> matkaGameList) {
+                ArrayList<GameModel> tempList = new ArrayList<> (  );
+                Log.e ("matka visible", "onMatkaGames: "+matkaGameList.size () );
 
-           getMatka();
+                for (int j = 0 ; j <matkaGameList.size ();j++) {
 
-       }
-       else {
-           getStartline();
-       }
+                    tempList.add (new GameModel (matkaGameList.get (j).getGame_id (),matkaGameList.get (j).getName (),R.drawable.logo,"",""));
+
+                }
+
+
+
+                for (int i = 0 ; i <tempList.size ();i++)
+                {
+                    switch (tempList.get (i).getName ().toLowerCase ())
+                    {
+                        case "single digit":
+                            card_digit.setVisibility(View.VISIBLE);
+                            break;
+
+                        case "jodi digit":
+                            card_jodi.setVisibility(View.VISIBLE);
+                            lin_jodi.setVisibility(View.VISIBLE);
+
+                            break;
+
+                        case "single panna":
+                            card_patti.setVisibility(View.VISIBLE);
+                            lin_s_patti.setVisibility(View.VISIBLE);
+
+                            break;
+
+                        case "double panna":
+                            card_patti.setVisibility(View.VISIBLE);
+                            lin_d_patti.setVisibility(View.VISIBLE);
+
+                            break;
+
+                        case "triple panna":
+                            card_patti.setVisibility(View.VISIBLE);
+                            lin_t_patti.setVisibility(View.VISIBLE);
+
+                            break;
+
+                        case "red bracket":
+                            card_jodi.setVisibility(View.VISIBLE);
+                            lin_red.setVisibility(View.VISIBLE);
+
+                            break;
+
+                        case "sp motor":
+                            card_motor.setVisibility(View.VISIBLE);
+                            lin_sp.setVisibility(View.VISIBLE);
+
+                            break;
+
+                        case "dp motor":
+                            card_motor.setVisibility(View.VISIBLE);
+                            lin_dp.setVisibility(View.VISIBLE);
+                            break;
+
+
+                  }
+                }
+                if(Integer.parseInt (matkaId)<=20){
+                    //  allGame (tempList);
+                    getGames (game_id);
+                    getMatka ();
+                }
+
+            }
+
+            @Override
+            public void onStarlineGames (ArrayList <GetGamesModel > starlineGAmeList) {
+                ArrayList<GameModel> tempList = new ArrayList<> (  );
+
+
+                for (int j = 0 ; j <starlineGAmeList.size ();j++) {
+
+                    tempList.add (new GameModel (starlineGAmeList.get (j).getGame_id (),starlineGAmeList.get (j).getName (),R.drawable.logo,"",""));
+
+                }
+
+
+
+                for (int i = 0 ; i <tempList.size ();i++)
+                {
+                    switch (tempList.get (i).getName ().toLowerCase ())
+                    {
+                        case "single digit":
+                            card_digit.setVisibility(View.VISIBLE);
+                            break;
+
+                        case "jodi digit":
+                            lin_jodi.setVisibility(View.VISIBLE);
+                            card_jodi.setVisibility(View.VISIBLE);
+                            break;
+
+                        case "single pana":
+                            lin_s_patti.setVisibility(View.VISIBLE);
+                            card_patti.setVisibility(View.VISIBLE);
+                            break;
+
+                        case "double pana":
+                            lin_d_patti.setVisibility(View.VISIBLE);
+                            card_patti.setVisibility(View.VISIBLE);
+                            break;
+
+                        case "triple pana":
+                            lin_t_patti.setVisibility(View.VISIBLE);
+                            card_patti.setVisibility(View.VISIBLE);
+                            break;
+
+                        case "red_bracket":
+                            lin_red.setVisibility(View.VISIBLE);
+                            card_jodi.setVisibility(View.VISIBLE);
+                            break;
+
+                        case "sp_motor":
+                            lin_sp.setVisibility(View.VISIBLE);
+                            card_motor.setVisibility(View.VISIBLE);
+                            break;
+
+                        case "dp_motor":
+                            lin_dp.setVisibility(View.VISIBLE);
+                            card_motor.setVisibility(View.VISIBLE);
+                            break;
+
+                    }
+                }
+
+                if(Integer.parseInt (matkaId)>20){
+                    //allGame (tempList);
+                    getGames (game_id);
+                    getStartline ();
+                }
+
+            }
+
+        });
+//        if (Integer.parseInt(getIntent().getStringExtra("m_id"))<20)
+//        {
+//
+//            getMatka();
+//
+//        }
+//        else {
+//            getStartline();
+//        }
 
 
 //        rv_bid = findViewById(R.id.rv_bids);
@@ -183,44 +326,44 @@ public class SeelctGameActivity extends AppCompatActivity implements View.OnClic
                 game ="single digit";
                 game_id ="2";
                 break;
-                case R.id.lin_choice:
+            case R.id.lin_choice:
                 game ="choice";
-                    game_id ="16";
+                game_id ="16";
                 break;
-                case R.id.lin_jodi:
+            case R.id.lin_jodi:
                 game ="jodi";
-                    game_id ="3";
+                game_id ="3";
                 break;
-                case R.id.lin_jodi_digit:
+            case R.id.lin_jodi_digit:
                 game ="jodi digit";
-                    game_id ="18";
+                game_id ="18";
                 break;
-                case R.id.lin_single_patti:
+            case R.id.lin_single_patti:
                 game ="single patti";
                 game_id ="7";
                 break;
-                case R.id.lin_double_patti:
+            case R.id.lin_double_patti:
                 game ="double patti";
-                    game_id ="8";
+                game_id ="8";
                 break;
-                case R.id.lin_triple_patti:
+            case R.id.lin_triple_patti:
                 game ="triple patti";
-                    game_id ="9";
+                game_id ="9";
                 break;
-                case R.id.lin_sp:
+            case R.id.lin_sp:
                 game ="sp motor";
-                    game_id ="10";
+                game_id ="10";
                 break;
-                case R.id.lin_dp:
+            case R.id.lin_dp:
                 game ="dp motor";
-                    game_id ="11";
+                game_id ="11";
                 break;
-                case R.id.lin_red_bracket:
+            case R.id.lin_red_bracket:
                 game ="red bracket";
-                    game_id ="4";
+                game_id ="4";
                 break;
             case R.id.iv_back:
-               goToMain();
+                goToMain();
                 break;
 
         }
@@ -304,233 +447,233 @@ public class SeelctGameActivity extends AppCompatActivity implements View.OnClic
         common.getSingleStarline(matkaId, new OnGetStarline() {
             @Override
             public void OnGetStarline(StarlineModel model)
-                {
-                    String dt=new SimpleDateFormat("EEEE").format(new Date());
-                    if(dt.equalsIgnoreCase("Sunday")){
-                        if(common.getValidTime(model.getS_game_time().toString(), model.getS_game_time().toString())){
+            {
+                String dt=new SimpleDateFormat("EEEE").format(new Date());
+                if(dt.equalsIgnoreCase("Sunday")){
+                    if(common.getValidTime(model.getS_game_time().toString(), model.getS_game_time().toString())){
 //                            common.showToast("if");
-                            start_time=model.getS_game_time();
-                            end_time=model.getS_game_end_time();
-                        }else{
+                        start_time=model.getS_game_time();
+                        end_time=model.getS_game_end_time();
+                    }else{
 //                            common.showToast("else");
 //                            start_time=model.getBid_start_time();
 //                            end_time=model.getBid_end_time();
-                        }
-
-                    }else if(dt.equalsIgnoreCase("Saturday")){
-                        if(common.getValidTime(model.getS_game_time().toString(), model.getS_game_end_time().toString())){
-                            start_time=model.getS_game_time();
-                            end_time=model.getS_game_end_time();
-                        }else{
-//                            start_time=model.getBid_start_time();
-//                            end_time=model.getBid_end_time();
-                        }
                     }
-                    else{
+
+                }else if(dt.equalsIgnoreCase("Saturday")){
+                    if(common.getValidTime(model.getS_game_time().toString(), model.getS_game_end_time().toString())){
                         start_time=model.getS_game_time();
                         end_time=model.getS_game_end_time();
+                    }else{
+//                            start_time=model.getBid_start_time();
+//                            end_time=model.getBid_end_time();
                     }
+                }
+                else{
+                    start_time=model.getS_game_time();
+                    end_time=model.getS_game_end_time();
+                }
 
 //                    mName=model.getName();
 //                    start_num=model.getS_game_number();
 //                    end_num=model.getendnumber();
-                    num=model.getS_game_number();
+                num=model.getS_game_number();
 
-                    tv_matka_name.setText("Starline");
-                    tv_s_time.setText("Opens at :"+common.get24To12Format(start_time));
-                    tv_e_time.setText("Closes at :"+common.get24To12Format(end_time));
-                    tv_number.setText(""+" - "+common.checkNullNumber(num)+" - "+"");
-                }
+                tv_matka_name.setText("Starline");
+                tv_s_time.setText("Opens at :"+common.get24To12Format(start_time));
+                tv_e_time.setText("Closes at :"+common.get24To12Format(end_time));
+                tv_number.setText(""+" - "+common.checkNullNumber(num)+" - "+"");
+            }
 
         });
     }
 
-public void getGames(final String game_id)
-{    loadingBar.show();
-    HashMap<String,String> params = new HashMap<>();
-    common.postRequest(URL_GET_GAMES, params, new Response.Listener<String>() {
-        @Override
-        public void onResponse(String response) {
-            loadingBar.dismiss();
-            Log.e("getGames",response.toString());
-            ArrayList<GetGamesModel> gList= new ArrayList<>();
-            try {
-                JSONArray arr=new JSONArray(response);
-                for(int i=0; i<arr.length();i++){
-                    JSONObject obj=arr.getJSONObject(i);
-                    GetGamesModel model=new GetGamesModel();
-                    model.setGame_id(common.checkNullString(obj.getString("game_id")));
-                    model.setGame_name(common.checkNullString(obj.getString("game_name")));
-                    model.setName(common.checkNullString(obj.getString("name")));
-                    model.setPoints(common.checkNullString(obj.getString("points")));
-                    model.setStarline_points(common.checkNullString(obj.getString("starline_points")));
-                    model.setIs_starline(common.checkNullString(obj.getString("is_starline")));
-                    model.setIs_close(common.checkNullString(obj.getString("is_close")));
-                    model.setIs_deleted(common.checkNullString(obj.getString("is_deleted")));
-                    model.setIs_disabled(common.checkNullString(obj.getString("is_disabled")));
-                    model.setIs_starline_disable(common.checkNullString(obj.getString("is_starline_disable")));
-                    gList.add(model);
+    public void getGames(final String game_id)
+    {    loadingBar.show();
+        HashMap<String,String> params = new HashMap<>();
+        common.postRequest(URL_GET_GAMES, params, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                loadingBar.dismiss();
+                Log.e("getGames",response.toString());
+                ArrayList<GetGamesModel> gList= new ArrayList<>();
+                try {
+                    JSONArray arr=new JSONArray(response);
+                    for(int i=0; i<arr.length();i++){
+                        JSONObject obj=arr.getJSONObject(i);
+//                        GetGamesModel model=new GetGamesModel();
+//                        model.setGame_id(common.checkNullString(obj.getString("game_id")));
+//                        model.setGame_name(common.checkNullString(obj.getString("game_name")));
+//                        model.setName(common.checkNullString(obj.getString("name")));
+//                        model.setPoints(common.checkNullString(obj.getString("points")));
+//                        model.setStarline_points(common.checkNullString(obj.getString("starline_points")));
+//                        model.setIs_starline(common.checkNullString(obj.getString("is_starline")));
+//                        model.setIs_close(common.checkNullString(obj.getString("is_close")));
+//                        model.setIs_deleted(common.checkNullString(obj.getString("is_deleted")));
+//                        model.setIs_disabled(common.checkNullString(obj.getString("is_disabled")));
+//                        model.setIs_starline_disable(common.checkNullString(obj.getString("is_starline_disable")));
+                      //  gList.add(model);
+                    }
+                }catch (Exception ex){
+                    ex.printStackTrace();
                 }
-            }catch (Exception ex){
-                ex.printStackTrace();
-            }
 //            Log.e("dsdfsdf",gList.get(0).getGame_id());
 
-            for (int i=0;i<gList.size();i++)
-            {
+//                for (int i=0;i<gList.size();i++)
+//                {
+//
+//                    if (Integer.parseInt(game_id)<20)
+//                    {
+//                        if (gList.get(i).getName().equalsIgnoreCase("SINGLE DIGIT"))
+//                        {
+//                            if (gList.get(i).getIs_disabled().equals("0"))
+//                            {
+////                        flag = false;
+////                        gameTypes();
+//                                card_digit.setVisibility(View.VISIBLE);
+//                            }
+//
+//                        }else  if (gList.get(i).getName().equalsIgnoreCase("RED BRACKET"))
+//                        {
+//                            if (gList.get(i).getIs_disabled().equals("0"))
+//                            {
+//                                lin_red.setVisibility(View.VISIBLE);
+//                                card_jodi.setVisibility(View.VISIBLE);
+//                            }
+//
+//                        }else  if (gList.get(i).getName().equalsIgnoreCase("JODI DIGIT"))
+//                        {
+//                            if (gList.get(i).getIs_disabled().equals("0"))
+//                            {
+//                                lin_jodi.setVisibility(View.VISIBLE);
+//                                card_jodi.setVisibility(View.VISIBLE);
+//                            }
+//
+//                        }
+//                        else  if (gList.get(i).getName().equalsIgnoreCase("SINGLE PANNA"))
+//                        {
+//                            if (gList.get(i).getIs_disabled().equals("0"))
+//                            {
+//                                lin_s_patti.setVisibility(View.VISIBLE);
+//                                card_patti.setVisibility(View.VISIBLE);
+//                            }
+//
+//                        }else  if (gList.get(i).getName().equals("DOUBLE PANNA"))
+//                        {
+//                            if (gList.get(i).getIs_disabled().equals("0"))
+//                            {
+//                                lin_d_patti.setVisibility(View.VISIBLE);
+//                                card_patti.setVisibility(View.VISIBLE);
+//                            }
+//
+//                        }
+//                        else  if (gList.get(i).getName().equals("TRIPLE PANNA"))
+//                        {
+//                            if (gList.get(i).getIs_disabled().equals("0"))
+//                            {
+//                                lin_t_patti.setVisibility(View.VISIBLE);
+//                                card_patti.setVisibility(View.VISIBLE);
+//                            }
+//
+//                        }else  if (gList.get(i).getName().equalsIgnoreCase("SP MOTOR"))
+//                        {
+//                            if (gList.get(i).getIs_disabled().equals("0"))
+//                            {
+//                                lin_sp.setVisibility(View.VISIBLE);
+//                                card_motor.setVisibility(View.VISIBLE);
+//                            }
+//
+//                        }else  if (gList.get(i).getName().equalsIgnoreCase("DP MOTOR"))
+//                        {
+//                            if (gList.get(i).getIs_disabled().equals("0"))
+//                            {
+//                                lin_dp.setVisibility(View.VISIBLE);
+//                                card_motor.setVisibility(View.VISIBLE);
+//                            }
+//
+//                        }
+//                    }else if (Integer.parseInt(game_id)>20)
+//                    {
+//                        if (gList.get(i).getName().equalsIgnoreCase("SINGLE DIGIT"))
+//                        {
+//                            if (gList.get(i).getIs_starline_disable().equals("0"))
+//                            {
+//                                card_digit.setVisibility(View.VISIBLE);
+//                            }
+//
+//                        }else  if (gList.get(i).getName().equalsIgnoreCase("RED BRACKET"))
+//                        {
+//                            if (gList.get(i).getIs_starline_disable().equals("0"))
+//                            {
+//                                lin_red.setVisibility(View.VISIBLE);
+//                                card_jodi.setVisibility(View.VISIBLE);
+//                            }
+//
+//                        }else  if (gList.get(i).getName().equalsIgnoreCase("JODI DIGIT"))
+//                        {
+//                            if (gList.get(i).getIs_starline_disable().equals("0"))
+//                            {
+//                                lin_jodi.setVisibility(View.VISIBLE);
+//                                card_jodi.setVisibility(View.VISIBLE);
+//                            }
+//
+//                        }
+//                        else  if (gList.get(i).getName().equalsIgnoreCase("SINGLE PANNA"))
+//                        {
+//                            if (gList.get(i).getIs_starline_disable().equals("0"))
+//                            {
+//                                lin_s_patti.setVisibility(View.VISIBLE);
+//                                card_patti.setVisibility(View.VISIBLE);
+//                            }
+//
+//                        }else  if (gList.get(i).getName().equals("DOUBLE PANNA"))
+//                        {
+//                            if (gList.get(i).getIs_starline_disable().equals("0"))
+//                            {
+//                                lin_d_patti.setVisibility(View.VISIBLE);
+//                                card_patti.setVisibility(View.VISIBLE);
+//                            }
+//
+//                        }
+//                        else  if (gList.get(i).getName().equals("TRIPLE PANNA"))
+//                        {
+//                            if (gList.get(i).getIs_starline_disable().equals("0"))
+//                            {
+//                                lin_t_patti.setVisibility(View.VISIBLE);
+//                                card_patti.setVisibility(View.VISIBLE);
+//                            }
+//
+//                        }else  if (gList.get(i).getName().equalsIgnoreCase("SP MOTOR"))
+//                        {
+//                            if (gList.get(i).getIs_starline_disable().equals("0"))
+//                            {
+//                                lin_sp.setVisibility(View.VISIBLE);
+//                                card_motor.setVisibility(View.VISIBLE);
+//                            }
+//
+//                        }else  if (gList.get(i).getName().equalsIgnoreCase("DP MOTOR"))
+//                        {
+//                            if (gList.get(i).getIs_starline_disable().equals("0"))
+//                            {
+//                                lin_dp.setVisibility(View.VISIBLE);
+//                                card_motor.setVisibility(View.VISIBLE);
+//                            }
+//
+//                        }
+//                    }
+//                }
 
-                if (Integer.parseInt(game_id)<20)
-                {
-                    if (gList.get(i).getName().equalsIgnoreCase("SINGLE DIGIT"))
-                    {
-                        if (gList.get(i).getIs_disabled().equals("0"))
-                        {
-//                        flag = false;
-//                        gameTypes();
-                            card_digit.setVisibility(View.VISIBLE);
-                        }
-
-                    }else  if (gList.get(i).getName().equalsIgnoreCase("RED BRACKET"))
-                    {
-                        if (gList.get(i).getIs_disabled().equals("0"))
-                        {
-                            lin_red.setVisibility(View.VISIBLE);
-                            card_jodi.setVisibility(View.VISIBLE);
-                        }
-
-                    }else  if (gList.get(i).getName().equalsIgnoreCase("JODI DIGIT"))
-                    {
-                        if (gList.get(i).getIs_disabled().equals("0"))
-                        {
-                            lin_jodi.setVisibility(View.VISIBLE);
-                            card_jodi.setVisibility(View.VISIBLE);
-                        }
-
-                    }
-                    else  if (gList.get(i).getName().equalsIgnoreCase("SINGLE PANNA"))
-                    {
-                        if (gList.get(i).getIs_disabled().equals("0"))
-                        {
-                            lin_s_patti.setVisibility(View.VISIBLE);
-                            card_patti.setVisibility(View.VISIBLE);
-                        }
-
-                    }else  if (gList.get(i).getName().equals("DOUBLE PANNA"))
-                    {
-                        if (gList.get(i).getIs_disabled().equals("0"))
-                        {
-                            lin_d_patti.setVisibility(View.VISIBLE);
-                            card_patti.setVisibility(View.VISIBLE);
-                        }
-
-                    }
-                    else  if (gList.get(i).getName().equals("TRIPLE PANNA"))
-                    {
-                        if (gList.get(i).getIs_disabled().equals("0"))
-                        {
-                            lin_t_patti.setVisibility(View.VISIBLE);
-                            card_patti.setVisibility(View.VISIBLE);
-                        }
-
-                    }else  if (gList.get(i).getName().equalsIgnoreCase("SP MOTOR"))
-                    {
-                        if (gList.get(i).getIs_disabled().equals("0"))
-                        {
-                            lin_sp.setVisibility(View.VISIBLE);
-                            card_motor.setVisibility(View.VISIBLE);
-                        }
-
-                    }else  if (gList.get(i).getName().equalsIgnoreCase("DP MOTOR"))
-                    {
-                        if (gList.get(i).getIs_disabled().equals("0"))
-                        {
-                            lin_dp.setVisibility(View.VISIBLE);
-                            card_motor.setVisibility(View.VISIBLE);
-                        }
-
-                    }
-                }else if (Integer.parseInt(game_id)>20)
-                    {
-                        if (gList.get(i).getName().equalsIgnoreCase("SINGLE DIGIT"))
-                        {
-                            if (gList.get(i).getIs_starline_disable().equals("0"))
-                            {
-                                card_digit.setVisibility(View.VISIBLE);
-                            }
-
-                        }else  if (gList.get(i).getName().equalsIgnoreCase("RED BRACKET"))
-                        {
-                            if (gList.get(i).getIs_starline_disable().equals("0"))
-                            {
-                                lin_red.setVisibility(View.VISIBLE);
-                                card_jodi.setVisibility(View.VISIBLE);
-                            }
-
-                        }else  if (gList.get(i).getName().equalsIgnoreCase("JODI DIGIT"))
-                        {
-                            if (gList.get(i).getIs_starline_disable().equals("0"))
-                            {
-                                lin_jodi.setVisibility(View.VISIBLE);
-                                card_jodi.setVisibility(View.VISIBLE);
-                            }
-
-                        }
-                        else  if (gList.get(i).getName().equalsIgnoreCase("SINGLE PANNA"))
-                        {
-                            if (gList.get(i).getIs_starline_disable().equals("0"))
-                            {
-                                lin_s_patti.setVisibility(View.VISIBLE);
-                                card_patti.setVisibility(View.VISIBLE);
-                            }
-
-                        }else  if (gList.get(i).getName().equals("DOUBLE PANNA"))
-                        {
-                            if (gList.get(i).getIs_starline_disable().equals("0"))
-                            {
-                                lin_d_patti.setVisibility(View.VISIBLE);
-                                card_patti.setVisibility(View.VISIBLE);
-                            }
-
-                        }
-                        else  if (gList.get(i).getName().equals("TRIPLE PANNA"))
-                        {
-                            if (gList.get(i).getIs_starline_disable().equals("0"))
-                            {
-                                lin_t_patti.setVisibility(View.VISIBLE);
-                                card_patti.setVisibility(View.VISIBLE);
-                            }
-
-                        }else  if (gList.get(i).getName().equalsIgnoreCase("SP MOTOR"))
-                        {
-                            if (gList.get(i).getIs_starline_disable().equals("0"))
-                            {
-                                lin_sp.setVisibility(View.VISIBLE);
-                                card_motor.setVisibility(View.VISIBLE);
-                            }
-
-                        }else  if (gList.get(i).getName().equalsIgnoreCase("DP MOTOR"))
-                        {
-                            if (gList.get(i).getIs_starline_disable().equals("0"))
-                            {
-                                lin_dp.setVisibility(View.VISIBLE);
-                                card_motor.setVisibility(View.VISIBLE);
-                            }
-
-                        }
-                    }
             }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loadingBar.dismiss();
+                common.showVolleyError(error);
 
-        }
-    }, new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            loadingBar.dismiss();
-            common.showVolleyError(error);
-
-        }
-    });
+            }
+        });
 //    Log.e("dereftrgyth", String.valueOf(flag));
-}
+    }
  /*   public boolean gameTypes()
     {
         boolean flag = true;

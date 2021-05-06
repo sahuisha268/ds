@@ -16,8 +16,8 @@ apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.1"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.1"
     defaultConfig {
         applicationId "in.games.dsgames"
         manifestPlaceholders = [onesignal_app_id: 'a24fd699-8eca-4012-a9e8-b08ea82b0376',

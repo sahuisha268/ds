@@ -73,7 +73,7 @@ TextView tv_name ,tv_wallet ,tv_casino_one,tv_add_withdraw,tv_home_text,tv_whtsa
 SliderLayout home_slider;
 ImageView home_banner;
     String whts;
-LinearLayout lin_chat,lin_feed,lin_whstaap,lin_call,lin_live_result;
+LinearLayout lin_chat,lin_feed,lin_whstaap,lin_call,lin_live_result,lin_starline;
 CardView card_starline;
 LoadingBar loadingBar ;
 Module module;
@@ -98,6 +98,8 @@ Session_management session_management ;
      lin_call = v.findViewById(R.id.lin_call);
      lin_chat = v.findViewById(R.id.lin_chat);
    card_starline = v.findViewById(R.id.card_starline);
+        lin_starline=v.findViewById (R.id.lin_starline);
+        lin_starline.setOnClickListener (this);
      lin_feed= v.findViewById(R.id.lin_feedback);
      lin_live_result= v.findViewById(R.id.lin_live_result);
      lin_whstaap = v.findViewById(R.id.lin_whtsaap);
@@ -113,6 +115,7 @@ Session_management session_management ;
        session_management = new Session_management(getActivity());
         casinoModels = new ArrayList<>();
        matkaList = new ArrayList<>();
+
         temp_casino_list = new ArrayList<>();
         casinoModels.add(new HomeCasinoModel("1","Play Starline Bazar"));
         casino_grid = new GridLayoutManager(getActivity(),2);

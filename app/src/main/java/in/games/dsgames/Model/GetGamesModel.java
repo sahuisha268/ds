@@ -2,6 +2,8 @@ package in.games.dsgames.Model;
 
 public class GetGamesModel {
     String game_id,game_name,name,points,starline_points,is_starline,is_close,is_deleted,is_disabled,is_starline_disable;
+
+   String is_ds_disabled;
     public GetGamesModel() {
     }
 
@@ -83,5 +85,13 @@ public class GetGamesModel {
 
     public void setIs_starline_disable(String is_starline_disable) {
         this.is_starline_disable = is_starline_disable;
+    }
+
+    public String getIs_ds_disabled() {
+        return is_ds_disabled;
+    }
+
+    public void setIs_ds_disabled(String is_ds_disabled) {
+        this.is_ds_disabled = is_ds_disabled;
     }
 }

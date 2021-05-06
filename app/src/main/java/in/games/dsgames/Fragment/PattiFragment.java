@@ -126,6 +126,7 @@ public class PattiFragment extends Fragment implements View.OnClickListener {
         switch (game)
         {
             case "jodi":
+                rd_open.setVisibility (View.GONE);
                 rd_close.setVisibility(View.GONE);
                 final ArrayList<NewDigitModel> newDigitList=new ArrayList<>();
                 jodiMainList=  Arrays.asList(InputData.jodi_digits);
@@ -211,6 +212,7 @@ public class PattiFragment extends Fragment implements View.OnClickListener {
 
             case "red bracket":
                 rd_close.setVisibility(View.GONE);
+                rd_open.setVisibility (View.GONE);
                 final ArrayList<NewDigitModel> newBDigitList=new ArrayList<>();
                 bracketMainList=  Arrays.asList(InputData.red_bracket);
                 digitList.clear();
@@ -364,11 +366,19 @@ public class PattiFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         if (view.getId()==R.id.submit)
         {
+
+            if(game.equals ("jodi")){
+                type="close";
+            }
+            if(game.equals ("red bracket")){
+                type="close";
+            }
             points = et_amount.getText().toString();
             String c_date = tv_date.getText().toString();
             String w = PlayBidActivity.tv_wallet.getText().toString();
             if (type.equals("")||type.isEmpty())
             {
+
                 module.showToast("Select Bet Type");
             }
             else if (selected_list.size()<=0)
