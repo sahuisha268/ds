@@ -106,10 +106,19 @@ public class Module {
                     }
                     ArrayList<GetGamesModel> mList=new ArrayList<>();
                     ArrayList<GetGamesModel> sList=new ArrayList<>();
+
                     for(GetGamesModel m:list){
-                        if(m.getIs_ds_disabled ().equals("0")){
-                            mList.add(m);
+                        if(m.getIs_ds_disabled ().equals ("1")){
+                            if(m.getIs_disabled ().equals("1")){
+                                mList.add(m);
+                            }
                         }
+                        else if(m.getIs_ds_disabled ().equals ("0")){
+                            mList.add (m);
+                        }
+
+
+
                         if(m.getIs_starline_disable ().equals("0")){
                             sList.add(m);
                         }
