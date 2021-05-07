@@ -236,10 +236,7 @@ public class SinglePattiFragment extends Fragment implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.submit:
-//                int gid= Integer.parseInt (m_id);
-//                if(gid>20){
-//                    type="open";
-//            }
+
                 points = et_amount.getText().toString();
                 String c_date = tv_date.getText().toString();
                 String w = PlayBidActivity.tv_wallet.getText().toString();

@@ -126,7 +126,14 @@ public class DigitFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
 //        module.showToast("viiii");
           if (view.getId() == R.id.submit) 
-          {
+          {   int gid= Integer.parseInt (m_id);
+
+              if(gid>20){
+                  if(game.equals ("single digit")){
+                      g_type="open";
+                  }
+
+              }
 //              module.showToast("submit_click");
             tempList.clear();
             for(int k=0; k<patti_list.size();k++)
