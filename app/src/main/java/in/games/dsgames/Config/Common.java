@@ -972,7 +972,7 @@ public void setGameDate(TextView tv_date ,String time)
 //                        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
 //                        TextView txtmessage=(TextView)myDialog.findViewById(R.id.txtmessage);
 //                        Button btnOK=(Button) myDialog.findViewById(R.id.btnOK);
-//
+
 //                        txtmessage.setText("Biding closed for this date");
 //                        btnOK.setOnClickListener(new View.OnClickListener() {
 //                            @Override
