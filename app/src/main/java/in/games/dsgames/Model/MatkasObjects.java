@@ -6,11 +6,12 @@ public class MatkasObjects {
     String name,start_time,end_time,starting_num,number;
     String end_num,bid_start_time,bid_end_time,created_at;
     String updated_at,status,sat_end_time,sat_start_time;
+    String is_ds,matka_order;
 
     public MatkasObjects() {
     }
 
-    public MatkasObjects(String id, String name, String start_time, String end_time, String starting_num, String number, String end_num, String bid_start_time, String bid_end_time, String created_at, String updated_at, String status, String sat_end_time, String sat_start_time) {
+    public MatkasObjects(String id, String name, String start_time, String end_time, String starting_num, String number, String end_num, String bid_start_time, String bid_end_time, String created_at, String updated_at, String status, String sat_end_time, String sat_start_time, String is_ds) {
         this.id = id;
         this.name = name;
         this.start_time = start_time;
@@ -25,6 +26,7 @@ public class MatkasObjects {
         this.status = status;
         this.sat_end_time = sat_end_time;
         this.sat_start_time = sat_start_time;
+        this.is_ds = is_ds;
     }
 
     public String getId() {
@@ -137,5 +139,21 @@ public class MatkasObjects {
 
     public void setSat_start_time(String sat_start_time) {
         this.sat_start_time = sat_start_time;
+    }
+
+    public String getIs_ds() {
+        return is_ds;
+    }
+
+    public void setIs_ds(String is_ds) {
+        this.is_ds = is_ds;
+    }
+
+    public String getMatka_order() {
+        return matka_order;
+    }
+
+    public void setMatka_order(String matka_order) {
+        this.matka_order = matka_order;
     }
 }

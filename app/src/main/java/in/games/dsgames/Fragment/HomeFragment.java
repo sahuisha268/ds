@@ -28,15 +28,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.daimajia.slider.library.SliderLayout;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import in.games.dsgames.Activity.ContactUsActivity;
 import in.games.dsgames.Activity.SplashActivity;
@@ -233,6 +230,7 @@ Session_management session_management ;
                                 matkasObjects.setSat_start_time(jsonObject.getString("sat_start_time"));
                                 matkasObjects.setSat_end_time(jsonObject.getString("sat_end_time"));
                                 matkasObjects.setStatus(jsonObject.getString("status"));
+                                matkasObjects.setIs_ds(jsonObject.getString("is_ds"));
                                 matkaList.add(matkasObjects);
 
                             }

@@ -232,6 +232,7 @@ public class HomeMatkaAdapter extends RecyclerView.Adapter<HomeMatkaAdapter.View
                     intent.putExtra("start_num", m.getStarting_num());
                     intent.putExtra("num", m.getNumber());
                     intent.putExtra("end_num", m.getEnd_num());
+                    intent.putExtra("is_ds",m.getIs_ds());
                     context.startActivity(intent);
                 }
 
