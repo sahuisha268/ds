@@ -51,7 +51,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import in.games.dsgames.Activity.SeelctGameActivity;
+import in.games.dsgames.Activity.MainActivity;
 import in.games.dsgames.Adapter.ListItemAdapter;
 import in.games.dsgames.AppController;
 import in.games.dsgames.Interface.OnGetConfigData;
@@ -948,7 +948,8 @@ public void setGameDate(TextView tv_date ,String time)
 
 
                         //updateWalletAmount(id,amt,context);
-                        Intent intent=new Intent(context, SeelctGameActivity.class);
+//                        Intent intent=new Intent(context, SeelctGameActivity.class);
+                        Intent intent = new Intent(context, MainActivity.class);
                         intent.putExtra("m_id",m_id);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
