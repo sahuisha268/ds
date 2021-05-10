@@ -39,8 +39,8 @@ import static in.games.dsgames.Config.BaseUrl.URL_INDEX;
 public class SplashActivity extends AppCompatActivity {
 Session_management session_management;
     public static String tagline,withdrw_text,withdrw_no,whatsapp_no,home_text,min_add_amount,min_withdraw_amount,msg_status,app_link,share_link,ver_code,dialog_image,call_no,min_bid_amount,forgot_whatsapp,forgot_text;
-Module module ;
-Common common;
+    Module module ;
+    Common common;
     String str = "";
     private int version_code;
 

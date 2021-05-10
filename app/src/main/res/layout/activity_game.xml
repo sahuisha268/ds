@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.GameActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimaryDark"
+        app:titleTextAppearance="@style/RobotoBoldTextAppearance">
+    </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+    <com.google.android.material.tabs.TabLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tab_layout"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_below="@+id/app_bar"
+    android:background="@color/colorPrimaryDark"
+    app:tabIconTint="@color/white"
+    app:tabGravity="center"
+    app:tabMinWidth="40dp"
+    app:tabPaddingEnd="0dp"
+    app:tabPaddingStart="0dp"
+    app:tabMode="fixed"
+    android:elevation="0dp"
+    app:tabTextColor="@color/white"
+    app:tabIndicatorColor="@color/white"
+    app:tabIndicatorHeight="5dp"
+    android:minHeight="?attr/actionBarSize"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <in.games.dsgames.utils.Custom_ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/tab_layout"/>
+
+</LinearLayout>

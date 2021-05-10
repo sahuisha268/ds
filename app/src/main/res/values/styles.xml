@@ -60,5 +60,10 @@
     <item name="android:layout_width">1dp</item>
     <item name="android:layout_height">match_parent</item>
 </style>
-
+    <style name="RobotoBoldTextAppearance">
+        <item name="android:fontFamily">@font/aileron_regular</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

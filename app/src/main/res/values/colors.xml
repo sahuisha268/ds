@@ -31,4 +31,10 @@
     <color name="txt_color">#FFFFFF</color>
     <color name="rates_color">#AE0324</color>
     <color name="number_color">#990406</color>
+    <color name="Gray_DimGray">#696969</color>
+    <color name="Yellow_DarkGoldenrod">#B8860B</color>
+    <color name="Yellow_Gold">#FFD700</color>
+    <color name="background_color">#333333</color>
+    <color name="hint_color">#696969</color>
+    <color name="text_color">#FF000000</color>
 </resources>

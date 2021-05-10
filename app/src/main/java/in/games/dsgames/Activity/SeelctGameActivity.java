@@ -523,6 +523,9 @@ public class SeelctGameActivity extends AppCompatActivity implements View.OnClic
 
                 if (is_ds.equals("1"))
                 {
+//                    Intent intent = new Intent(SeelctGameActivity.this,GameActivity.class);
+//                    intent.putExtra("matka_name",gList.get(0).getGame_name().toString());
+//                    startActivity(intent);
                     for (int i=0;i<gList.size();i++)
                     {
 
@@ -664,6 +667,7 @@ public class SeelctGameActivity extends AppCompatActivity implements View.OnClic
                             }
                         }
                     }
+
                 }else {
                     for (int i=0;i<gList.size();i++)
                     {

@@ -32,6 +32,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,7 +56,10 @@ import in.games.dsgames.Activity.MainActivity;
 import in.games.dsgames.Adapter.ListItemAdapter;
 import in.games.dsgames.AppController;
 import in.games.dsgames.Interface.OnGetConfigData;
+import in.games.dsgames.Interface.OnInsertion;
+import in.games.dsgames.Interface.OnSuccess;
 import in.games.dsgames.Model.ConfigDataModel;
+import in.games.dsgames.Model.MatkaModel;
 import in.games.dsgames.Model.MatkasObjects;
 import in.games.dsgames.Model.StarlineModel;
 import in.games.dsgames.Model.Starline_Objects;
@@ -77,10 +81,12 @@ import static in.games.dsgames.Config.Constants.KEY_ID;
 public class Common {
     Context context;
     Session_management session_management;
+    LoadingBar loadingBar;
     public static String tagline,withdrw_text,withdrw_no,whatsapp_no,home_text,min_add_amount,min_withdraw_amount,msg_status,app_link,share_link,ver_code,dialog_image,call_no,min_bid_amount,forgot_whatsapp,forgot_text;
     public Common(Context context) {
         this.context = context;
         session_management=new Session_management(context);
+        loadingBar = new LoadingBar(context);
     }
 
     public void showToast(String s)
@@ -530,6 +536,178 @@ public void setGameDate(TextView tv_date ,String time)
         }
 
         return nextDate.toString();
+    }
+
+    public MatkaModel getModelFromIntent(String str){
+        Gson gson=new Gson();
+        MatkaModel m=(MatkaModel) gson.fromJson(str.toString(),MatkaModel.class);
+        return m;
+    }
+
+    public String getPreviousDate()
+    {
+        String nextDate="";
+        try
+        {
+
+            Calendar calendar= Calendar.getInstance();
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd-MM-yyyy");
+            String currentDate=simpleDateFormat.format(new Date());
+            Date c=simpleDateFormat.parse(currentDate);
+            calendar.setTime(c);
+            calendar.add(Calendar.DAY_OF_WEEK,-1);
+            nextDate=simpleDateFormat.format(calendar.getTime());
+
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+            //Toast.makeText(OddEvenActivity.this,""+ex.getMessage(),Toast.LENGTH_LONG).show();
+        }
+
+        return nextDate.toString();
+    }
+
+    public String getCDate(){
+        String str="";
+        //06/01/2021
+        try{
+            Date date=new Date();
+            SimpleDateFormat smf=new SimpleDateFormat("dd/MM/yyyy");
+            str=smf.format(date);
+        }catch (Exception ex){
+            ex.printStackTrace();
+
+        }
+        return str;
+    }
+
+    public void setOpenSheetData(List<TableModel> list, String m_id, String c, String w, final OnSuccess onSuccess) {
+        loadingBar.show();
+
+        int er = list.size();
+        if (er <= 0) {
+            loadingBar.dismiss();
+            String message = "No Lottery selected";
+            errorMessageDialog(message);
+            return;
+        } else {
+            try {
+                int amt = 0;
+                ArrayList list_digits = new ArrayList();
+                ArrayList list_type = new ArrayList();
+                ArrayList list_points = new ArrayList();
+                ArrayList list_game_id = new ArrayList();
+                int rows = list.size();
+
+                for (int i = 0; i < rows; i++) {
+
+
+                    TableModel tableModel = list.get(i);
+
+                    String asd = tableModel.getDigits().toString();
+                    String asd1 = tableModel.getPoints().toString();
+                    String asd2 = tableModel.getType().toString();
+                    int b = 9;
+                    String game_id="";
+                    if (asd2.equals("Bahar")) {
+                        b = 1;
+                        game_id="1";
+                    } else if (asd2.equals("Andar")) {
+                        b = 0;
+                        game_id="1";
+                    }else if( asd2.equals("Jodi")){
+                        b = 1;
+                        game_id="2";
+                    }else if(asd2.equals("Spin")){
+                        b=0;
+                        game_id="3";
+                    }
+
+
+                    amt = amt + Integer.parseInt(asd1);
+
+                    char quotes = '"';
+                    list_digits.add(quotes + asd + quotes);
+                    list_game_id.add(quotes + game_id + quotes);
+                    list_points.add(asd1);
+                    list_type.add(b);
+
+                }
+
+
+                String id = session_management.getUserDetails().get(KEY_ID).toString().trim();
+                String matka_id = m_id.toString().trim();
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("points", list_points);
+                jsonObject.put("digits", list_digits);
+                jsonObject.put("bettype", list_type);
+                jsonObject.put("user_id", id);
+                jsonObject.put("matka_id", matka_id);
+                jsonObject.put("game_date", c);
+                jsonObject.put("game_id", list_game_id);
+
+                JSONArray jsonArray = new JSONArray();
+                jsonArray.put(jsonObject);
+
+                int wallet_amount = Integer.parseInt(w);
+//                showToast(""+amt+"\n"+wallet_amount);
+                if (wallet_amount < amt) {
+                    loadingBar.dismiss();
+                    String message = "Insufficient Amount";
+                    errorMessageDialog(message);
+                    return;
+
+                } else {
+
+                    insertionData(jsonArray, matka_id, new OnInsertion() {
+                        @Override
+                        public void onInsertion(String msg) {
+                            showToast("Bid Added");
+//                            showSuccessToast("Bid Added.");
+                            onSuccess.onSuccess(msg);
+                        }
+                    });
+
+
+                }
+            } catch (Exception ex) {
+                loadingBar.dismiss();
+                Toast.makeText(context, "Err" + ex.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+    private void insertionData(JSONArray jsonArray, String matka_id, final OnInsertion onInsertion) {
+        final String data=String.valueOf(jsonArray);
+        String json_request_tag="json_insert_request";
+        HashMap<String,String> params=new HashMap<String, String>();
+        params.put("data",data);
+        Log.e("asdasd",""+data.toString());
+        postRequest(BaseUrl.URL_INSERT_DATA, params, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String resp) {
+                loadingBar.dismiss();
+                Log.e("insertionData",resp.toString());
+                try {
+                    JSONObject object=new JSONObject(resp);
+                    if(object.getString("status").equalsIgnoreCase("success")){
+                        onInsertion.onInsertion("success");
+                    }else{
+                        errorMessageDialog("Someting Went Wrong");
+                    }
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                showVolleyError(error);
+            }
+        });
     }
 
     public void currentDateDay(TextView btn)
@@ -1369,6 +1547,47 @@ public void setGameDate(TextView tv_date ,String time)
         AppController.getInstance().addToRequestQueue(customVolleyJsonArrayRequest,json_tag);
 
 
+    }
+    public boolean validNumber(String str){
+        boolean flag=false;
+        if(str.length()>3){
+            if((str.length()%2)==0){
+                flag=true;
+            }else{
+                flag=false;
+            }
+        }else{
+            flag=true;
+        }
+        return flag;
+    }
+    public String getNumberType(String str){
+        String type="";
+        if(str.length()==1){
+            type="Andar";
+        }else if(str.length()==3){
+            type="Bahar";
+        }else{
+            type="Jodi";
+        }
+        return type;
+    }
+    public String getBaharNumber(String number){
+        int len=number.length();
+        return String.valueOf(number.charAt(len-1));
+    }
+    public ArrayList<String> getJodiNumbers(String number){
+        //123456
+        ArrayList<String> tList=new ArrayList<>();
+        int len=number.length();
+        for(int i=0;i<len;i=i+2){
+            int k=0;
+            if(k<len){
+                k=i+2;
+            }
+            tList.add(number.substring(i,k).toString());
+        }
+        return tList;
     }
 
     public long getTimeDiffernce(String time)
