@@ -47,7 +47,7 @@ public class AuthActivity extends AppCompatActivity {
 
     private void initViews() {
         FirebaseApp.initializeApp(AuthActivity.this);
-    btn_send_opt=findViewById(R.id.btn_send_opt);
+        btn_send_opt=findViewById(R.id.btn_send_opt);
         et_phone=findViewById(R.id.et_phone);
         module=new Module(AuthActivity.this);
         mCallBacks=new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {

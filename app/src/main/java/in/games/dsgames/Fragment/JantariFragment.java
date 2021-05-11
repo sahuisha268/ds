@@ -246,8 +246,8 @@ public class JantariFragment extends Fragment implements View.OnClickListener{
                    bidList.get(i).setDigits("00");
                 }
             }
-
-            common.setOpenSheetData(bidList, matka_id, date, session_management.getUserDetails().get(KEY_WALLET), new OnSuccess() {
+            //
+            common.setOpenSheetData(bidList, matka_id, date,session_management.getUserDetails().get(KEY_WALLET), new OnSuccess() {
                 @Override
                 public void onSuccess(String msg) {
                     getActivity().finish();
@@ -264,7 +264,7 @@ public class JantariFragment extends Fragment implements View.OnClickListener{
         common.cofigData(new OnGetConfigData() {
             @Override
             public void onGetConfigData(ConfigDataModel model) {
-                min_bid=Integer.parseInt(model.getMin_amount().toString());
+                min_bid=Integer.parseInt(model.getMin_bid_points ().toString());
             }
         });
 

@@ -595,6 +595,7 @@ public void setGameDate(TextView tv_date ,String time)
             errorMessageDialog(message);
             return;
         } else {
+            String game_id="";
             try {
                 int amt = 0;
                 ArrayList list_digits = new ArrayList();
@@ -612,7 +613,7 @@ public void setGameDate(TextView tv_date ,String time)
                     String asd1 = tableModel.getPoints().toString();
                     String asd2 = tableModel.getType().toString();
                     int b = 9;
-                    String game_id="";
+
                     if (asd2.equals("Bahar")) {
                         b = 1;
                         game_id="1";
@@ -641,6 +642,7 @@ public void setGameDate(TextView tv_date ,String time)
 
                 String id = session_management.getUserDetails().get(KEY_ID).toString().trim();
                 String matka_id = m_id.toString().trim();
+
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("points", list_points);
                 jsonObject.put("digits", list_digits);
@@ -648,7 +650,7 @@ public void setGameDate(TextView tv_date ,String time)
                 jsonObject.put("user_id", id);
                 jsonObject.put("matka_id", matka_id);
                 jsonObject.put("game_date", c);
-                jsonObject.put("game_id", list_game_id);
+                jsonObject.put("game_id", game_id);
 
                 JSONArray jsonArray = new JSONArray();
                 jsonArray.put(jsonObject);

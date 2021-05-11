@@ -1,6 +1,7 @@
 package in.games.dsgames.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,11 +86,12 @@ public class OpenSheetFragment extends Fragment implements View.OnClickListener{
         common.cofigData(new OnGetConfigData() {
             @Override
             public void onGetConfigData(ConfigDataModel model) {
-                min_bid=Integer.parseInt(model.getMin_amount().toString());
+                min_bid=Integer.parseInt(model.getMin_bid_points ().toString());
             }
         });
 
         tv_wallet.setText(session_management.getUserDetails().get(KEY_WALLET));
+//        tv_wallet.setText("1000000");
     }
 
     @Override
@@ -165,13 +167,14 @@ public class OpenSheetFragment extends Fragment implements View.OnClickListener{
                     }
                 }else{
                     date=common.getCDate();
-                }
-                  common.setOpenSheetData(tList, matka_id, date, session_management.getUserDetails().get(KEY_WALLET), new OnSuccess() {
-                      @Override
-                      public void onSuccess(String msg) {
-                          getActivity().finish();
-                      }
-                  });
+                }//session_management.getUserDetails().get(KEY_WALLET)
+
+                common.setOpenSheetData(tList, matka_id, date,session_management.getUserDetails().get(KEY_WALLET), new OnSuccess() {
+                    @Override
+                    public void onSuccess(String msg) {
+                        getActivity().finish();
+                    }
+                });
                 break;
         }
     }

@@ -119,7 +119,7 @@ public class CrossingFragment extends Fragment implements View.OnClickListener{
         common.cofigData(new OnGetConfigData() {
             @Override
             public void onGetConfigData(ConfigDataModel model) {
-                min_bid=Integer.parseInt(model.getMin_amount().toString());
+                min_bid=Integer.parseInt(model.getMin_bid_points ().toString());
             }
         });
         tv_wallet.setText(session_management.getUserDetails().get(KEY_WALLET));
@@ -141,8 +141,8 @@ public class CrossingFragment extends Fragment implements View.OnClickListener{
                     }
                 }else{
                     date=common.getCDate();
-                }
-                common.setOpenSheetData(tList, matka_id, date, session_management.getUserDetails().get(KEY_WALLET), new OnSuccess() {
+                }//
+                common.setOpenSheetData(tList, matka_id, date,session_management.getUserDetails().get(KEY_WALLET), new OnSuccess() {
                     @Override
                     public void onSuccess(String msg) {
                         getActivity().finish();
