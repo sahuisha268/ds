@@ -111,13 +111,14 @@ public class OpenSheetFragment extends Fragment implements View.OnClickListener{
                     if (common.validNumber(number)) {
                         switch (common.getNumberType(number)) {
                             case "Andar":
-                                tList.add(new TableModel("Andar",number,amt));
+                                tList.add(new TableModel(number,amt,"Andar"));
                                 break;
                             case "Bahar":
                                 if(number.equals("100")){
-                                    tList.add(new TableModel("Jodi","00",amt));
+
+                                    tList.add(new TableModel("00",amt,"Jodi"));
                                 }else{
-                                    tList.add(new TableModel("Bahar",common.getBaharNumber(number),amt));
+                                    tList.add(new TableModel(common.getBaharNumber(number),amt,"Bahar"));
                                 }
 
                                 break;
@@ -125,7 +126,7 @@ public class OpenSheetFragment extends Fragment implements View.OnClickListener{
 
                                  ArrayList<String> nList=common.getJodiNumbers(number);
                                  for(String num:nList){
-                                     tList.add(new TableModel("Jodi",num,amt));
+                                     tList.add(new TableModel(num,amt,"Jodi"));
                                  }
                                 break;
                         }

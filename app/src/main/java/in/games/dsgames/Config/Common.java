@@ -543,7 +543,10 @@ public void setGameDate(TextView tv_date ,String time)
         MatkaModel m=(MatkaModel) gson.fromJson(str.toString(),MatkaModel.class);
         return m;
     }
-
+    public String getStringFromModel(MatkasObjects m){
+        Gson gson=new Gson();
+        return gson.toJson(m);
+    }
     public String getPreviousDate()
     {
         String nextDate="";

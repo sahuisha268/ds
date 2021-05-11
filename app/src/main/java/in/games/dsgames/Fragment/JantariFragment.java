@@ -273,7 +273,7 @@ public class JantariFragment extends Fragment implements View.OnClickListener{
     public ArrayList<TableModel> getTableList(List<String> list, String type){
         ArrayList<TableModel> tList=new ArrayList<>();
         for(int i=0; i<list.size();i++){
-            tList.add(new TableModel(type,list.get(i).toString(),"0"));
+            tList.add(new TableModel(list.get(i).toString(),"0",type));
         }
         return tList;
     }

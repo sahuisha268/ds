@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import in.games.dsgames.Activity.GameActivity;
 import in.games.dsgames.Activity.SeelctGameActivity;
 import in.games.dsgames.Config.Common;
 import in.games.dsgames.Model.MatkasObjects;
@@ -43,6 +44,9 @@ public class HomeMatkaAdapter extends RecyclerView.Adapter<HomeMatkaAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+
+
+
         MatkasObjects postion=list.get(position);
 
         String dt=new SimpleDateFormat("EEEE").format(new Date());
@@ -221,19 +225,31 @@ public class HomeMatkaAdapter extends RecyclerView.Adapter<HomeMatkaAdapter.View
                 if(holder.txtStatus.getVisibility()==View.VISIBLE && holder.txtStatus.getText().toString().equalsIgnoreCase("BID IS CLOSED") ){
                     common.showToast("BID IS CLOSED");
                 }else {
-                    MatkasObjects m = list.get(position);
-                    String m_id = m.getId().toString().trim();
-                    String matka_name = m.getName().toString().trim();
-                    Intent intent = new Intent(context, SeelctGameActivity.class);
-                    intent.putExtra("matka_name", matka_name);
-                    intent.putExtra("m_id", m_id);
-                    intent.putExtra("end_time", finalE);
-                    intent.putExtra("start_time", finalS);
-                    intent.putExtra("start_num", m.getStarting_num());
-                    intent.putExtra("num", m.getNumber());
-                    intent.putExtra("end_num", m.getEnd_num());
-                    intent.putExtra("is_ds",m.getIs_ds());
-                    context.startActivity(intent);
+
+                    MatkasObjects model = list.get(position);
+                    if (list.get(position).getIs_ds().equals("1"))
+                    {
+                        Intent intent = new Intent(context, GameActivity.class);
+                        intent.putExtra("matka_id",model.getId().toString());
+                        intent.putExtra("matka_name",model.getName().toString());
+                        intent.putExtra("matka",common.getStringFromModel(model));
+                        context.startActivity(intent);
+                    }else {
+                        MatkasObjects m = list.get(position);
+                        String m_id = m.getId().toString().trim();
+                        String matka_name = m.getName().toString().trim();
+                        Intent intent = new Intent(context, SeelctGameActivity.class);
+                        intent.putExtra("matka_name", matka_name);
+                        intent.putExtra("m_id", m_id);
+                        intent.putExtra("end_time", finalE);
+                        intent.putExtra("start_time", finalS);
+                        intent.putExtra("start_num", m.getStarting_num());
+                        intent.putExtra("num", m.getNumber());
+                        intent.putExtra("end_num", m.getEnd_num());
+                        intent.putExtra("is_ds",m.getIs_ds());
+                        context.startActivity(intent);
+                    }
+
                 }
 
             }

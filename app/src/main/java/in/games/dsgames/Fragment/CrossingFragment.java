@@ -242,7 +242,7 @@ public class CrossingFragment extends Fragment implements View.OnClickListener{
             }
 
              for(int i=0; i<list.size();i++){
-                 tList.add(new TableModel("Jodi",list.get(i),amt));
+                 tList.add(new TableModel(list.get(i),amt,"Jodi"));
              }
 
              tableAdapter=new TableAdapter(getActivity(), tList, new TableAdapter.OnItemClickListener() {
