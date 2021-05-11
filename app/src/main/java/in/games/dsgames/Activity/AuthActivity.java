@@ -57,7 +57,7 @@ public class AuthActivity extends AppCompatActivity {
                 code=phoneAuthCredential.getSmsCode();
 //                Toast.makeText(getActivity(),"onVerificationCompleted-  "+code,Toast.LENGTH_LONG).show();
             }
-
+//
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
 //                Toast.makeText(getActivity(),"onVerificationFailed-  "+e.getMessage(),Toast.LENGTH_LONG).show();
