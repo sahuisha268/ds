@@ -57,6 +57,7 @@ public static Boolean is_empty = true , is_error = false ;
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
+
         viewHolder.txt_digits.setText(digit_list.get(i));
         patti_list.clear();
         for(int j=0; j<digit_list.size();j++)
@@ -95,7 +96,9 @@ public static Boolean is_empty = true , is_error = false ;
                     }
 
 
+
                 }
+
             }
 
         });
@@ -104,6 +107,7 @@ public static Boolean is_empty = true , is_error = false ;
     }
 
     private void deleteFromList(String pnts, int pos, String beforeTextChangeValue) {
+
         if(!pnts.isEmpty())
         {
             if(tot!=0)
@@ -137,31 +141,39 @@ public static Boolean is_empty = true , is_error = false ;
                 }
 
                tv_total.setText(String.valueOf(tot));
+
                 ponitsList.set(pos,"0");
                 if (g_type.isEmpty())
-                {
-                                    Toast.makeText(activity, "Select game type", Toast.LENGTH_LONG).show();
+                { Toast.makeText(activity, "Select game type", Toast.LENGTH_LONG).show();
                 }
                 else {
                     if(pnts.length()>1)
                     {
                         common.updatePoints(patti_list,pos,pnts,g_type);
+
                     }else
                     {
+
+
                         common.updatePoints(patti_list,pos,"0",g_type);
+
+                        ponitsList.clear ();
                     }
 
 //
                 }
 
 
+
             }
+
         }
 
     }
 
     private void addToBetList(String points, int pos) {
         int p =0;
+
         if(!points.isEmpty())
         {
             p = Integer.parseInt(points);
@@ -183,7 +195,9 @@ public static Boolean is_empty = true , is_error = false ;
 
                 }
                 else {
+
                     int ps = Integer.parseInt(points);
+
                     if(points.length()==2)
                     {
                         Log.e("digits2",""+points);
@@ -211,17 +225,28 @@ public static Boolean is_empty = true , is_error = false ;
                     is_error = false;
                     ponitsList.set(pos, String.valueOf(ps));
                     tv_total.setText(String.valueOf(tot));
+
+
+
+
                     if (g_type.isEmpty())
                     {
 //                                    Toast.makeText(activity, "Select game type", Toast.LENGTH_LONG).show();
                     }
                     else {
+
                         common.updatePoints(patti_list,pos,points,g_type);
+//                        tot=0;
+
 //                                    bet_list.add(new TableModel(digit_list.get(i), points, txt_type.getText().toString()));
                     }
                 }
+
+
             }
+
         }
+
     }
 
     @Override

@@ -1342,9 +1342,12 @@ public void setGameDate(TextView tv_date ,String time)
 
     public void updatePoints(ArrayList<TableModel> list, int pos, String points, String betType)
     {
+
         TableModel tableModel=list.get(pos);
         tableModel.setPoints(points);
         tableModel.setType(betType);
+
+
     }
 
     public String checkNullString(String str){

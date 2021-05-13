@@ -183,6 +183,7 @@ public class DigitFragment extends Fragment implements View.OnClickListener {
         patti_list.clear();
         tempList.clear();
         tv_total.setText("0.0");
-        pointsAdapter.notifyDataSetChanged();
+       pointsAdapter.notifyDataSetChanged();
+
     }
 }
