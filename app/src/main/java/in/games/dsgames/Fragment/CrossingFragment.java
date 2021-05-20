@@ -29,6 +29,7 @@ import in.games.dsgames.R;
 import in.games.dsgames.utils.LoadingBar;
 import in.games.dsgames.utils.Session_management;
 
+import static in.games.dsgames.Config.Constants.KEY_ID;
 import static in.games.dsgames.Config.Constants.KEY_WALLET;
 
 
@@ -122,7 +123,7 @@ public class CrossingFragment extends Fragment implements View.OnClickListener{
                 min_bid=Integer.parseInt(model.getMin_bid_points ().toString());
             }
         });
-        tv_wallet.setText(session_management.getUserDetails().get(KEY_WALLET));
+        common.setWallet_Amount(tv_wallet,loadingBar,session_management.getUserDetails().get(KEY_ID));
     }
 
     @Override

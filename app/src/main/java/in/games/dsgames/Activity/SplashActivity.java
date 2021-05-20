@@ -51,7 +51,7 @@ Session_management session_management;
        requestWindowFeature(Window.FEATURE_NO_TITLE);
        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
        setContentView(R.layout.activity_splash);
-        FirebaseApp.initializeApp(SplashActivity.this);
+//        FirebaseApp.initializeApp(SplashActivity.this);
        session_management = new Session_management(this);
 
 

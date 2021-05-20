@@ -26,6 +26,7 @@ import in.games.dsgames.R;
 import in.games.dsgames.utils.LoadingBar;
 import in.games.dsgames.utils.Session_management;
 
+import static in.games.dsgames.Config.Constants.KEY_ID;
 import static in.games.dsgames.Config.Constants.KEY_WALLET;
 
 public class OpenSheetFragment extends Fragment implements View.OnClickListener{
@@ -90,7 +91,7 @@ public class OpenSheetFragment extends Fragment implements View.OnClickListener{
             }
         });
 
-        tv_wallet.setText(session_management.getUserDetails().get(KEY_WALLET));
+        common.setWallet_Amount(tv_wallet,loadingBar,session_management.getUserDetails().get(KEY_ID));
 //        tv_wallet.setText("1000000");
     }
 

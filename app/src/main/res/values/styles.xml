@@ -31,7 +31,7 @@
         <item name="colorControlHighlight">@color/colorPrimaryDark</item>
         <item name="hintTextAppearance">@style/HintText</item>
         <item name="errorTextAppearance">@style/ErrorText</item>
-        <item name="boxStrokeColor">@color/browser_actions_divider_color</item>
+        <item name="boxStrokeColor">@color/colorPrimary</item>
         <item name="boxBackgroundColor">@color/white</item>
         <item name="android:drawablePadding">@dimen/space_10</item>
 

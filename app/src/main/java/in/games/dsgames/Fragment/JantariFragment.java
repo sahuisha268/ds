@@ -30,6 +30,7 @@ import in.games.dsgames.R;
 import in.games.dsgames.utils.LoadingBar;
 import in.games.dsgames.utils.Session_management;
 
+import static in.games.dsgames.Config.Constants.KEY_ID;
 import static in.games.dsgames.Config.Constants.KEY_WALLET;
 
 public class JantariFragment extends Fragment implements View.OnClickListener{
@@ -260,7 +261,7 @@ public class JantariFragment extends Fragment implements View.OnClickListener{
     public void onStart() {
         super.onStart();
 //        min_bid = Integer.parseInt(min_bid_amount);
-        tv_wallet.setText(session_management.getUserDetails().get(KEY_WALLET));
+        common.setWallet_Amount(tv_wallet,loadingBar,session_management.getUserDetails().get(KEY_ID));
         common.cofigData(new OnGetConfigData() {
             @Override
             public void onGetConfigData(ConfigDataModel model) {

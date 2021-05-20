@@ -196,26 +196,28 @@ public class Common {
 
                 JSONObject object = null;
                 try {
-                    object = response.getJSONObject(0);
+                    if (response.length()>0) {
+                        object = response.getJSONObject(0);
 
-                    WalletObjects walletObjects = new WalletObjects();
-                    walletObjects.setUser_id(object.getString("user_id"));
-                    walletObjects.setWallet_points(object.getString("wallet_points"));
-                    walletObjects.setWallet_id(object.getString("wallet_id"));
-                    String w="";
-                    if(checkNull(object.getString("wallet_points"))){
-                        w="0";
-                    }else{
-                        w=object.getString("wallet_points");
+                        WalletObjects walletObjects = new WalletObjects();
+                        walletObjects.setUser_id(object.getString("user_id"));
+                        walletObjects.setWallet_points(object.getString("wallet_points"));
+                        walletObjects.setWallet_id(object.getString("wallet_id"));
+                        String w = "";
+                        if (checkNull(object.getString("wallet_points"))) {
+                            w = "0";
+                        } else {
+                            w = object.getString("wallet_points");
+                        }
+                        session_management.updateWallet(w);
+
+                        txt.setText(walletObjects.getWallet_points());
                     }
-                    session_management.updateWallet(w);
-                    progressDialog.dismiss();
-                    txt.setText(walletObjects.getWallet_points());
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
+                progressDialog.dismiss();
             }
 
 

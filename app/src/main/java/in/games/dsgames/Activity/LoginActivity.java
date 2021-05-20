@@ -68,7 +68,7 @@ TextView tv_signup ,tv_forget;
         tv_forget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this,AuthActivity.class);
+                Intent i = new Intent(LoginActivity.this,Send_Otp.class);
                 i.putExtra("type","f");
                 startActivity(i);
 
